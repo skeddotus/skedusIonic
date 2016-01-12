@@ -19,7 +19,9 @@ var orgSchema = new Schema({
     required: true,
     default: 'Active',
     enum: ['Active', 'Archived', 'Pending']
-  }
+  },
+  dateCreated: {type: Date, required: true},
+  dateUpdated: {type: Date}
   });
 
 module.exports = mongoose.model('Org', orgSchema);
