@@ -3,7 +3,7 @@ var express = require('express'),
     cors = require('cors'),
     bodyParser = require('body-parser'),
     userServCtrl = require('./Server-assets/Controllers/userServCtrl.js'),
-    orgServCtrl = require('./Server-assets/Controllers/orgServCtrl.js'),
+    // orgServCtrl = require('./Server-assets/Controllers/orgServCtrl.js'),
     apptServCtrl = require('./Server-assets/Controllers/apptServCtrl.js'),
     mongoose = require('mongoose'),
   	passport = require('passport'),
@@ -21,14 +21,14 @@ var express = require('express'),
     app.get('/api//user/:id', userServCtrl.getUser);
     app.put('/api/user/:id', userServCtrl.updateUser); //Includes archiveUser
 
-    //Org Request
-    app.post('/api/orgs', orgServCtrl.addOrg);
-    app.get('/api/orgs', orgServCtrl.getOrgs);
-    app.get('/api/org/:id', orgServCtrl.getOrg);
-    app.put('/api/org/:id', orgServCtrl.updateOrg); //Includes archiveOrg
+    // //Org Request
+    // app.post('/api/orgs', orgServCtrl.addOrg);
+    // app.get('/api/orgs', orgServCtrl.getOrgs);
+    // app.get('/api/org/:id', orgServCtrl.getOrg);
+    // app.put('/api/org/:id', orgServCtrl.updateOrg); //Includes archiveOrg
 
     //appt
-    app.post('/api/appts', apptServCtrl.addAppt);
+    app.post('/api/appts', apptServCtrl.createAppt);
     app.get('/api/appts', apptServCtrl.getAppts);
     app.get('/api/appt/:id', apptServCtrl.getAppt);
     app.put('/api/appt/:id', apptServCtrl.updateAppt); //Includes archiveAppt
