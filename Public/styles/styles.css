@@ -1,0 +1,33 @@
+.tagline {
+	margin-bottom: 50px;
+}
+#linkedin-contain {
+	width: 200px;
+	height: 50px;
+	margin: 0 auto;
+}
+#linkedin, #linkedin:hover {
+	background-image: url(../images/linkedin-default.png);
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	height: 100%;
+	margin: 0 auto;
+	cursor: pointer;
+}
+#linkedin:hover {
+	background-image: url(../images/linkedin-hover.png);
+}
+.line, .login-contain {
+	margin: 0 auto;
+}
+.line {
+	width: 50%;
+	clear: both;
+	padding-top: 10px;
+}
+.login-contain {
+	width: 33%;
+}
+.login-button {
+	float: right;
+}

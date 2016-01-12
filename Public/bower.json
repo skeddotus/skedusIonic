@@ -1,0 +1,20 @@
+{
+  "name": "RealProj",
+  "homepage": "https://github.com/skeddotus/RealProj",
+  "authors": [
+    "Howard Huang <hh83917@mac.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    ".DS_Store"
+  ]
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sked</title>
+
+	<!-- Bootstrap stylesheets -->
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css"> <!-- load bootstrap css -->
+
+
+	<!-- Styles.css -->
+	<link rel="stylesheet" type="text/css" href="styles/styles.css">
+</head>
+<body ng-app="skedApp">
+
+	<ui-view></ui-view>
+
+
+	<!-- components -->
+	<script src="bower_components/jquery/dist/jquery.js"></script>
+	<script src="https://code.angularjs.org/1.4.7/angular.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<!-- app.js -->
+	<script src="app.js"></script>
+	<!-- controllers -->
+	<script src="controllers/userCtrl.js"></script>
+	<script src="controllers/orgCtrl.js"></script>
+	<script src="controllers/mainCtrl.js"></script>
+	<script src="controllers/homeCtrl.js"></script>
+	<script src="controllers/joinCtrl.js"></script>
+	<script src="controllers/createCtrl.js"></script>
+	<script src="controllers/manageCtrl.js"></script>
+	<script src="controllers/profileCtrl.js"></script>
+	<script src="controllers/scheduleCtrl.js"></script>
+	<script src="controllers/availabilityCtrl.js"></script>
+	<script src="controllers/mentorCtrl.js"></script>
+	<script src="controllers/menteeCtrl.js"></script>
+	<script src="controllers/authCtrl.js"></script>
+	<!-- services -->
+	<script src="services/userService.js"></script>
+	<script src="services/orgService.js"></script>
+	<script src="services/mentorService.js"></script>
+	<script src="services/menteeService.js"></script>
+	<script src="services/homeService.js"></script>
+	<script src="services/authService.js"></script>
+
+</body>
+</html>

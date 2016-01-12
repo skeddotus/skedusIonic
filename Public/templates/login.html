@@ -1,0 +1,56 @@
+<!--
+<h1 class="text-center">SKED.us</h1>
+<h5 class="text-center tagline">Where people sked to meet</h5>
+<div id="linkedin-contain">
+	<div id="linkedin"></div>
+</div>
+<div class="line"><hr></div>
+<div class="login-contain">
+	<form>
+		<div class="form-group">
+			<label for="emailInput">Email</label>
+			<input class="form-control" id="emailInput" type="email" placeholder="Email">
+		</div>
+		<div class="form-group">
+			<label for="passwordInput">Password</label>
+			<input class="form-control" id="passwordInput"type="password" placeholder="password">
+		</div>
+		<div class="form-group">
+			<button class="login-button" ui-sref="home">LOGIN</button>
+		</div>
+	</form>
+</div>
+<div class="line"><hr></div>
+
+
+<h5 class="text-center">Don't have an account? <a ui-sref="register"> REGISTER HERE</a><h5> -->
+
+
+<div class="container background security">
+
+<div class="col-sm-6 col-sm-offset-3">
+
+    <h1><span class="fa fa-sign-in"></span> Login</h1>
+    <h4 class="text-muted">No account? <a ui-sref="signup">Signup</a> instead</h4>
+
+    <!-- LOGIN FORM -->
+    <form ng-submit='login()'>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="text" class="form-control" id="email" placeholder="Enter Email" ng-model="email">
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Enter password" ng-model="password">
+        </div>
+
+        <button type="submit" class="btn btn-warning btn-lg">Login</button>
+    </form>
+
+    <a href="/api/auth/linkedin"><img src="../styles/linkedin.png" /></a>
+
+    <hr>
+
+</div>
+
+</div>

@@ -1,0 +1,32 @@
+{
+  "name": "skedus",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/skeddotus/RealProj.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/skeddotus/RealProj/issues"
+  },
+  "homepage": "https://github.com/skeddotus/RealProj#readme",
+  "dependencies": {
+    "bcrypt": "^0.8.5",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.14.2",
+    "express": "^4.13.3",
+    "express-session": "^1.12.1",
+    "mongoose": "^4.3.4",
+    "passport": "^0.3.2",
+    "passport-linkedin": "^1.0.0",
+    "passport-local": "^1.0.0",
+    "q": "^1.4.1"
+  }
+}
