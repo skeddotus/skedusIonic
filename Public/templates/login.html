@@ -1,6 +1,6 @@
 <div class="container background security">
-    <h1 class="text-center">SKED</h1>
-    <h5 class="text-center tagline">Where people sked to meet</h5>
+    <h1 class="text-center hh1">SKED</h1>
+    <h5 class="text-center tagline hh5">Where people sked to meet</h5>
     <div id="linkedin-contain">
         <a href="/api/auth/linkedin"><div id="linkedin"></div></a>
     </div>
@@ -8,12 +8,10 @@
     <div class="login-contain">
         <form ng-submit='login()'>
             <div class="form-group">
-                <label for="emailInput">Email</label>
                 <input class="form-control" id="emailInput" type="email" ng-model="email" placeholder="Email">
             </div>
             <div class="form-group">
-                <label for="passwordInput">Password</label>
-                <input class="form-control" id="passwordInput" type="password" ng-model="password" placeholder="password">
+                <input class="form-control" id="passwordInput" type="password" ng-model="password" placeholder="Password">
             </div>
             <div class="form-group">
                 <button class="btn btn-default login-button">Login</button>
@@ -21,5 +19,5 @@
         </form>
     </div>
     <div class="line"><hr></div>
-    <h6 class="text-center text-muted">Don't have an account? <a ui-sref="signup"> Signup here</a><h6>
+    <h6 class="text-center text-muted hh6">Don't have an account? <a ui-sref="signup"> Signup here</a><h6>
 </div>

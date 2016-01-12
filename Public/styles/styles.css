@@ -67,7 +67,24 @@ table {
 }
 
 /*login & register*/
-
+.hh1 {
+	font-size: 2em;
+}
+.hh2 {
+	font-size: 1.5em;
+}
+.hh3 {
+	font-size: 1.17em;
+}
+.hh4 {
+	font-size: 1.33em;
+}
+.hh5 {
+	font-size: 0.83em;
+}
+.hh6 {
+	font-size: 0.67em;
+}
 .tagline {
 	margin-bottom: 50px;
 }
@@ -96,7 +113,7 @@ table {
 	padding-top: 10px;
 }
 .login-contain {
-	width: 33%;
+	width: 40%;
 }
 .login-button {
 	float: right;

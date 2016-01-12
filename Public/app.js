@@ -4,12 +4,6 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 
 	$stateProvider
 
-		.state("landingPage", {
-			url: "/",
-			controller: "mainCtrl",
-			templateUrl: "templates/landingPage.html",
-		})
-
 // AUTHORIZATION ////////////////////////////////////////////////////////////////
 
 	.state('login', {
