@@ -22,7 +22,7 @@ module.exports = function(app, passport) {
 	app.get('/api/auth/linkedin/callback',
 		passport.authenticate('linkedin', {failureRedirect: '/#/login' }),
 		function(req,res) {
-			res.redirect('/#/');
+			res.redirect('/#/home');
 	});
 
 

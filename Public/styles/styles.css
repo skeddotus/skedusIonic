@@ -1,3 +1,23 @@
+<<<<<<< HEAD
+/*landing page*/
+#below-navbar {
+	padding-top: 70px;
+}
+.landing-sked {
+	padding-left: 0px;
+}
+.landing-nav {
+	margin-top: 15px;
+	margin-left: 25px;
+}
+.landing-section {
+	height: 500px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+
+/*login & register*/
+=======
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -49,6 +69,7 @@ table {
 
 /*----------------------------------------------------*/
 
+>>>>>>> de24b9d9769055477225daaad39b00d549001781
 .tagline {
 	margin-bottom: 50px;
 }
@@ -72,7 +93,7 @@ table {
 	margin: 0 auto;
 }
 .line {
-	width: 50%;
+	width: 55%;
 	clear: both;
 	padding-top: 10px;
 }

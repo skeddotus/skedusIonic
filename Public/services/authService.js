@@ -9,7 +9,11 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
     $http({
       method: 'POST',
       url: '/api/users',
-      data: newUser,
+      data: {
+        name: newUser.firstName + " " + newUser.lastName,
+        email: newUser.email,
+        password: newUser.password,
+      },
     }).then(function(res) {
       console.log("Result from user login,", res)
       dfd.resolve(res.data);
