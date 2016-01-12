@@ -1,6 +1,6 @@
 angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRouterProvider, $httpProvider){
 
-	$urlRouterProvider.otherwise("/");
+	$urlRouterProvider.otherwise("/login");
 
 	$stateProvider
 
@@ -9,66 +9,6 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 			controller: "mainCtrl",
 			templateUrl: "templates/landingPage.html",
 		})
-		// .state("login", {
-		// 	url: "/login",
-		// 	controller: "mainCtrl",
-		// 	templateUrl: "templates/login.html",
-		// })
-		// .state("register", {
-		// 	url: "/register",
-		// 	controller: "mainCtrl",
-		// 	templateUrl: "templates/register.html",
-		// })
-
-
-		// .state("home", {
-		// 	url: "/home",
-		// 	controller: "homeCtrl",
-		// 	templateUrl: "templates/home.html",
-		// })
-
-		.state("schedule", {
-			url: "/schedule",
-			controller: "scheduleCtrl",
-			templateUrl: "templates/schedule.html",
-		})
-		.state("availability", {
-			url: "/availability",
-			controller: "availabilityCtrl",
-			templateUrl: "templates/availability.html",
-		})
-
-		.state("profile", {
-			url: "/profile",
-			controller: "profileCtrl",
-			templateUrl: "templates/profile.html",
-		})
-		.state("join", {
-			url: "/join",
-			controller: "joinCtrl",
-			templateUrl: "templates/join.html",
-		})
-		.state("create", {
-			url: "/create",
-			controller: "createCtrl",
-			templateUrl: "templates/create.html",
-		})
-		.state("manage", {
-			url: "/manage",
-			controller: "manageCtrl",
-			templateUrl: "templates/manage.html",
-		})
-
-
-
-
-// ORG ////////////////////////////////////////////////////////////////
-
-
-
-// MENTOR ////////////////////////////////////////////////////////////////
-
-
 
 // AUTHORIZATION ////////////////////////////////////////////////////////////////
 
@@ -84,17 +24,10 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 			controller: 'authCtrl'
 		})
 
-// ORG ////////////////////////////////////////////////////////////////
-	.state("org", {
-		url: "/org",
-		controller: "orgCtrl",
-		templateUrl: "templates/org.html",
-	})
-
 //AUTH STATES ////////////////////////////////////////////////////////////////
 	.state('auth', {
 		abstract: true,
-		template: '<ui-view><ui-view>',
+		template: '<div ui-view><div>',
 		resolve: {
 			user: function(authService) {
 				return authService.getAuthedUser();
@@ -102,29 +35,42 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 		}
 	})
 
-	// MENTOR
-
-		.state("auth.mentor", {
-			url: "/mentor",
-			controller: "mentorCtrl",
-			templateUrl: "templates/mentor.html",
-		})
-
-// MENTEE ////////////////////////////////////////////////////////////////
-
-		.state("auth.mentee", {
-			url: "/mentee",
-			controller: "menteeCtrl",
-			templateUrl: "templates/mentee.html",
-		})
-
 	// HOME
-
 	.state("auth.home", {
 		url: "/home",
 		controller: "homeCtrl",
 		templateUrl: "templates/home.html"
-	});
+	})
+
+		.state("auth.home.schedule", {
+			url: "/schedule",
+			controller: "scheduleCtrl",
+			templateUrl: "templates/schedule.html"
+		})
+
+		.state("auth.home.dashboard", {
+			url: "/dashboard",
+			controller: "availabilityCtrl",
+			templateUrl: "templates/availability.html",
+		})
+
+		.state("auth.home.userManage", {
+			url: "/manage",
+			controller: "joinCtrl",
+			templateUrl: "templates/join.html",
+		})
+
+		.state("auth.home.orgProfile", {
+			url: "/organization",
+			controller: "createCtrl",
+			templateUrl: "templates/create.html",
+		})
+
+		.state("auth.home.userProfile", {
+			url: "/profile",
+			controller: "manageCtrl",
+			templateUrl: "templates/manage.html",
+		})
 
 
 	$httpProvider.interceptors.push(function($q, $injector, $location) {
@@ -133,7 +79,7 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
       responseError: function(rejection) {
         console.log("BAD DOG", rejection);
         if (rejection.status === 401) {
-          document.location = "/login";
+          document.location = "/#/login";
         }
 
         /* If not a 401, do nothing with this error.
