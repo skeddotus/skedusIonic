@@ -1,17 +1,19 @@
-angular.module("skedApp").controller("joinOrgCtrl", function($scope, joinOrgService, user){
+angular.module("skedApp").controller("joinOrgCtrl", function($scope, orgService, user){
 
 	$scope.user = user;
 
 	$scope.getOrgs = function(){
-		joinOrgService.getOrgs().then(function(res){
+		orgService.getOrgs().then(function(res){
 			$scope.orgs = res;
 		})
 	}
+	$scope.getOrgs();
 
 	$scope.joinOrg = function(user, org){
-		joinOegService.joinOrg($scope.user, thisOrgIDhoweveritsgotten).then(function(){
+		orgService.joinOrg($scope.user, thisOrgIDhoweveritsgotten).then(function(){
 			console.log("organization joined")
 		})
 	}
+	console.log($scope.user)
 
 });

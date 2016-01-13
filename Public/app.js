@@ -96,9 +96,10 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
     return {
       // This is the responseError interceptor
       responseError: function(rejection) {
-        console.log("BAD DOG", rejection);
         if (rejection.status === 401) {
+          console.log("BAD DOG", rejection);
           document.location = "/#/login";
+
         }
 
         /* If not a 401, do nothing with this error.

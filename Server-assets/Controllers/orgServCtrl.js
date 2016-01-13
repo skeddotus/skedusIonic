@@ -5,21 +5,34 @@ var User = require('../Models/userSchema');
 module.exports = {
 
   addOrg: function(req, res) {
-    console.log(11111, req.body);
-    Org.findOne({name: req.body.name}).exec().then(function(org) {
-      if(org) {
-        return res.status(404).end();
-      }
-      org = new Org({
-        name: req.body.name,
-        admin: req.params.userID,
-      });
-      console.log("Before Org Save, ", req.body);
-      org.save().then(function() {
-        console.log("Org Saved", req.body);
-        return res.status(201).end();
-      });
-    });
+   console.log(11111, req.body);
+   console.log(2222, req.params.userID);
+   User.findById(req.params.userID).exec().then(function(user) {
+     if (!user) {
+       return res.status(500).end();
+     }
+     else {
+       Org.findOne({name: req.body.name}).exec().then(function(org) {
+         if(org) {
+           return res.status(500).end();
+         }
+         else {
+         org = new Org({
+           name: req.body.name,
+           desc: req.body.desc,
+           location: req.body.location,
+           admin: req.params.userID,
+         });
+         console.log("Before Org Save, ", req.body);
+         org.save();
+         user.orgs.push(org._id);
+         user.save();
+     }
+     });
+     }
+     console.log('After', user);
+     res.status(200).end();
+   });
   },
   getOrgs: function(req, res) {
     Org.find({})

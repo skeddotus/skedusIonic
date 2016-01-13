@@ -29,8 +29,10 @@ module.exports = {
     });
   },
   getUser: function(req, res) {
-    User.findbyId(req.params.id).exec().then(function(results) {
-      if(!result) {
+    User.findById(req.params.id)
+      .populate("orgs")
+      .exec().then(function(results) {
+      if(!results) {
         res.status(404);
       }
       else {
