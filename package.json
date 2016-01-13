@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/skeddotus/RealProj.git"
+    "url": "git+https://github.com/skeddotus/skedus.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/skeddotus/RealProj/issues"
+    "url": "https://github.com/skeddotus/skedus/issues"
   },
-  "homepage": "https://github.com/skeddotus/RealProj#readme",
+  "homepage": "https://github.com/skeddotus/skedus#readme",
   "dependencies": {
     "bcrypt": "^0.8.5",
     "bcrypt-nodejs": "0.0.3",
