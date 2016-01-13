@@ -4,9 +4,11 @@ var User = require('./userSchema');
 var Org = require('./orgSchema');
 
 var apptSchema = new Schema({
-  host: [{type: Schema.Types.ObjectId,ref:'User', required: true}],
-  attendee: [{type: Schema.Types.ObjectId,ref:'User', required: true}],
+  host: {type: Schema.Types.ObjectId, ref:'User', required: true},
+  // host: {type: String, required: true},
+  attendees: [{type: Schema.Types.ObjectId, ref:'User'}],
   date: {type: Date, default: Date.now, required: true},
+  org: {type: Schema.Types.ObjectId, ref: 'Org'},
   location: {type: String},
   updates: [{type: String}],
   status: {
@@ -21,6 +23,6 @@ var apptSchema = new Schema({
     default: 'active',
     enum: ['active', 'archived'],
   },
-});
+}, {timestamps: true});
 
 module.exports = mongoose.model('Appt', apptSchema);

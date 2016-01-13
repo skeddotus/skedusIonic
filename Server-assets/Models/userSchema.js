@@ -23,7 +23,14 @@ var userSchema = new Schema({
     required: true,
     default: 'Active',
     enum: ['Active', 'Archived', 'Pending']
-  }});
+  },
+  roles: [{
+    type: String,
+    required: true,
+    default: 'User',
+    enum: ['User', 'Mentor', 'Admin']
+  }],
+});
 
 
 userSchema.methods.validPassword = function(givenPassword) {

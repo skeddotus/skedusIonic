@@ -40,12 +40,49 @@ module.exports = {
       return res.status(500).json(err);
     });
   },
+
+  // updateUser: function(req, res) {
+  //   User.update({_id: req.params.id}, req.body). exec().then(function(result) {
+  //     return res.send('User Updated');
+  //   }).then(null, function(err) {
+  //     return res.status(500).json(err);
+  //   });
+  // }
+
   updateUser: function(req, res) {
-    User.update({_id: req.params.id}, req.body). exec().then(function(result) {
-      return res.send('User Updated');
-    }).then(null, function(err) {
-      return res.status(500).json(err);
-    });
+    
+    User.find({_id: req.params.id}, req.body).exec().then(function(result) {
+
+      if(typeof req.body == "Array") {
+        console.log("found an array");
+      }
+
+    })
+
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 };
