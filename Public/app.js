@@ -4,19 +4,13 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 
 	$stateProvider
 
-		.state("landingPage", {
-			url: "/",
-			controller: "mainCtrl",
-			templateUrl: "templates/landingPage.html",
-		})
-
 // AUTHORIZATION ////////////////////////////////////////////////////////////////
 
-	.state('login', {
-			url: '/login',
-			templateUrl: 'templates/login.html',
-			controller: 'authCtrl'
-		})
+		.state('login', {
+				url: '/login',
+				templateUrl: 'templates/login.html',
+				controller: 'authCtrl'
+			})
 
 		.state('signup', {
 			url: '/signup',
@@ -25,22 +19,40 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 		})
 
 //AUTH STATES ////////////////////////////////////////////////////////////////
-	.state('auth', {
-		abstract: true,
-		template: '<div ui-view><div>',
-		resolve: {
-			user: function(authService) {
-				return authService.getAuthedUser();
+		.state('auth', {
+			abstract: true,
+			template: '<div ui-view><div>',
+			resolve: {
+				user: function(authService) {
+					return authService.getAuthedUser();
+				}
 			}
-		}
-	})
+		})
 
 	// HOME
-	.state("auth.home", {
-		url: "/home",
-		controller: "homeCtrl",
-		templateUrl: "templates/home.html"
-	})
+		.state("auth.home", {
+			url: "",
+			controller: "homeCtrl",
+			templateUrl: "templates/home.html"
+		})
+
+		.state("auth.myOrg", {
+			url: "/home",
+			controller: "myOrgCtrl",
+			templateUrl: "templates/myOrg.html"
+		})
+		.state("auth.createOrg", {
+			url: "/create",
+			controller: "createOrgCtrl",
+			templateUrl: "templates/createOrg.html"
+		})
+		.state("auth.joinOrg", {
+			url: "/join",
+			controller: "joinOrgCtrl",
+			templateUrl: "templates/joinOrg.html"
+		})
+
+
 
 		.state("auth.home.schedule", {
 			url: "/schedule",

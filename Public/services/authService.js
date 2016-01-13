@@ -62,7 +62,7 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
       }).then(function(res){
         user = res.data;
         console.log('Result getting the logged in user', res);
-        dfd.resolve(res);
+        dfd.resolve(user);
       })
     }
     return dfd.promise;
