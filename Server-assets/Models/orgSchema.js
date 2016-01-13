@@ -5,14 +5,14 @@ var Appt = require('./apptSchema');
 
 
 var orgSchema = new Schema({
-  name: {type: String, index: true, required: true},
+  name: {type: String, index: true, required: true, unique: true},
   admin: [{type: Schema.Types.ObjectId, ref: 'User'}],
   appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}],
   mentors: [{type: Schema.Types.ObjectId, ref: 'User'}],
   mentees: [{type: Schema.Types.ObjectId, ref: 'User'}],
-  location: [{type: String}],
-  desc: [{type: String}],
-  image: [{type: String}],
+  location: {type: String},
+  desc: {type: String},
+  image: {type: String},
   socialMedia: [{type: String}],
   status: {
     type: String,
@@ -20,6 +20,8 @@ var orgSchema = new Schema({
     default: 'Active',
     enum: ['Active', 'Archived', 'Pending']
   }
-  });
+},{timestamps: true});
+
+
 
 module.exports = mongoose.model('Org', orgSchema);
