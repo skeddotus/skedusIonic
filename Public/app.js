@@ -36,25 +36,20 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 			templateUrl: "templates/home.html"
 		})
 
-		.state("auth.home.myhome", {
+		.state("auth.myOrg", {
 			url: "/home",
-			controller: "myhomeCtrl",
-			templateUrl: "templates/myhome.html"
+			controller: "myOrgCtrl",
+			templateUrl: "templates/myOrg.html"
 		})
-		.state("auth.home.create", {
+		.state("auth.create", {
 			url: "/create",
 			controller: "createCtrl",
 			templateUrl: "templates/create.html"
 		})
-		.state("auth.home.join", {
+		.state("auth.join", {
 			url: "/join",
 			controller: "joinCtrl",
 			templateUrl: "templates/join.html"
-		})
-		.state("auth.home.leave", {
-			url: "/leave",
-			controller: "leaveCtrl",
-			templateUrl: "templates/leave.html"
 		})
 
 

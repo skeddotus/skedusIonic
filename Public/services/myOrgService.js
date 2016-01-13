@@ -1,4 +1,4 @@
-angular.module("skedApp").service("myhomeService", function($http, $q){
+angular.module("skedApp").service("myOrgService", function($http, $q){
 
 	this.getMyOrgs = function(user){
 		var dfd = $q.defer();
