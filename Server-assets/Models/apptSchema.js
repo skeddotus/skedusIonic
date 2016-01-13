@@ -15,7 +15,7 @@ var apptSchema = new Schema({
     type: String,
     required: true,
     default: 'open',
-    enum: ['open', 'past', 'booked', ]
+    enum: ['open', 'past', 'booked' ]
   },
   intStatus: {
     type: String,
