@@ -3,7 +3,7 @@ var express = require('express'),
     cors = require('cors'),
     bodyParser = require('body-parser'),
     userServCtrl = require('./Server-assets/Controllers/userServCtrl.js'),
-    // orgServCtrl = require('./Server-assets/Controllers/orgServCtrl.js'),
+    orgServCtrl = require('./Server-assets/Controllers/orgServCtrl.js'),
     mongoose = require('mongoose'),
   	passport = require('passport'),
   	port = process.env.PORT || 9001,
@@ -21,10 +21,14 @@ var express = require('express'),
     app.put('/api/user/:id', userServCtrl.updateUser); //Includes archiveUser
 
     // //Org Request
-    // app.post('/api/orgs', orgServCtrl.addOrg);
-    // app.get('/api/orgs', orgServCtrl.getOrgs);
-    // app.get('/api/org/:id', orgServCtrl.getOrg);
-    // app.put('/api/org/:id', orgServCtrl.updateOrg); //Includes archiveOrg
+    app.post('/api/orgs/:userID', orgServCtrl.addOrg);
+    app.get('/api/orgs', orgServCtrl.getOrgs);
+    app.get('/api/org/:orgID', orgServCtrl.getOrg);
+    app.put('/api/org/:orgID', orgServCtrl.updateOrg);
+    app.get('/api/org/:orgID/admin/:userID', orgServCtrl.addAdmin);
+    // app.put('/api/org/:orgID', orgServCtrl.addMentor);
+    // app.put('/api/org/:orgID', orgServCtrl.addMentee);
+    // app.put('/api/org/:orgID', orgServCtrl.addAppt);  //Includes archiveOrg
 
     // //appt
     // app.post('/api/appts', apptServCtrl.addAppt);
