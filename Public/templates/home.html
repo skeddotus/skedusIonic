@@ -7,11 +7,20 @@
 	</div>
 	<div class="">
 		<ul class='nav nav-sidebar'>
-			<li ui-sref-active="active"><a ui-sref='auth.home.schedule({calendar:calendar})'>Calendar</a></li>
-			<li ui-sref-active="active"><a ui-sref='auth.home.dashboard({dashboard:dashboard})'>Dashboard</a></li>
-			<li ui-sref-active="active"><a ui-sref='auth.home.userManage({userManage:userManage})'>User management</a></li>
-			<li ui-sref-active="active"><a ui-sref="auth.home.orgProfile({orgProfile:orgProfile})">Organization Profile</a></li>
-			<li ui-sref-active="active"><a ui-sref="auth.home.userProfile({userProfile:userProfile})">User settings</a></li>
+			<li ui-sref-active="active"><a ui-sref='auth.home.schedule({calendar:calendar})'><div data-toggle='offcanvas' data-target='#navSidebar'>Calendar</div></a></li>
+			<li ui-sref-active="active"><a ui-sref='auth.home.dashboard({dashboard:dashboard})'><div data-toggle='offcanvas' data-target='#navSidebar' class="hidden-md hidden-lg">Dashboard</div></a></li>
+			<li ui-sref-active="active"><a ui-sref='auth.home.userManage({userManage:userManage})'><div data-toggle='offcanvas' data-target='#navSidebar' class="hidden-md hidden-lg">User management</div></a></li>
+			<li ui-sref-active="active"><a ui-sref="auth.home.orgProfile({orgProfile:orgProfile})"><div data-toggle='offcanvas' data-target='#navSidebar' class="hidden-md hidden-lg">Organization Profile</div></a></li>
+			<li ui-sref-active="active"><a ui-sref="auth.home.userProfile({userProfile:userProfile})"><div data-toggle='offcanvas' data-target='#navSidebar' class="hidden-md hidden-lg">User settings</div></a></li>
+
+			<!-- Test Routes -->
+			<li ui-sref-active="active"><a ui-sref="auth.home.testRoute({testRoute:testRoute})">Test routes</a></li>
+			<!-- Test Routes -->
+
+			<br>
+			<br>
+			<li><a ui-sref="auth.myOrg">My organizations</a></li>
+			<li><a ng-click="logout()">Logout</a></li>
 		</ul>
 	</div>
 	<div class="mediumLogo">
@@ -29,45 +38,3 @@
 </nav>
 
 <div class="page-content" ui-view></div>
-
-<!-- <div class="btn-group">
-	<button class="btn btn-default" ui-sref="home">DASHBOARD</button>
-	<button class="btn btn-default" ui-sref="schedule">SCHEDULE APPT</button>
-	<button class="btn btn-default" ui-sref="availability">SET AVAILABILITY (if user is a mentor)</button>
-	<button class="btn btn-default" ui-sref="join">JOIN ORG</button>
-	<button class="btn btn-default" ui-sref="create">CREATE ORG</button>
-	<div class="dropdown btn-group">
-		<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">SETTINGS <span class="caret"></span> </button>
-	   		<ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
-		        <li role="menuitem"><a ui-sref="profile">PROFILE</a></li>
-		        <li role="menuitem"><a ui-sref="manage">MANAGE MY ORGs</a></li>
-		        <li role="menuitem"><a ng-Click="logout()">LOGOUT</a></li>
-		    </ul>
-	</div>
-</div>
-<div>
-	<h1>MY APPTs</h1>
-	<h4>List of all your appointments</h4>
-	<div class="well">
-		<div ng-repeat="appt in appts|limitTo:2">
-			<h2>{{appt.mentor}}</h2>
-			<h4>{{appt.date}}</h4>
-			<h4>{{appt.time}}</h4>
-			<h4>{{appt.specialty}}</h4>
-			<button>CANCEL</button>
-		</div>
-	</div>
-</div>
-<div>
-	<h1>MY ORGs</h1>
-	<h4>List of all orgs you are a part of...whether admin, mentor or mentee</h4>
-	<h4>All new orgs you add or create will show up here</h4>
-	<div class="well">
-		<div ng-repeat="org in orgs|limitTo:2">
-			<h2>{{org.name}}</h2>
-			<h4>{{org.desc}}</h4>
-			<button ui-sref="org">GO TO ORG PAGE</button>
-			<button>LEAVE ORG</button>
-		</div>
-	</div>
-</div> -->

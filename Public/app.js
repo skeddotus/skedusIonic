@@ -84,6 +84,13 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 			templateUrl: "templates/manage.html",
 		})
 
+		// test route
+		.state("auth.home.testRoute", {
+			url: "/test",
+			controller: "testCtrl",
+			templateUrl: "templates/test.html",
+		})
+
 
 	$httpProvider.interceptors.push(function($q, $injector, $location) {
     return {
