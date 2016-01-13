@@ -1,36 +1,50 @@
 angular.module("skedApp").service("userService", function($http, $q){
 
-  this.getUser = function(res) {
-    return $http({
+  this.getUsers = function(res) {
+    var dfd = $q.defer();
+    $http({
       method: 'GET',
       url: 'api/users',
     }).then(function(res) {
-      return res.data;
+      users = res.data;
+      dfd.resolve();
     });
+    return dfd.promise;
   };
 
   this.getUser_id = function(res) {
-    return $http({
+    var dfd = $q.defer();
+    $http({
       method: 'GET',
       url: 'api/user/' + userId,
     }).then(function(res) {
-      return res.data;
+      user = res.data;
+      dfd.resolve();
     });
+    return dfd.promise;
   };
 
   this.updateUser = function(userId, updateData) {
-    return $http({
+    var dfd = $q.defer();
+    $http({
       method: 'PUT',
       url: 'api/users/' + userId,
       data: updateData
+    }).then(function() {
+      dfd.resolve();
     });
+    return dfd.promise;
   };
 
-  this.removeUser = function (userId) {
-    return $http({
+  this.deleteUser = function (userId) {
+    var dfd = $q.defer();
+    $http({
       method: 'PUT',
       url: 'api/users/' + userId
-    });
+    }).then(function() {
+      dfd.resolve();
+    })
+    return dfd.promise;
   };
 
 });
