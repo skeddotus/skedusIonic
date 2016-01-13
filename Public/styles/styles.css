@@ -1,3 +1,73 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	/*font: inherit;*/
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*----------------------------------------------------*/
+
+/*landing page*/
+#below-navbar {
+	padding-top: 70px;
+}
+.landing-sked {
+	padding-left: 0px;
+}
+.landing-nav {
+	margin-top: 15px;
+	margin-left: 25px;
+}
+.landing-section {
+	height: 500px;
+	padding-bottom: 0px;
+	margin-bottom: 0px;
+}
+
+/*login & register*/
+
 .tagline {
 	margin-bottom: 50px;
 }
@@ -21,7 +91,7 @@
 	margin: 0 auto;
 }
 .line {
-	width: 50%;
+	width: 55%;
 	clear: both;
 	padding-top: 10px;
 }
@@ -30,4 +100,114 @@
 }
 .login-button {
 	float: right;
+}
+
+#navSidebar {
+	width: 250px;
+	box-shadow: 1px 0px 5px #888888;
+	z-index: 200;
+	background-color: ##333333;
+	outline: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	height: 100%;
+}
+
+#navSidebar li {
+	font-size: 1.2em;
+	/*padding: 20px;*/
+	cursor: pointer;
+	outline: none;
+	text-decoration: none;
+}
+
+#navSidebar li a {
+	color: white;
+	text-decoration: none;
+	outline: none;
+}
+
+#navSidebar li a:hover {
+	text-decoration: none;
+	background-color: #474C55;
+	outline: none;
+}
+
+#navSidebar .active a {
+	background-color: #474C55;
+	text-decoration: none;
+}
+
+#topNavBar {
+	z-index: 100;
+	box-shadow: 1px 0px 10px #888888;
+}
+
+#navSidebarButton a {
+	text-decoration: none;
+	font-size: 2em;
+	cursor: pointer;
+	position: absolute;
+	float: left;
+	margin-top: 8px;
+	margin-left: 10px;
+}
+
+#navSidebarButton-Out {
+	text-decoration: none;
+	font-size: 2em;
+	color: white;
+	cursor: pointer;
+	float: right;
+	margin-top: 8px;
+	margin-right: 10px;
+	animation: roll 1s;
+}
+
+@keyframes roll {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+.logoImg {
+	text-align: center;
+	padding-top: 40px;
+	padding-bottom: 10px;
+	color: white;
+}
+
+.mediumLogo {
+	color: white;
+	font-size: 3em;
+	bottom: 50px;
+	left: 75px;
+	position: absolute;
+	font-family: monospace;
+}
+
+.pageTitle {
+	display: block;
+	text-align: center;
+	font-size: 1.5em;
+	margin-top: 13px;
+}
+
+@media (min-width: 992px) {
+	.page-content {
+		padding-left: 250px;
+	}
+}
+
+@media (max-width: 992px) {
+	.page-content {
+		padding-top: 70px;
+	}
+}
+
+.page-content {
+	max-width: 100%;
 }

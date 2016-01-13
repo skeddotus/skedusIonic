@@ -3,13 +3,9 @@ angular.module("skedApp").controller("authCtrl", function($scope, authService, $
   $scope.test = "controller link test successful";
 
   $scope.signup = function(){
-    console.log("email: ",$scope.email);
-    authService.addUser({
-      name: $scope.name,
-    	email: $scope.email,
-    	password: $scope.password
-    }).then(function(res){
-    	$state.go('auth.home');
+    console.log("email: ",$scope.newUser.email);
+    authService.addUser($scope.newUser).then(function(res){
+    	$state.go('login');
     }).catch(function(err) {
     	if (err.status) {
     		$scope.error = "Sorry, that user already exists.";
@@ -23,7 +19,7 @@ angular.module("skedApp").controller("authCtrl", function($scope, authService, $
     	password: $scope.password
     }).then(function(){
       $scope.credentials = {};
-      $state.go('auth.home');
+      $state.go('auth.home.schedule');
     });
   }
 

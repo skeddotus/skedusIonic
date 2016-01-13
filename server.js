@@ -4,6 +4,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     userServCtrl = require('./Server-assets/Controllers/userServCtrl.js'),
     orgServCtrl = require('./Server-assets/Controllers/orgServCtrl.js'),
+    apptServCtrl = require('./Server-assets/Controllers/apptServCtrl.js'),
     mongoose = require('mongoose'),
   	passport = require('passport'),
   	port = process.env.PORT || 9001,
@@ -30,11 +31,11 @@ var express = require('express'),
     // app.put('/api/org/:orgID', orgServCtrl.addMentee);
     // app.put('/api/org/:orgID', orgServCtrl.addAppt);  //Includes archiveOrg
 
-    // //appt
-    // app.post('/api/appts', apptServCtrl.addAppt);
-    // app.get('/api/appts', apptServCtrl.getAppts);
-    // app.get('/api/appt/:id', apptServCtrl.getAppt);
-    // app.put('/api/appt/:id', apptServCtrl.updateAppt); //Includes archiveAppt
+    //appt
+    app.post('/api/appts', apptServCtrl.createAppt);
+    app.get('/api/appts', apptServCtrl.getAppts);
+    app.get('/api/appt/:id', apptServCtrl.getAppt);
+    app.put('/api/appt/:id', apptServCtrl.updateAppt); //Includes archiveAppt
 
 
 // required for passport
