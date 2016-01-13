@@ -119,6 +119,18 @@ table {
 	float: right;
 }
 
+/*myhome, create, join & leave organization*/
+.create-orgs-contain, .my-orgs-contain, .join-orgs-contain {
+	margin: 0 auto;
+}
+.create-orgs-contain {
+	width: 45%;
+}
+.my-orgs-contain, .join-orgs-contain {
+	width: 70%;
+}
+
+
 #navSidebar {
 	width: 250px;
 	box-shadow: 1px 0px 5px #888888;

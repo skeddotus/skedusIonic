@@ -1,24 +1,17 @@
-angular.module("skedApp").controller("joinCtrl", function($scope){
+angular.module("skedApp").controller("joinCtrl", function($scope, joinService, user){
 
-	var orgs = [
-	  	{
-	  		name: "org1",
-	  		desc: "we build things",
-	  	}, 
-	  	{
-	  		name: "org2",
-	  		desc: "we destroy things",
-	  	}, 
-	  	{
-	  		name: "org3",
-	  		desc: "we fix things",
-	  	},
-	  	{
-	  		name: "org4",
-	  		desc: "we design things",
-	  	},
-	]
+	$scope.user = user;
 
-  	$scope.orgs = orgs;
+	$scope.getOrgs = function(){
+		joinService.getOrgs().then(function(res){
+			$scope.orgs = res;
+		})
+	}
+
+	$scope.joinOrg = function(user, org){
+		joinService.joinOrg($scope.user, thisOrgID however its gotten).then(function(){
+			console.log("organization joined")
+		})
+	}
 
 });

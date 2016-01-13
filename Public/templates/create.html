@@ -1,22 +1,36 @@
-<div class="btn-group">
-	<button class="btn btn-default" ui-sref="home">DASHBOARD</button>
-	<button class="btn btn-default" ui-sref="schedule">SCHEDULE APPT</button>
-	<button class="btn btn-default" ui-sref="availability">SET AVAILABILITY (if user is a mentor)</button>
-	<button class="btn btn-default" ui-sref="join">JOIN ORG</button>
-	<button class="btn btn-default" ui-sref="create">CREATE ORG</button>
-	<div class="dropdown btn-group">
-		<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">SETTINGS <span class="caret"></span> </button>
-	   		<ul class="dropdown-menu" role="menu" aria-labelledby="single-button">
-		        <li role="menuitem"><a ui-sref="profile">PROFILE</a></li>
-		        <li role="menuitem"><a ui-sref="manage">MANAGE MY ORGs</a></li>
-		        <li role="menuitem"><a ui-sref="landingPage">LOGOUT</a></li>
-		    </ul>
+<div class="container">
+	<div class="create-orgs-contain"> 
+		<div class="btn-group">
+			<button ui-sref="auth.home.myhome">Back to my organizations</button>
+		</div>
+	    <form>
+	        <div class="form-group">
+	            <input ng-model="newOrg.name" class="form-control" type="text" placeholder="Organization Name">
+	        </div>
+	        <div class="form-group">
+	        	<textarea ng-model="newOrg.desc" class="form-control" type="text" placeholder="Description"></textarea>
+	        </div>
+	        <div class="form-group">
+	            <input ng-model="newOrg.add1" class="form-control" type="text" placeholder="Address 1">
+	        </div>
+	        <div class="form-group">
+	            <input ng-model="newOrg.add2" class="form-control" type="text" placeholder="Address 2">
+	        </div>
+	        <div class="form-group">
+	            <input ng-model="newOrg.city" class="form-control" type="text" placeholder="City">
+	        </div>
+	        <div class="form-group">
+	            <input ng-model="newOrg.st" class="form-control" type="text" placeholder="State">
+	        </div>
+	        <div class="form-group">
+	            <input ng-model="newOrg.zip" class="form-control" type="text" placeholder="Zip Code">
+	        </div>
+	        <div class="form-group">
+	            <button class=" btn btn-default login-button" type="submit" ng-click="createOrg(newOrg)">Create</button>
+	        </div>
+	    </form>
 	</div>
 </div>
-<div>
-	<h2>Be able to create org here</h2>
-	<input placeholder="org name">
-	<input placeholder="org description">
-	<input placeholder="etc...">
-	<button class="btn btn-default" ui-sref="home">SAVE</button>
-</div>
+
+
+   
