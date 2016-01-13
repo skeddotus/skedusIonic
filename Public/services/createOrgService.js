@@ -1,4 +1,4 @@
-angular.module("skedApp").service("createService", function($http, $q){
+angular.module("skedApp").service("createOrgService", function($http, $q){
 
 	this.createOrg = function(newOrg){
 		var dfd = $q.defer();

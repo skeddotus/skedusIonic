@@ -1,4 +1,4 @@
-angular.module("skedApp").service("joinService", function($http, $q){
+angular.module("skedApp").service("joinOrgService", function($http, $q){
 
 	this.joinOrg = function(user, org){
 		var dfd = $q.defer();
