@@ -10,6 +10,14 @@ var userSchema = new Schema({
   name: {type: String, index: true, required: true},
   email: {type: String, unique: true, required: true},
   password: {type: String, required: true},
+
+  linkedin : {
+    id : String,
+    token : String,
+    email : String,
+    name : String
+  },
+
   appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}],
   orgs: [{type: Schema.Types.ObjectId, ref: 'Org'}],
   desc: {type: String},
@@ -76,6 +84,7 @@ userSchema.pre('save', function(next) {
      console.log("nothing doing");
      next();
    }
+
 });
 
 module.exports = mongoose.model('User', userSchema);
