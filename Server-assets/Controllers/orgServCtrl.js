@@ -17,16 +17,15 @@ module.exports = {
             return res.status(500).end();
           }
           else {
+            console.log("req.params.id", req.params.id);
           org = new Org({
             name: req.body.name,
             desc: req.body.desc,
             location: req.body.location,
-            admin: req.params.userID,
+            members: [{userid: req.params.userID, role: 'Admin'}]
           });
           console.log("Before Org Save, ", req.body);
           org.save();
-          user.orgs.push(org._id);
-          user.save();
       }
       });
       }
@@ -83,41 +82,50 @@ module.exports = {
     });
 },
 
-    // User.findOne({_id: req.query.id}).exec().then(function(user) {
-    //   if(!user) {
-    //     res.status(500);
-    //   }
-    //   else {
-    //     for (var i = 0; i < user.roles; i++) {
-    //       if(user.roles[i] === 'Admin') {
-    //         break;
-    //       }
-    //       else {
-    //         user.roles.push('Admin');
-    //       }
-    //     }
-      //   user.save();
-      //   console.log(5555, user);
-      //   Org.findOne({_id: req.query.orgId}).exec().then(function(org) {
-      //     org.admins.push(user._id);
-      //     org.save();
-      //     console.log(6666, org);
-      //     res.send(org);
-      //   });
-      // }
-    // }).then(null, function(err) {
-    //   return res.status(500).json(err);
-    // });
-  // },
-  // addMentor: function(req, res) {
-  //
-  // },
-  // addMentee: function(req, res) {
-  //
-  // },
-  // addAppt: function(req, res) {
-  //
-  // },
+getUserOrgs: function(req, res) {
+  Org.find({}).exec().then(function(results) {
+    console.log(results);
+      console.log(results[14].members);
+        console.log(results[14].members[0].userid);
+    var userOrgs = [];
+    var ary =[];
+    for (var i = 0; i < results.length; i++) {
+      ary = results[i].members;
+      console.log(ary);
+        for (var j = 0; j < ary.length; j++) {
+          console.log(ary);
+          console.log(ary[j]);
+          console.log(ary[j].userid);
+          if(ary[j].userid === req.params.id) {
+            userOrgs.push(results[i]);
+          }
+      }
+  }
+    console.log("suloii");
+    return res.send(userOrgs);
+  });
+},
+
+  getOrgbyUserId: function(req, res) {
+    Org.find({}).exec().then(function(results) {
+      var userRole = "";
+      var ary =[];
+      for (var i = 0; i < results.length; i++) {
+        ary = results[i].members;
+          for (var j = 0; j < ary.length; j++) {
+            if(ary[j].userid === req.params.id) {
+              userRole = ary[j].role;
+            }
+            else {
+              userRole = "User";
+            }
+        }
+    }
+      return res.send(userRole);
+    });
+  },
+
+
   updateOrg: function(req, res) {
     Org.update({_id: req.params.orgID}, req.body).exec().then(function(results) {
       return res.send('Organization Updated');
