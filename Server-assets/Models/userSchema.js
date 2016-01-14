@@ -17,7 +17,8 @@ var userSchema = new Schema({
     name : String
   },
 
-  appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}],
+  appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}], //appts where you're an attendee
+  host: [{type: Schema.Types.ObjectId, ref: 'Appt'}], //appts where you're the host
   desc: {type: String},
   title: {type: String},
   image: {type: String},
