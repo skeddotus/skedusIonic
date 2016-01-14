@@ -11,7 +11,7 @@ var userSchema = new Schema({
   email: {type: String, unique: true, required: true},
   password: {type: String, required: true},
   appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}],
-  orgs: [{org:{type: Schema.Types.ObjectId, ref: 'Org'},role: {type: String, required: true,default: 'User', enum: ['User', 'Mentor', 'Admin']}}],
+  orgs: [{type: Schema.Types.ObjectId, ref: 'Org'}],
   desc: {type: String},
   title: {type: String},
   image: {type: String},
@@ -24,17 +24,12 @@ var userSchema = new Schema({
     default: 'Active',
     enum: ['Active', 'Archived', 'Pending']
   },
-  role: {
+  roles: [{
     type: String,
     required: true,
     default: 'User',
-  }
-//   roles: [{
-//     type: String,
-//     required: true,
-//     default: 'User',
-//     enum: ['User', 'Mentor', 'Admin']
-//   }],
+    enum: ['User', 'Mentor', 'Admin']
+  }],
 });
 
 
@@ -63,24 +58,18 @@ userSchema.methods.validPassword = function(givenPassword) {
 };
 
 userSchema.pre('save', function(next) {
-    console.log("going to hash password");
-    console.log('this,', this);
-   var user = this;
-   if (user.isModified('password')) {
-     bcrypt.genSalt(12, function(err, salt) {
-         bcrypt.hash(user.password, salt, function(err, hash) {
-             console.log("user.password,", user.password);
-             console.log("hash, ", hash);
-             user.password = hash;
-             console.log("password hashed");
-             next();
-         });
-     });
-   }
-   else{
-     console.log("nothing doing");
-     next();
-   }
+	console.log("going to hash password");
+	console.log('this,', this);
+    var user = this;
+    bcrypt.genSalt(12, function(err, salt) {
+        bcrypt.hash(user.password, salt, function(err, hash) {
+        		console.log("user.password,", user.password);
+        		console.log("hash, ", hash);
+            user.password = hash;
+            console.log("password hashed");
+            next();
+        });
+    });
 });
 
 module.exports = mongoose.model('User', userSchema);

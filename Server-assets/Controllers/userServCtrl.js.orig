@@ -50,6 +50,11 @@ module.exports = {
       return res.status(500).json(err);
     });
   }
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 270df0751e9c3e463fd504d91317dca0b5be4403
 
 
 };

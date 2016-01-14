@@ -63,6 +63,27 @@ userSchema.methods.validPassword = function(givenPassword) {
 };
 
 userSchema.pre('save', function(next) {
+<<<<<<< HEAD
+	console.log("going to hash password");
+	console.log('this,', this);
+    var user = this;
+    if (user.isModified('password')) {
+      bcrypt.genSalt(12, function(err, salt) {
+          bcrypt.hash(user.password, salt, function(err, hash) {
+              console.log("user.password,", user.password);
+              console.log("hash, ", hash);
+              user.password = hash;
+              console.log("password hashed");
+              next();
+          });
+      });
+    }
+    else{
+      console.log("nothing doing");
+      next();
+    }
+
+=======
     console.log("going to hash password");
     console.log('this,', this);
    var user = this;
@@ -81,6 +102,7 @@ userSchema.pre('save', function(next) {
      console.log("nothing doing");
      next();
    }
+>>>>>>> 270df0751e9c3e463fd504d91317dca0b5be4403
 });
 
 module.exports = mongoose.model('User', userSchema);
