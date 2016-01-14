@@ -11,7 +11,7 @@ var userSchema = new Schema({
   email: {type: String, unique: true, required: true},
   password: {type: String, required: true},
   appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}],
-  orgs: [{type: Schema.Types.ObjectId, ref: 'Org'}],
+  orgs: [{org:{type: Schema.Types.ObjectId, ref: 'Org'},role: {type: String, required: true,default: 'User', enum: ['User', 'Mentor', 'Admin']}}],
   desc: {type: String},
   title: {type: String},
   image: {type: String},
@@ -24,12 +24,17 @@ var userSchema = new Schema({
     default: 'Active',
     enum: ['Active', 'Archived', 'Pending']
   },
-  roles: [{
+  role: {
     type: String,
     required: true,
     default: 'User',
-    enum: ['User', 'Mentor', 'Admin']
-  }],
+  }
+//   roles: [{
+//     type: String,
+//     required: true,
+//     default: 'User',
+//     enum: ['User', 'Mentor', 'Admin']
+//   }],
 });
 
 
@@ -61,15 +66,22 @@ userSchema.pre('save', function(next) {
 	console.log("going to hash password");
 	console.log('this,', this);
     var user = this;
-    bcrypt.genSalt(12, function(err, salt) {
-        bcrypt.hash(user.password, salt, function(err, hash) {
-        		console.log("user.password,", user.password);
-        		console.log("hash, ", hash);
-            user.password = hash;
-            console.log("password hashed");
-            next();
-        });
-    });
+    if (user.isModified('password')) {
+      bcrypt.genSalt(12, function(err, salt) {
+          bcrypt.hash(user.password, salt, function(err, hash) {
+              console.log("user.password,", user.password);
+              console.log("hash, ", hash);
+              user.password = hash;
+              console.log("password hashed");
+              next();
+          });
+      });
+    }
+    else{
+      console.log("nothing doing");
+      next();
+    }
+
 });
 
 module.exports = mongoose.model('User', userSchema);
