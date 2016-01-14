@@ -2,7 +2,6 @@
 var mongoose = require('mongoose'),
   Schema = mongoose.Schema;
 var Appt = require('./apptSchema');
-var Org = require('./orgSchema');
 var bcrypt = require('bcrypt');
 var q = require('q');
 
@@ -20,15 +19,6 @@ var userSchema = new Schema({
 
   appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}], //appts where you're an attendee
   host: [{type: Schema.Types.ObjectId, ref: 'Appt'}], //appts where you're the host
-  // orgs: [{
-  //   org:{type: Schema.Types.ObjectId, ref: 'Org'},
-  //   role: {
-  //     type: String, 
-  //     required: true,
-  //     default: 'User', 
-  //     enum: ['User', 'Mentor', 'Admin']
-  //   }
-  // }],
   desc: {type: String},
   title: {type: String},
   image: {type: String},
@@ -41,17 +31,11 @@ var userSchema = new Schema({
     default: 'Active',
     enum: ['Active', 'Archived', 'Pending']
   },
-  role: {
-    type: String,
-    required: true,
-    default: 'User',
-  }
-//   roles: [{
-//     type: String,
-//     required: true,
-//     default: 'User',
-//     enum: ['User', 'Mentor', 'Admin']
-//   }],
+  // role: {
+  //   type: String,
+  //   required: true,
+  //   default: 'User',
+  // }
 });
 
 
