@@ -18,16 +18,17 @@ var userSchema = new Schema({
     name : String
   },
 
-  appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}],
-  orgs: [{
-    org:{type: Schema.Types.ObjectId, ref: 'Org'},
-    role: {
-      type: String, 
-      required: true,
-      default: 'User', 
-      enum: ['User', 'Mentor', 'Admin']
-    }
-  }],
+  appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}], //appts where you're an attendee
+  host: [{type: Schema.Types.ObjectId, ref: 'Appt'}], //appts where you're the host
+  // orgs: [{
+  //   org:{type: Schema.Types.ObjectId, ref: 'Org'},
+  //   role: {
+  //     type: String, 
+  //     required: true,
+  //     default: 'User', 
+  //     enum: ['User', 'Mentor', 'Admin']
+  //   }
+  // }],
   desc: {type: String},
   title: {type: String},
   image: {type: String},
