@@ -1,12 +1,12 @@
-angular.module("skedApp").controller("myOrgCtrl", function($scope, myOrgService, user){
+angular.module("skedApp").controller("myOrgCtrl", function($scope, orgService, user){
 
 	$scope.user = user;
 
-	$scope.getMyOrgs = function(currentUser){
-		myOrgService.getMyOrgs($scope.user).then(function(res){
+	$scope.getMyOrgs = function(user){
+		orgService.getMyOrgs($scope.user).then(function(res){
 			$scope.myOrgs = res;
 		});
 	};
 	$scope.getMyOrgs($scope.user);
-
+	console.log("currentUser:", $scope.user);
 });

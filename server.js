@@ -18,7 +18,7 @@ var express = require('express'),
     //User Requests
     app.post('/api/users', userServCtrl.addUser);
     app.get('/api/users', userServCtrl.getUsers);
-    app.get('/api//user/:id', userServCtrl.getUser);
+    app.get('/api/user/:id', userServCtrl.getUser);
     app.put('/api/user/:id', userServCtrl.updateUser); //Includes archiveUser
 
     // //Org Request
@@ -26,7 +26,7 @@ var express = require('express'),
     app.get('/api/orgs', orgServCtrl.getOrgs);
     app.get('/api/org/:orgID', orgServCtrl.getOrg);
     app.put('/api/org/:orgID', orgServCtrl.updateOrg);
-    app.get('/api/org/:orgID/admin/:userID', orgServCtrl.addAdmin);
+    app.post('/api/org/:orgID/admins', orgServCtrl.addAdmin);
     // app.put('/api/org/:orgID', orgServCtrl.addMentor);
     // app.put('/api/org/:orgID', orgServCtrl.addMentee);
     // app.put('/api/org/:orgID', orgServCtrl.addAppt);  //Includes archiveOrg

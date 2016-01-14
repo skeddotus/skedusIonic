@@ -20,20 +20,14 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 
 //AUTH STATES ////////////////////////////////////////////////////////////////
 		.state('auth', {
-			abstract: true,
-			template: '<div ui-view><div>',
+			url: "",
+			templateUrl: "templates/home.html",
+			controller: "homeCtrl",
 			resolve: {
 				user: function(authService) {
 					return authService.getAuthedUser();
 				}
 			}
-		})
-
-	// HOME
-		.state("auth.home", {
-			url: "",
-			controller: "homeCtrl",
-			templateUrl: "templates/home.html"
 		})
 
 		.state("auth.myOrg", {
@@ -54,38 +48,38 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 
 
 
-		.state("auth.home.schedule", {
+		.state("auth.schedule", {
 			url: "/schedule",
 			controller: "scheduleCtrl",
 			templateUrl: "templates/schedule.html"
 		})
 
-		.state("auth.home.dashboard", {
+		.state("auth.dashboard", {
 			url: "/dashboard",
 			controller: "availabilityCtrl",
 			templateUrl: "templates/availability.html",
 		})
 
-		.state("auth.home.userManage", {
+		.state("auth.userManage", {
 			url: "/manage",
 			controller: "joinCtrl",
 			templateUrl: "templates/join.html",
 		})
 
-		.state("auth.home.orgProfile", {
+		.state("auth.orgProfile", {
 			url: "/organization",
 			controller: "createCtrl",
 			templateUrl: "templates/create.html",
 		})
 
-		.state("auth.home.userProfile", {
+		.state("auth.userProfile", {
 			url: "/profile",
 			controller: "manageCtrl",
 			templateUrl: "templates/manage.html",
 		})
 
 		// test route
-		.state("auth.home.testRoute", {
+		.state("auth.testRoute", {
 			url: "/test",
 			controller: "testCtrl",
 			templateUrl: "templates/test.html",
@@ -96,9 +90,10 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
     return {
       // This is the responseError interceptor
       responseError: function(rejection) {
-        console.log("BAD DOG", rejection);
         if (rejection.status === 401) {
+          console.log("BAD DOG", rejection);
           document.location = "/#/login";
+
         }
 
         /* If not a 401, do nothing with this error.

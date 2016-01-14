@@ -11,28 +11,17 @@
 			<table class="table">
 				<tr>
 					<th>Organization</th>
+					<th>Description</th>
 					<th>Location</th>
-					<th>Category</th>
 					<th></th>
 				</tr>
-				<tr>
-					<td>Organization 1</td>
-					<td>Dallas, TX</td>
-					<td>Category</td>
+				<tr ng-repeat="org in orgs">
+					<td><h2 class="hh2">{{org.name}}</h2></td>
+					<td>{{org.desc}}</td>
+					<td>{{org.location}}</td>
 					<td><button ng-click="joinOrg()">Join</button></td>
 				</tr>
-				<tr>
-					<td>Organization 2</td>
-					<td>Austin, TX</td>
-					<td>Category</td>
-					<td><button ng-click="joinOrg()">Join</button></td>
-				</tr>
-				<tr>
-					<td>Organization 3</td>
-					<td>Houston, TX</td>
-					<td>Category</td>
-					<td><button ng-click="joinOrg()">Join</button></td>
-				</tr>
+				
 			</table>
 		</div>
 	</div>

@@ -5,6 +5,37 @@ var User = require('../Models/userSchema');
 module.exports = {
 
   addOrg: function(req, res) {
+<<<<<<< HEAD
+   console.log(11111, req.body);
+   console.log(2222, req.params.userID);
+   User.findById(req.params.userID).exec().then(function(user) {
+     if (!user) {
+       return res.status(500).end();
+     }
+     else {
+       Org.findOne({name: req.body.name}).exec().then(function(org) {
+         if(org) {
+           return res.status(500).end();
+         }
+         else {
+         org = new Org({
+           name: req.body.name,
+           desc: req.body.desc,
+           location: req.body.location,
+           admin: req.params.userID,
+         });
+         console.log("Before Org Save, ", req.body);
+         org.save();
+         user.orgs.push(org._id);
+         user.save();
+     }
+     });
+     }
+     console.log('After', user);
+     res.status(200).end();
+   });
+  },
+=======
     console.log(11111, req.body);
     console.log(2222, req.params.userID);
     User.findById(req.params.userID).exec().then(function(user) {
@@ -26,7 +57,9 @@ module.exports = {
           console.log("Before Org Save, ", req.body);
           org.save();
           user.orgs.push(org._id);
+          console.log("there");
           user.save();
+          console.log("here");
       }
       });
       }
@@ -35,6 +68,7 @@ module.exports = {
     });
 },
 
+>>>>>>> 12f48c5c2c269feecabc65b40b66249e1cff3c29
   getOrgs: function(req, res) {
     Org.find({})
     .populate('admin')

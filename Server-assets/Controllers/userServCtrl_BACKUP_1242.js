@@ -29,10 +29,17 @@ module.exports = {
     });
   },
   getUser: function(req, res) {
+<<<<<<< HEAD
     User.findById(req.params.id)
       .populate("orgs")
       .exec().then(function(results) {
       if(!results) {
+=======
+    User.findbyId(req.params.id)
+    .populate('orgs')
+    .exec().then(function(results) {
+      if(!result) {
+>>>>>>> 12f48c5c2c269feecabc65b40b66249e1cff3c29
         res.status(404);
       }
       else {

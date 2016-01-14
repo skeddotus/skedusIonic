@@ -19,7 +19,7 @@ var userSchema = new Schema({
   },
 
   appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}],
-  orgs: [{type: Schema.Types.ObjectId, ref: 'Org'}],
+  orgs: [{org:{type: Schema.Types.ObjectId, ref: 'Org'},role: {type: String, required: true,default: 'User', enum: ['User', 'Mentor', 'Admin']}}],
   desc: {type: String},
   title: {type: String},
   image: {type: String},
@@ -32,12 +32,17 @@ var userSchema = new Schema({
     default: 'Active',
     enum: ['Active', 'Archived', 'Pending']
   },
-  roles: [{
+  role: {
     type: String,
     required: true,
     default: 'User',
-    enum: ['User', 'Mentor', 'Admin']
-  }],
+  }
+//   roles: [{
+//     type: String,
+//     required: true,
+//     default: 'User',
+//     enum: ['User', 'Mentor', 'Admin']
+//   }],
 });
 
 
@@ -84,7 +89,10 @@ userSchema.pre('save', function(next) {
      console.log("nothing doing");
      next();
    }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 270df0751e9c3e463fd504d91317dca0b5be4403
 });
 
 module.exports = mongoose.model('User', userSchema);
