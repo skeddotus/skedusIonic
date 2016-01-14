@@ -8,6 +8,13 @@ angular.module("skedApp").controller("homeCtrl", function($scope, authService){
   $scope.companyName = "Sked.Us Inc.";
 
 
+  $scope.$watch(function(){
+   return window.innerWidth;
+}, function(value) {
+        console.log(value);
+  });
+
+
   // 	var orgs = [
 	//   	{
 	//   		name: "org1",

@@ -33,7 +33,12 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 		.state("auth.home", {
 			url: "",
 			controller: "homeCtrl",
-			templateUrl: "templates/home.html"
+			templateUrl: "templates/home.html",
+			resolve: {
+				usersRef: function(userService) {
+					return userService.getUsers();
+				}
+			}
 		})
 
 		.state("auth.myOrg", {
@@ -41,19 +46,20 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 			controller: "myOrgCtrl",
 			templateUrl: "templates/myOrg.html"
 		})
+
 		.state("auth.createOrg", {
 			url: "/create",
 			controller: "createOrgCtrl",
 			templateUrl: "templates/createOrg.html"
 		})
+
 		.state("auth.joinOrg", {
 			url: "/join",
 			controller: "joinOrgCtrl",
 			templateUrl: "templates/joinOrg.html"
 		})
 
-
-
+	// MAIN VIEW
 		.state("auth.home.schedule", {
 			url: "/schedule",
 			controller: "scheduleCtrl",

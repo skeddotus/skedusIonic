@@ -1,13 +1,14 @@
-angular.module("skedApp").service("userService", function($http, $q){
+angular.module("skedApp").service("userService", function($http, $q) {
 
   this.getUsers = function(res) {
     var dfd = $q.defer();
     $http({
       method: 'GET',
-      url: 'api/users',
+      url: '/api/users',
     }).then(function(res) {
       users = res.data;
-      dfd.resolve();
+      console.log(users);
+      dfd.resolve(users);
     });
     return dfd.promise;
   };
@@ -19,7 +20,7 @@ angular.module("skedApp").service("userService", function($http, $q){
       url: 'api/user/' + userId,
     }).then(function(res) {
       user = res.data;
-      dfd.resolve();
+      dfd.resolve(user);
     });
     return dfd.promise;
   };
@@ -36,7 +37,7 @@ angular.module("skedApp").service("userService", function($http, $q){
     return dfd.promise;
   };
 
-  this.deleteUser = function (userId) {
+  this.deleteUser = function(userId) {
     var dfd = $q.defer();
     $http({
       method: 'PUT',

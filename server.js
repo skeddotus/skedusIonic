@@ -18,7 +18,7 @@ var express = require('express'),
     //User Requests
     app.post('/api/users', userServCtrl.addUser);
     app.get('/api/users', userServCtrl.getUsers);
-    app.get('/api//user/:id', userServCtrl.getUser);
+    app.get('/api/user/:id', userServCtrl.getUser);
     app.put('/api/user/:id', userServCtrl.updateUser); //Includes archiveUser
 
     // //Org Request

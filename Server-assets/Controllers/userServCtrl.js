@@ -22,14 +22,20 @@ module.exports = {
     });
   },
   getUsers: function(req, res) {
-    User.find({}).exec().then(function(results) {
+    User.find({})
+    .populate('appts')
+    .populate('orgs')
+    .exec().then(function(results) {
       return res.json(results);
     }).then(null, function(err) {
       return res.status(500).json(err);
     });
   },
   getUser: function(req, res) {
-    User.findbyId(req.params.id).exec().then(function(results) {
+    User.findbyId(req.params.id)
+    .populate('appts')
+    .populate('orgs')
+    .exec().then(function(results) {
       if(!result) {
         res.status(404);
       }
@@ -50,7 +56,7 @@ module.exports = {
   // }
 
   updateUser: function(req, res) {
-    
+
     User.find({_id: req.params.id}, req.body).exec().then(function(result) {
 
       if(typeof req.body == "Array") {
