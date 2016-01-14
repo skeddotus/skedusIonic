@@ -10,6 +10,14 @@ var userSchema = new Schema({
   name: {type: String, index: true, required: true},
   email: {type: String, unique: true, required: true},
   password: {type: String, required: true},
+
+  linkedin : {
+    id : String,
+    token : String,
+    email : String,
+    name : String
+  },
+
   appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}],
   orgs: [{org:{type: Schema.Types.ObjectId, ref: 'Org'},role: {type: String, required: true,default: 'User', enum: ['User', 'Mentor', 'Admin']}}],
   desc: {type: String},

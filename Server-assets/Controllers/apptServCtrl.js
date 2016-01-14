@@ -1,52 +1,55 @@
 var mongoose = require('mongoose');
 var Appt = require('../Models/apptSchema');
+var User = require('../Models/userSchema');
+var Org = require('../Models/orgSchema');
 
 module.exports = {
 
-  //let a mentor create an appt
+  //let a mentor create an appt TEST DONE
   createAppt: function(req, res) {
 
-    console.log("appt adding", req.body);
-
     appt = new Appt({
-      date: req.body.date,
+      date : req.body.date,
+      org : req.params.orgID,
     });
 
-    User.findOne({_id: req.user._id}).exec().then(function(results) {
-      var currentUser = results;
-    })
+    console.log("appt adding", appt);
 
-    currentUser.save(function (err) {
-      if (err) {
-        console.log("problem saving to user");
-        return res.status(404).end();
-      }
+    var currentUser;
+    var currentOrg;
+    
+    User.findOne({ _id : "5696c000a5a57cda03af07a8" }).exec().then(function(results) {
+    // User.findOne({_id: req.user._id }).exec().then(function(results) {
+      currentUser = results;
 
-      currentUser.appts.push(appt);
+      currentUser.appts.push(appt._id);
+      currentUser.save();
 
-      appt.save(function(err) {
-        if (err) {
-          console.log("problem saving the appt");
-          return res.status(404).end();
-        }
+      appt.host = currentUser._id;
+      appt.save();
 
-        appt.host.push(currentUser);
+      Org.findOne({ _id : req.params.orgID}).exec().then(function(results) {
+
+        currentOrg = results;
+
+        currentOrg.appts.push(appt._id);
+        currentOrg.save();
 
       })
+      
 
     })
 
     return res.json(appt).status(201).end();
   },
 
-  //call all appts in organization
+  //call all appts in organization TEST DONE
   getAppts: function(req, res) {
     //need to update call for specific dates
-    //need to update call for a specific organization
-    Appt.find({ _id : req.params.orgID }).exec().then(function(results) {
-      console.log("getting appts for org", results);
+    Org.findOne({ _id : req.params.orgID }).exec().then(function(results) {
+      console.log("appts from org: ", results.appts);
 
-      return res.json(results);
+      return res.json(results.appts);
     }).then(null, function(err) {
       return res.status(500).json(err);
     });
@@ -63,6 +66,10 @@ module.exports = {
         return res.json(results);
       }
     })
+  },
+
+  deleteAppt: function(req,res) {
+
   },
 
   //add an attendee to an appointment
