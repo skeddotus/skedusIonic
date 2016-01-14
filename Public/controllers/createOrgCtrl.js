@@ -1,7 +1,9 @@
-angular.module("skedApp").controller("createOrgCtrl", function($scope, createOrgService){
+angular.module("skedApp").controller("createOrgCtrl", function($scope, orgService, user){
 
-	$scope.createOrg = function(newOrg){
-		createOrgService.createOrg($scope.newOrg).then(function(){
+	$scope.user = user;
+
+	$scope.createOrg = function(){
+		orgService.createOrg($scope.newOrg, $scope.user).then(function(){
 			$scope.newOrg = ""
 		})
 	};

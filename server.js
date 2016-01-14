@@ -26,16 +26,19 @@ var express = require('express'),
     app.get('/api/orgs', orgServCtrl.getOrgs);
     app.get('/api/org/:orgID', orgServCtrl.getOrg);
     app.put('/api/org/:orgID', orgServCtrl.updateOrg);
-    app.get('/api/org/:orgID/admin/:userID', orgServCtrl.addAdmin);
+    app.post('/api/org/:orgID/admins', orgServCtrl.addAdmin);
     // app.put('/api/org/:orgID', orgServCtrl.addMentor);
     // app.put('/api/org/:orgID', orgServCtrl.addMentee);
     // app.put('/api/org/:orgID', orgServCtrl.addAppt);  //Includes archiveOrg
 
     //appt
-    app.post('/api/appts', apptServCtrl.createAppt);
-    app.get('/api/appts', apptServCtrl.getAppts);
-    app.get('/api/appt/:id', apptServCtrl.getAppt);
-    app.put('/api/appt/:id', apptServCtrl.updateAppt); //Includes archiveAppt
+    app.post('/api/org/:orgID/appts', apptServCtrl.createAppt);
+    app.get('/api/org/:orgID/appts', apptServCtrl.getAppts);
+    app.get('/api/org/:orgID/appt/:apptID', apptServCtrl.getAppt);
+    app.put('/api/org/:orgID/appt/:apptID/mentee/:userID', apptServCtrl.addAttendee);
+    app.delete('/api/org:orgID/appt/:apptID/mentee/:userID', apptServCtrl.deleteAttendee);
+    app.put('/api/org/:orgID/appt/:apptID/mentor/:userID', apptServCtrl.updateAppt); //changes for update and location section in schema
+
 
 
 // required for passport

@@ -26,13 +26,25 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 			resolve: {
 				user: function(authService) {
 					return authService.getAuthedUser();
-				},
+				}
+			}
+		})
+
+<<<<<<< HEAD
+	// HOME
+		.state("auth.home", {
+			url: "",
+			controller: "homeCtrl",
+			templateUrl: "templates/home.html",
+			resolve: {
 				usersRef: function(userService) {
 					return userService.getUsers();
 				}
 			}
 		})
 
+=======
+>>>>>>> f3184bb6601223eb999ff6c9751df0120fa0204f
 		.state("auth.myOrg", {
 			url: "/home",
 			controller: "myOrgCtrl",
@@ -51,9 +63,14 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 			templateUrl: "templates/joinOrg.html"
 		})
 
+<<<<<<< HEAD
+	// MAIN VIEW
+		.state("auth.home.schedule", {
+=======
 
 
 		.state("auth.schedule", {
+>>>>>>> f3184bb6601223eb999ff6c9751df0120fa0204f
 			url: "/schedule",
 			controller: "scheduleCtrl",
 			templateUrl: "templates/schedule.html"
