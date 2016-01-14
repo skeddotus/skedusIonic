@@ -19,7 +19,15 @@ var userSchema = new Schema({
   },
 
   appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}],
-  orgs: [{org:{type: Schema.Types.ObjectId, ref: 'Org'},role: {type: String, required: true,default: 'User', enum: ['User', 'Mentor', 'Admin']}}],
+  orgs: [{
+    org:{type: Schema.Types.ObjectId, ref: 'Org'},
+    role: {
+      type: String, 
+      required: true,
+      default: 'User', 
+      enum: ['User', 'Mentor', 'Admin']
+    }
+  }],
   desc: {type: String},
   title: {type: String},
   image: {type: String},
@@ -89,10 +97,7 @@ userSchema.pre('save', function(next) {
      console.log("nothing doing");
      next();
    }
-<<<<<<< HEAD
 
-=======
->>>>>>> 270df0751e9c3e463fd504d91317dca0b5be4403
 });
 
 module.exports = mongoose.model('User', userSchema);
