@@ -43,7 +43,7 @@ module.exports = {
     return res.json(appt).status(201).end();
   },
 
-  //call all appts in organization
+  //call all appts in organization TEST DONE
   getAppts: function(req, res) {
     //need to update call for specific dates
     Org.findOne({ _id : req.params.orgID }).exec().then(function(results) {
