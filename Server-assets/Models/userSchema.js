@@ -89,10 +89,7 @@ userSchema.pre('save', function(next) {
      console.log("nothing doing");
      next();
    }
-<<<<<<< HEAD
 
-=======
->>>>>>> 270df0751e9c3e463fd504d91317dca0b5be4403
 });
 
 module.exports = mongoose.model('User', userSchema);
