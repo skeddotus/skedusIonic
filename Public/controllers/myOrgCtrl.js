@@ -9,4 +9,11 @@ angular.module("skedApp").controller("myOrgCtrl", function($scope, orgService, u
 	};
 	$scope.getMyOrgs($scope.user);
 	console.log("currentUser:", $scope.user);
+
+	$scope.cancelAppt = function(apptID){
+		orgService.cancelAppt(apptID).then(function(){
+
+		});
+	};
+
 });

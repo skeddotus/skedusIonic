@@ -22,7 +22,7 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 		.state('auth', {
 			url: "",
 			templateUrl: "templates/home.html",
-			controller: "homeCtrl",
+			controller: "myOrgCtrl",
 			resolve: {
 				user: function(authService) {
 					return authService.getAuthedUser();
@@ -49,6 +49,11 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 			url: "/join",
 			controller: "joinOrgCtrl",
 			templateUrl: "templates/joinOrg.html"
+		})
+		.state("auth.org", {
+			url: "/org/:id",
+			controller: "orgCtrl",
+			templateUrl: "templates/org.html"
 		})
 
 		.state("auth.schedule", {

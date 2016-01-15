@@ -41,7 +41,6 @@ module.exports = {
   //gets Organizations for users not associated with an organization yet
   getOrgs: function(req, res) {
     Org.find({})
-	.populate('admin')
     .exec().then(function(results) {
       return res.json(results);
     }).then(null, function(err) {
@@ -141,8 +140,30 @@ module.exports = {
 
 
 
+<<<<<<< HEAD
+  updateOrg: function(req, res) {
+    Org.update({_id: req.params.orgID}, req.body).exec().then(function(results) {
+      return res.send('Organization Updated');
+    }).then(null, function(err) {
+      return res.status(500).json(err);
+    });
+  },
+
+  updateOrgWithUser: function(req, res){
+    Org.findById(req.params.orgID).exec().then(function(org){
+      console.log("org: ", req.params.orgID)
+      console.log("user: ", req.body)
+      org.members.push(req.body);
+      return org.save().then(function(results){
+        console.log("results: ", results);
+        return res.json(results);
+      });
+    });
+  },
+=======
 
 
 
+>>>>>>> 800f46ec45d94dd7e6e0a7d4e8e13eae971d8f64
 
 };

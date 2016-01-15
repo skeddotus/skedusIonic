@@ -46,7 +46,7 @@ module.exports = {
   //call all appts in organization TEST DO
   getAppts: function(req, res) {
     //need to update call for specific dates ///////////////////////////////////////////////////////////////////
-    Org.findOne({ _id : req.params.orgID }).exec().then(function(results) {
+    Org.findOne({ _id : req.params.orgID }).populate("host").exec().then(function(results) {
       console.log("appts from org: ", results.appts);
 
       return res.json(results.appts);

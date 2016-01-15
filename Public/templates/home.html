@@ -9,13 +9,14 @@
 
 	<div id="navSidebarMenuItems">
 		<ul class='nav nav-sidebar'>
-			<li class="dropdown" ui-sref-active="active">
-				<a data-toggle="dropdown" id="menuCompanyName">{{companyName}} <b class="caret"></b>
+			<li ui-sref-active="active" ui-sref="auth.myOrg"><a>My Home</a></li>
+			<li class="dropdown" ui-sref-active="active" ng-repeat="org in myOrgs">
+				<a data-toggle="dropdown" id="menuCompanyName">{{org.name}} <b class="caret"></b>
 					<ul class="dropdown-menu navmenu-nav" role="menu">
-						<li ui-sref-active="active"><a  ui-sref='auth.schedule({schedule:schedule})' data-target="">Schedule</a></li>
-		        <li ui-sref-active="active"><a ui-sref='auth.dashboard({dashboard:dashboard})'>Dashboard</a></li>
-		        <li ui-sref-active="active"><a ui-sref="auth.orgProfile({orgProfile:orgProfile})">User management</a></li>
-		        <li ui-sref-active="active"><a ui-sref="auth.userProfile({userProfile:userProfile})">Organization</a></li>
+						<li ui-sref-active="active"><a ui-sref='auth.schedule({schedule:schedule})' data-target="">Schedule</a></li>
+		        		<li ui-sref-active="active"><a ui-sref='auth.dashboard({dashboard:dashboard})'>Dashboard</a></li>
+		        		<li ui-sref-active="active"><a ui-sref="auth.orgProfile({orgProfile:orgProfile})">User management</a></li>
+		        		<li ui-sref-active="active"><a ui-sref="auth.userProfile({userProfile:userProfile})">Organization</a></li>
 						<li ui-sref-active="active"><a ui-sref="auth.testRoute({testRoute:testRoute})">Test routes</a></li>
 					</ul>
 				</a>
@@ -26,7 +27,9 @@
 
 	<div class="mainMenuSettings">
 		<ul class="nav nav-sidebar">
-			<li ui-sref-active="active"><a ui-sref="">User Setting</a></li>
+			<li ui-sref-active="active" ui-sref="auth.joinOrg"><a>Join Organization</a></li>
+			<li ui-sref-active="active" ui-sref="auth.createOrg"><a>Create Organization</a></li>
+			<li ui-sref-active="active" ui-sref="auth.userProfile"><a>My Profile</a></li>
 			<li ui-sref-active="active"><a ng-click="logout()">Logout</a></li>
 		</ul>
 	</div>

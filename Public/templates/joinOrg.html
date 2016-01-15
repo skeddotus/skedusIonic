@@ -1,8 +1,5 @@
 <div class="container">
 	<div class="join-orgs-contain">
-		<div class="btn-group">
-			<button ui-sref="auth.myOrg">Back to my organizations</button>
-		</div>
 		<div>
 			<input placeholder="search for orgs here">
 		</div>
@@ -19,7 +16,7 @@
 					<td><h2 class="hh2">{{org.name}}</h2></td>
 					<td>{{org.desc}}</td>
 					<td>{{org.location}}</td>
-					<td><button ng-click="joinOrg()">Join</button></td>
+					<td><button ng-click="joinOrg(org._id)">Join</button></td>
 				</tr>
 				
 			</table>

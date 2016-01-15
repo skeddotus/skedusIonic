@@ -16,21 +16,24 @@ angular.module("skedApp").service("orgService", function($http, $q){
 		var dfd = $q.defer();
 		$http({
 			method: "GET",
-			url: "/api/user/" + user._id,
+			url: "/api/user/" + user._id + "/orgs",
 		}).then(function(res){
-			myOrgs = res.data.orgs;
+			myOrgs = res.data;
 			console.log("myOrgs: ", myOrgs)
 			dfd.resolve(myOrgs);
 		});
 		return dfd.promise;
 	};
 
-	this.joinOrg = function(user, org){
+	this.joinOrg = function(userId, orgId){
 		var dfd = $q.defer();
 		$http({
 			method: "PUT",
-			url: "/api/users/" + user._id,
-			data: org._id
+			url: "/api/org/join/" + orgId,
+			data: {
+				userid: userId,
+				role: "User",
+			},
 		}).then(function(){
 			dfd.resolve();
 		})
@@ -54,4 +57,31 @@ angular.module("skedApp").service("orgService", function($http, $q){
 		return dfd.promise;
 	};
 
+
+	this.getAppts = function(orgID){
+		var dfd = $q.defer();
+		$http({
+			method: "GET",
+			url: "/api/org/" + orgID + "/appts",
+		}).then(function(res){
+			appts = res.data;
+			console.log("appts", appts);
+			dfd.resolve(appts);
+		})
+		return dfd.promise;
+	};
+
+	this.cancelAppt = function(apptID){
+		$q.defer();
+		$http({
+			mehtod: "DELETE",
+			url: "/api/appt/" + apptID,
+		}).then(function(){
+			dfd.resolve();
+		})
+		return dfd.promise;
+	}
+
 });
+
+
