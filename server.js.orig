@@ -19,9 +19,6 @@ var express = require('express'),
     app.post('/api/users', userServCtrl.addUser);
     app.get('/api/users', userServCtrl.getUsers);
     app.get('/api/user/:id', userServCtrl.getUser);
-    // app.get('/api/user/:id/orgs', orgServCtrl.getOrgbyUserId);
-    app.get('/api/user/:id/orgs', orgServCtrl.getUserOrgs);
-    // app.get('/api/user/:id/orgs', userServCtrl.getOrgs);
     app.put('/api/user/:id', userServCtrl.updateUser); //Includes archiveUser
     app.get('/api/user/:id/orgs', userServCtrl.getUserOrgs);
     app.get('/api/user/:id/org/:orgID', userServCtrl.getUserOrg);
@@ -32,7 +29,12 @@ var express = require('express'),
     app.get('/api/orgs', orgServCtrl.getOrgs);
     app.get('/api/org/:orgID', orgServCtrl.getOrg);
     app.put('/api/org/:orgID', orgServCtrl.updateOrg);
+<<<<<<< HEAD
+    app.post('/api/org/:orgID/admins', orgServCtrl.addAdmin);
+    app.put('/api/org/join/:orgID', orgServCtrl.updateOrgWithUser);
+=======
     // app.post('/api/org/:orgID/admins', orgServCtrl.addAdmin); //Needs to be updated for new UserSchema
+>>>>>>> 800f46ec45d94dd7e6e0a7d4e8e13eae971d8f64
     // app.put('/api/org/:orgID', orgServCtrl.addMentor);
     app.post('/api/org/:orgID/users', orgServCtrl.addOrgUser);
     // app.put('/api/org/:orgID', orgServCtrl.addAppt);  //Includes archiveOrg
