@@ -18,11 +18,11 @@ module.exports = {
     var currentUser;
     var currentOrg;
     
-    User.findOne({ _id : "5696c000a5a57cda03af07a8" }).exec().then(function(results) {
+    User.findOne({ _id : "5696c000a5a57cda03af07a8" }).exec().then(function(results) {/////////////////////////////////////
     // User.findOne({_id: req.user._id }).exec().then(function(results) {
       currentUser = results;
 
-      currentUser.appts.push(appt._id);
+      currentUser.host.push(appt._id);
       currentUser.save();
 
       appt.host = currentUser._id;
@@ -43,9 +43,9 @@ module.exports = {
     return res.json(appt).status(201).end();
   },
 
-  //call all appts in organization TEST DONE
+  //call all appts in organization TEST DO
   getAppts: function(req, res) {
-    //need to update call for specific dates
+    //need to update call for specific dates ///////////////////////////////////////////////////////////////////
     Org.findOne({ _id : req.params.orgID }).exec().then(function(results) {
       console.log("appts from org: ", results.appts);
 
@@ -55,40 +55,100 @@ module.exports = {
     });
   },
 
-  //call a specific appt
+  //call a specific appt TEST DONE
   getAppt: function(req, res) {
 
-    Appt.findOne({_id: req.params.apptID}).exec().then(function(err, results) {
-      if(err) {
-        res.status(404).end();
+    Appt.findOne({_id: req.params.apptID}).exec().then(function(results) {
+      if(results) {
+        console.log("appt : ", results);
+        return res.json(results);
       }
       else {
-        return res.json(results);
+        res.status(404).end();
       }
     })
   },
 
+  //delete appointment, not the same as cancelling TEST DONE
   deleteAppt: function(req,res) {
+    console.log("DELETE PROCESS START");
 
+
+    Appt.findOne({ _id : req.params.apptID }).exec().then(function(results) {
+
+      var currentAppt = results;
+      // console.log("appt found : ", currentAppt);
+
+      Org.findOne({ _id : currentAppt.org }).exec().then(function(results) {
+
+
+        var currentOrg = results;
+        // console.log("ORG BEFORE : ", currentOrg);
+        var orgIndex = currentOrg.appts.indexOf(req.params.apptID);
+        currentOrg.appts.splice(orgIndex, 1);
+        // console.log("ORG AFTER : ", currentOrg);
+        currentOrg.save();
+
+        User.findOne({ _id : currentAppt.host }).exec().then(function(results) {
+
+          var currentHost = results;
+          // console.log("HOST BEFORE: ", currentHost);
+          var hostIndex = currentHost.host.indexOf(req.params.apptID);
+          currentHost.host.splice(hostIndex, 1);
+          // console.log("HOST AFTER : ", currentHost);
+          currentHost.save();
+
+
+          for (var i = 0; i < currentAppt.attendees; i++) {
+
+            User.findOne({ _id : currentAppt.attendees[i] }).exec().then(function(results) {
+              
+              var currentUser = results;
+              // console.log("USER BEFORE : ", currentUser);
+              var userIndex = currentUser.appts.indexOf(req.params.apptId);
+              currentUser.appts.splice(userIndex, 1);
+              // console.log("USER AFTER : ", currentUser);
+              currentUser.save();
+
+            })
+
+          }
+          
+
+          Appt.remove({ _id : req.params.apptID }).exec();
+
+          console.log("app deleted");
+          return res.status(204).end()
+
+        })
+
+      })
+
+    })
+    
   },
 
-  //add an attendee to an appointment
-  addAttendee : function(req, res) {
+  //add an attendee to an appointment TEST DONE
+  addAttendee : function(req, res) { 
 
-    var currentUser = req.user._id;
     var currentAppt = req.params.apptID;
+    // var currentUser = req.user._id;
+    var currentUser = "5696bfa5ac8f7eeb0aba1a10"; /////////////////////////////////////////////////////
+    
 
-    Appt.find({ _id : currentAppt }).exec().then(function(results) {
+    Appt.findOne({ _id : currentAppt }).exec().then(function(results) {
 
-      console.log("adding attendee. appointment : ", results);
       var attendeesArray = results.attendees;
+      // console.log("adding attendee.  BEFORE : ", attendeesArray);
       attendeesArray.push(currentUser);
+      // console.log("adding attendee.  AFTER : ", attendeesArray);
 
       Appt.update({ _id : currentAppt }, { attendees : attendeesArray }, { status : 'booked' }).exec();
 
-      User.find({ _id : currentUser }).exec().then(function(results) {
 
-        console.log("adding attendee. User : ", results);
+      User.findOne({ _id : currentUser }).exec().then(function(results) {
+
+        // console.log("adding appointment. USER BEFORE : ", results);
 
         var apptArray = results.appts;
         apptArray.push(currentAppt);
@@ -103,34 +163,38 @@ module.exports = {
 
   },
 
-  //remove an attendee from an appointment, ONLY from attendees POV
+  //remove an attendee from an appointment, ONLY from attendees POV, TEST DONE
   deleteAttendee : function(req, res) {
 
-    var currentUser = req.user._id;
     var currentAppt = req.params.apptID;
+    // var currentUser = req.user._id;
+    var currentUser = "5696bfa5ac8f7eeb0aba1a10"; /////////////////////////////////////////////////////
 
-    Appt.find({ _id : currentAppt }).exec().then(function(results) {
-      console.log("deleteAttendee. deleting from appt : ", results);
+    Appt.findOne({ _id : currentAppt }).exec().then(function(results) {
 
-      var attendeesArray = results.attendess;
+      var appt = results;
+      console.log("deleteAttendee. APPT BEFORE : ", appt);
 
-      var index = attendeesArray.indexOf(currentUser);
-      attendeesArray.splice(index, 1);
-      if(attendeesArray.length === 0) {
-        results.status = 'open';
+      var index = appt.attendees.indexOf(currentUser);
+      appt.attendees.splice(index, 1);
+      if(appt.attendees.length === 0) {
+        appt.status = 'open';
       }
+      console.log("delete Attendee. APPT AFTER : ", appt);
 
-      Appt.update({ _id : currentAppt }, { attendees : attendesArray }).exec();
+      Appt.update({ _id : currentAppt }, appt).exec();
 
-      User.find({ _id: currentUser }).exec().then(function(results) {
-        console.log("deleteAttendee. deleting from user : ", results);
+      User.findOne({ _id: currentUser }).exec().then(function(results) {
 
-        var apptArray = results.appts;
+        var user = results
+        console.log("deleteAttendee. USER BEFORE : ", user);
 
-        index = apptArray.indexOf(currentAppt);
-        apptArray.splice(index, 1);
+        index = user.appts.indexOf(currentAppt);
+        user.appts.splice(index, 1);
 
-        User.update({ _id : currentUser }, { appts : apptArray}).exec();
+        console.log("delete Attendee. USER AFTER : ", user);
+
+        User.update({ _id : currentUser }, user).exec();
 
       })
 
@@ -141,7 +205,7 @@ module.exports = {
 
   },
 
-  //update appt: location and update sections of schema
+  //update appt: location and update sections of schema, cancelling TEST DONE
   updateAppt : function(req,res) {
 
     var currentAppt = req.params.apptID;

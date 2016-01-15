@@ -19,6 +19,9 @@ var express = require('express'),
     app.post('/api/users', userServCtrl.addUser);
     app.get('/api/users', userServCtrl.getUsers);
     app.get('/api/user/:id', userServCtrl.getUser);
+    // app.get('/api/user/:id/orgs', orgServCtrl.getOrgbyUserId);
+    app.get('/api/user/:id/orgs', orgServCtrl.getUserOrgs);
+    // app.get('/api/user/:id/orgs', userServCtrl.getOrgs);
     app.put('/api/user/:id', userServCtrl.updateUser); //Includes archiveUser
 
     // //Org Request
@@ -34,10 +37,11 @@ var express = require('express'),
     //appt
     app.post('/api/org/:orgID/appts', apptServCtrl.createAppt);
     app.get('/api/org/:orgID/appts', apptServCtrl.getAppts);
-    app.get('/api/org/:orgID/appt/:apptID', apptServCtrl.getAppt);
-    app.put('/api/org/:orgID/appt/:apptID/mentee/:userID', apptServCtrl.addAttendee);
-    app.delete('/api/org:orgID/appt/:apptID/mentee/:userID', apptServCtrl.deleteAttendee);
-    app.put('/api/org/:orgID/appt/:apptID/mentor/:userID', apptServCtrl.updateAppt); //changes for update and location section in schema
+    app.get('/api/appt/:apptID', apptServCtrl.getAppt);
+    app.delete('/api/appt/:apptID', apptServCtrl.deleteAppt);
+    app.put('/api/appt/:apptID/mentee', apptServCtrl.addAttendee);
+    app.delete('/api/appt/:apptID/mentee', apptServCtrl.deleteAttendee);
+    app.put('/api/appt/:apptID/mentor/', apptServCtrl.updateAppt); //changes for update and location section in schema, cancelling
 
 
 
