@@ -45,6 +45,11 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 			controller: "joinOrgCtrl",
 			templateUrl: "templates/joinOrg.html"
 		})
+		.state("auth.org", {
+			url: "/org/:id",
+			controller: "orgCtrl",
+			templateUrl: "templates/org.html"
+		})
 
 
 
