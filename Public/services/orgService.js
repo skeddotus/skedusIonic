@@ -4,7 +4,7 @@ angular.module("skedApp").service("orgService", function($http, $q){
 		var dfd = $q.defer()
 		$http({
 			method: "GET",
-			url: "/api/orgs",
+			url: "api/orgs",
 		}).then(function(res){
 			orgs = res.data;
 			dfd.resolve(orgs);
