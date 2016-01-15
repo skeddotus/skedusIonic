@@ -9,8 +9,8 @@ angular.module("skedApp").controller("joinOrgCtrl", function($scope, orgService,
 	}
 	$scope.getOrgs();
 
-	$scope.joinOrg = function(user, org){
-		orgService.joinOrg($scope.user, thisOrgIDhoweveritsgotten).then(function(){
+	$scope.joinOrg = function(orgId){
+		orgService.joinOrg($scope.user, orgId).then(function(){
 			console.log("organization joined")
 		})
 	}

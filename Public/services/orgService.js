@@ -25,12 +25,15 @@ angular.module("skedApp").service("orgService", function($http, $q){
 		return dfd.promise;
 	};
 
-	this.joinOrg = function(user, org){
+	this.joinOrg = function(userId, orgId){
 		var dfd = $q.defer();
 		$http({
 			method: "PUT",
-			url: "/api/user/" + user._id,
-			data: org._id
+			url: "/api/org/join/" + orgId,
+			data: {
+				userid: userId,
+				role: "User",
+			},
 		}).then(function(){
 			dfd.resolve();
 		})
@@ -54,7 +57,7 @@ angular.module("skedApp").service("orgService", function($http, $q){
 		return dfd.promise;
 	};
 
-<<<<<<< HEAD
+
 	this.getAppts = function(orgID){
 		var dfd = $q.defer();
 		$http({
@@ -82,8 +85,3 @@ angular.module("skedApp").service("orgService", function($http, $q){
 });
 
 
-
-
-=======
-});
->>>>>>> 9fedbab7b33ea686e1fc47c6700ad84afe8b639a

@@ -132,6 +132,18 @@ getUserOrgs: function(req, res) {
     }).then(null, function(err) {
       return res.status(500).json(err);
     });
-  }
+  },
+
+  updateOrgWithUser: function(req, res){
+    Org.findById(req.params.orgID).exec().then(function(org){
+      console.log("org: ", req.params.orgID)
+      console.log("user: ", req.body)
+      org.members.push(req.body);
+      return org.save().then(function(results){
+        console.log("results: ", results);
+        return res.json(results);
+      });
+    });
+  },
 
 };

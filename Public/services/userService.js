@@ -7,13 +7,13 @@ angular.module("skedApp").service("userService", function($http, $q) {
       url: '/api/users',
     }).then(function(res) {
       users = res.data;
-      console.log(users);
+      // console.log(users);
       dfd.resolve(users);
     });
     return dfd.promise;
   };
 
-  this.getUser_id = function(res) {
+  this.getUser_id = function(userId) {
     var dfd = $q.defer();
     $http({
       method: 'GET',
@@ -26,10 +26,14 @@ angular.module("skedApp").service("userService", function($http, $q) {
   };
 
   this.updateUser = function(userId, updateData) {
+    updateData.name = updateData.firstName + " " + updateData.lastName;
+    console.log("updateData: ", updateData);
+    console.log("userId: ", userId);
+
     var dfd = $q.defer();
     $http({
       method: 'PUT',
-      url: 'api/users/' + userId,
+      url: 'api/user/' + userId,
       data: updateData
     }).then(function() {
       dfd.resolve();

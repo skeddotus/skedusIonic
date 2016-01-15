@@ -30,6 +30,7 @@ var express = require('express'),
     app.get('/api/org/:orgID', orgServCtrl.getOrg);
     app.put('/api/org/:orgID', orgServCtrl.updateOrg);
     app.post('/api/org/:orgID/admins', orgServCtrl.addAdmin);
+    app.put('/api/org/join/:orgID', orgServCtrl.updateOrgWithUser);
     // app.put('/api/org/:orgID', orgServCtrl.addMentor);
     // app.put('/api/org/:orgID', orgServCtrl.addMentee);
     // app.put('/api/org/:orgID', orgServCtrl.addAppt);  //Includes archiveOrg
