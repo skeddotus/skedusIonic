@@ -4,7 +4,7 @@ angular.module("skedApp").service("orgService", function($http, $q){
 		var dfd = $q.defer()
 		$http({
 			method: "GET",
-			url: "api/orgs",
+			url: "/api/orgs",
 		}).then(function(res){
 			orgs = res.data;
 			dfd.resolve(orgs);
@@ -54,7 +54,6 @@ angular.module("skedApp").service("orgService", function($http, $q){
 		return dfd.promise;
 	};
 
-<<<<<<< HEAD
 	this.getAppts = function(orgID){
 		var dfd = $q.defer();
 		$http({
@@ -84,6 +83,3 @@ angular.module("skedApp").service("orgService", function($http, $q){
 
 
 
-=======
-});
->>>>>>> 9fedbab7b33ea686e1fc47c6700ad84afe8b639a

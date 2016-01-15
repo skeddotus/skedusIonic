@@ -26,6 +26,9 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 			resolve: {
 				user: function(authService) {
 					return authService.getAuthedUser();
+				},
+				usersRef: function(userService) {
+					return userService.getUsers();
 				}
 			}
 		})
@@ -35,11 +38,13 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 			controller: "myOrgCtrl",
 			templateUrl: "templates/myOrg.html"
 		})
+
 		.state("auth.createOrg", {
 			url: "/create",
 			controller: "createOrgCtrl",
 			templateUrl: "templates/createOrg.html"
 		})
+
 		.state("auth.joinOrg", {
 			url: "/join",
 			controller: "joinOrgCtrl",
@@ -50,8 +55,6 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 			controller: "orgCtrl",
 			templateUrl: "templates/org.html"
 		})
-
-
 
 		.state("auth.schedule", {
 			url: "/schedule",
@@ -67,20 +70,20 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 
 		.state("auth.userManage", {
 			url: "/manage",
-			controller: "joinCtrl",
-			templateUrl: "templates/join.html",
+			controller: "manageCtrl",
+			templateUrl: "templates/manage.html",
 		})
 
 		.state("auth.orgProfile", {
 			url: "/organization",
-			controller: "createCtrl",
-			templateUrl: "templates/create.html",
+			controller: "orgCtrl",
+			templateUrl: "templates/org.html",
 		})
 
 		.state("auth.userProfile", {
 			url: "/profile",
-			controller: "manageCtrl",
-			templateUrl: "templates/manage.html",
+			controller: "profileCtrl",
+			templateUrl: "templates/profile.html",
 		})
 
 		// test route

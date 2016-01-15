@@ -24,7 +24,7 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure,
+/*article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
@@ -45,7 +45,7 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-}
+}*/
 
 /*----------------------------------------------------*/
 
@@ -133,21 +133,47 @@ table {
 
 #navSidebar {
 	width: 250px;
-	box-shadow: 1px 0px 5px #888888;
+	box-shadow: 1px 0px 10px #888888;
 	z-index: 200;
-	background-color: ##333333;
+	background-color: #333333;
 	outline: none;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	height: 100%;
+	height: 100vh !important;
+	border: 1px solid #333333;
+	position: fixed left !important;
+}
+
+#navSidebarMenuItems {
+	min-height: 70% !important;
+}
+
+#navSidebarMenuItems ul li {
+	word-wrap: break-word;
 }
 
 #navSidebar li {
-	font-size: 1.2em;
-	/*padding: 20px;*/
+	font-size: 1.13em;
 	cursor: pointer;
 	outline: none;
 	text-decoration: none;
+}
+
+#navSidebar li #menuCompanyName{
+	font-weight: bold;
+}
+
+#navSidebar .dropdown-menu {
+	background-color: #474C55 !important;
+	cursor: pointer;
+	outline: none;
+	text-decoration: none;
+	font-size: 0.85em;
+	position: relative;
+}
+
+.nav-sidebar .dropdown li {
+	background-color: #474C55;
 }
 
 #navSidebar li a {
@@ -178,19 +204,19 @@ table {
 	cursor: pointer;
 	position: absolute;
 	float: left;
-	margin-top: 7px;
+	margin-top: 4px;
 	margin-left: 10px;
 }
 
 #navSidebarButton-Out {
 	text-decoration: none;
-	font-size: 2em;
+	font-size: 1.8em;
 	color: white;
 	cursor: pointer;
 	float: right;
 	margin-top: 8px;
 	margin-right: 10px;
-	animation: roll 1s;
+	animation: roll .5s;
 }
 
 @keyframes roll {
@@ -198,7 +224,7 @@ table {
     transform: rotate(0);
   }
   100% {
-    transform: rotate(180deg);
+    transform: rotate(360deg);
   }
 }
 
@@ -209,22 +235,16 @@ table {
 	color: white;
 }
 
-.logoutLink a {
-	color: white;
-	font-size: 1.3em;
-	bottom: 20%;
-	left: 90px;
-	position: absolute;
-	text-decoration: none;
-	cursor: pointer;
+.mainMenuSettings {
+	height: 20% !important;
 }
 
 .mediumLogo {
 	color: white;
 	font-size: 3em;
-	bottom: 50px;
-	left: 75px;
-	position: absolute;
+	/*bottom: 1em;*/
+	margin-left: 1.9em;
+	min-height: 10% !important;
 	font-family: monospace;
 }
 
@@ -232,7 +252,7 @@ table {
 	display: block;
 	text-align: center;
 	font-size: 1.5em;
-	margin-top: 13px;
+	margin-top: 10px;
 }
 
 @media (min-width: 992px) {
@@ -244,6 +264,29 @@ table {
 @media (max-width: 992px) {
 	.page-content {
 		padding-top: 70px;
+	}
+	.logoImg img {
+		margin-left: 39px;
+	}
+	#navSidebar {
+		box-shadow: inset -15px 0 20px -5px hsla(0,0%,0%,.25);
+	}
+	#navSidebar li #menuCompanyName{
+		font-size: 1.2em;
+		font-weight: bold;
+	}
+	#navSidebar .dropdown-menu {
+		font-size: 1em;
+		font-style: italic;
+	}
+	#navSidebarMenuItems {
+		min-height: 60% !important;
+	}
+	.mainMenuSettings {
+		height: 30% !important;
+	}
+	#navSidebar .dropdown-menu li {
+
 	}
 }
 
