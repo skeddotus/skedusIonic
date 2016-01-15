@@ -1,18 +1,18 @@
 angular.module("skedApp").controller("homeCtrl", function($scope, authService){
 
   //Page title
-  $scope.pageTitle = "Calendar";
+  $scope.pageTitle = "Schedule";
 
   //Company logo and name
   $scope.logoImg = "http://www.unicorn-cs.co.uk/SiteAssets/unicorn-logo-2.jpg";
   $scope.companyName = "Sked.Us Inc.";
 
 
-  $scope.$watch(function(){
-   return window.innerWidth;
-}, function(value) {
-        console.log(value);
-  });
+  // $scope.$watch(function(){
+  //  return window.innerWidth;
+  // }, function(value) {
+  //     console.log(value);
+  // });
 
 
   // 	var orgs = [

@@ -37,6 +37,7 @@ module.exports = {
 
   getOrgs: function(req, res) {
     Org.find({})
+    .populate('appts')
     .populate('admin')
     .exec().then(function(results) {
       return res.json(results);
@@ -46,6 +47,8 @@ module.exports = {
   },
   getOrg: function(req, res) {
     Org.findById(req.params.orgID)
+      .populate('appts')
+      .populate('admin')
       .exec()
       .then(function(results) {
       if(!results) {

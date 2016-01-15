@@ -22,15 +22,19 @@ module.exports = {
     });
   },
   getUsers: function(req, res) {
-    User.find({}).exec().then(function(results) {
-      return res.json(results);
-    }).then(null, function(err) {
-      return res.status(500).json(err);
-    });
+    User.find({})
+      .populate("orgs")
+      .populate("appts")
+      .exec().then(function(results) {
+        return res.json(results);
+      }).then(null, function(err) {
+        return res.status(500).json(err);
+      });
   },
   getUser: function(req, res) {
     User.findById(req.params.id)
       .populate("orgs")
+      .populate("appts")
       .exec().then(function(results) {
       if(!results) {
         res.status(404);

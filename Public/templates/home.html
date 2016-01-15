@@ -1,30 +1,34 @@
-<nav id='navSidebar' class="navmenu navmenu-inverse navmenu-fixed-left offcanvas-sm" role="nagivation">
+<nav id='navSidebar' class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm" autohide="false" role="nagivation" data-canvas="body">
 	<a id="navSidebarButton-Out" class="hidden-md hidden-lg" type="button" data-toggle='offcanvas' data-target='#navSidebar'>╳</a>
 
-	<div class="logoImg">
-		<img src="{{logoImg}}" alt="Logo" height="100"/>
-		<p>{{companyName}}</p>
+	<div class="mediumLogo">
+		<p>
+			sked
+		</p>
 	</div>
-	<div class="">
+
+	<div id="navSidebarMenuItems">
 		<ul class='nav nav-sidebar'>
-			<li ui-sref-active="active"><a ui-sref='auth.schedule({calendar:calendar})'>Calendar</a></li>
-			<li ui-sref-active="active"><a ui-sref='auth.dashboard({dashboard:dashboard})'>Dashboard</a></li>
-			<li ui-sref-active="active"><a ui-sref='auth.userManage({userManage:userManage})'>User management</a></li>
-			<li ui-sref-active="active"><a ui-sref="auth.orgProfile({orgProfile:orgProfile})">Organization Profile</a></li>
-			<li ui-sref-active="active"><a ui-sref="auth.userProfile({userProfile:userProfile})">User settings</a></li>
+			<li class="dropdown" ui-sref-active="active">
+				<a data-toggle="dropdown" id="menuCompanyName">{{companyName}} <b class="caret"></b>
+					<ul class="dropdown-menu navmenu-nav" role="menu">
+						<li ui-sref-active="active"><a  ui-sref='auth.schedule({schedule:schedule})' data-target="">Schedule</a></li>
+		        <li ui-sref-active="active"><a ui-sref='auth.dashboard({dashboard:dashboard})'>Dashboard</a></li>
+		        <li ui-sref-active="active"><a ui-sref="auth.orgProfile({orgProfile:orgProfile})">User management</a></li>
+		        <li ui-sref-active="active"><a ui-sref="auth.userProfile({userProfile:userProfile})">Organization</a></li>
+						<li ui-sref-active="active"><a ui-sref="auth.testRoute({testRoute:testRoute})">Test routes</a></li>
+					</ul>
+				</a>
+			</li>
 
-			<!-- Test Routes -->
-			<li ui-sref-active="active"><a ui-sref="auth.testRoute({testRoute:testRoute})">Test routes</a></li>
-			<!-- Test Routes -->
-
-			<br>
-			<br>
-			<li><a ui-sref="auth.myOrg">My organizations</a></li>
-			<li><a ng-click="logout()">Logout</a></li>
 		</ul>
 	</div>
-	<div class="mediumLogo">
-		sked
+
+	<div class="mainMenuSettings">
+		<ul class="nav nav-sidebar">
+			<li ui-sref-active="active"><a ui-sref="">User Setting</a></li>
+			<li ui-sref-active="active"><a ng-click="logout()">Logout</a></li>
+		</ul>
 	</div>
 </nav>
 

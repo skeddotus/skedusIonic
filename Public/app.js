@@ -51,8 +51,6 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 			templateUrl: "templates/joinOrg.html"
 		})
 
-
-
 		.state("auth.schedule", {
 			url: "/schedule",
 			controller: "scheduleCtrl",
@@ -67,20 +65,20 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 
 		.state("auth.userManage", {
 			url: "/manage",
-			controller: "joinCtrl",
-			templateUrl: "templates/join.html",
+			controller: "manageCtrl",
+			templateUrl: "templates/manage.html",
 		})
 
 		.state("auth.orgProfile", {
 			url: "/organization",
-			controller: "createCtrl",
-			templateUrl: "templates/create.html",
+			controller: "orgCtrl",
+			templateUrl: "templates/org.html",
 		})
 
 		.state("auth.userProfile", {
 			url: "/profile",
-			controller: "manageCtrl",
-			templateUrl: "templates/manage.html",
+			controller: "profileCtrl",
+			templateUrl: "templates/profile.html",
 		})
 
 		// test route

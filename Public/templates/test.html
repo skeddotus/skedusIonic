@@ -11,18 +11,38 @@
   <button type="submit" ng-click="createAppt(newAppt)">Submit</button>
 </form>
 
-<div class="panel panel-info">
-  <div class="panel-heading">
-    All Users
+<div class="row">
+  <div class="container-fluid col-sm-6">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        All Users
+      </div>
+      <div class="panel-body" style="overflow:auto">
+        <ul ng-repeat="user in users">
+          <li>Name: {{user.name}}</li>
+          <li>Email: {{user.email}}</li>
+          <li>Appt: {{user.appts}}</li>
+          <li>Orgs: {{user.orgs}}</li>
+          <li>Roles: {{user.roles}}</li>
+          <hr>
+        </ul>
+      </div>
+    </div>
   </div>
-  <div class="panel-body">
-    <ul ng-repeat="user in users">
-      <li>Name: {{user.name}}</li>
-      <li>Email: {{user.email}}</li>
-      <li>Appt: {{user.appts}}</li>
-      <li>Orgs: {{user.orgs}}</li>
-      <li>Roles: {{user.roles}}</li>
-      <hr>
-    </ul>
+  <div class="container-fluid col-sm-6">
+    <div class="panel-info">
+      <div class="panel-heading">
+        All Organizations
+      </div>
+      <div class="panel-body" style="overflow:auto">
+        <ul ng-repeat="org in orgs">
+          <li>Name: {{org.name}}</li>
+          <li>Appt: {{org.desc}}</li>
+          <li>Roles: {{org.location}}</li>
+          <hr>
+        </ul>
+      </div>
+    </div>
   </div>
+
 </div>
