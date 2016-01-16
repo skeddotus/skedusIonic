@@ -19,9 +19,7 @@ var express = require('express'),
     app.post('/api/users', userServCtrl.addUser);
     app.get('/api/users', userServCtrl.getUsers);
     app.get('/api/user/:id', userServCtrl.getUser);
-    // app.get('/api/user/:id/orgs', orgServCtrl.getOrgbyUserId);
-    app.get('/api/user/:id/orgs', orgServCtrl.getUserOrgs);
-    // app.get('/api/user/:id/orgs', userServCtrl.getOrgs);
+    app.get('/api/user/:id/orgs', userServCtrl.getUserOrgs);
     app.put('/api/user/:id', userServCtrl.updateUser); //Includes archiveUser
     app.get('/api/user/:id/orgs', userServCtrl.getUserOrgs);
     app.get('/api/user/:id/org/:orgID', userServCtrl.getUserOrg);
@@ -32,9 +30,11 @@ var express = require('express'),
     app.get('/api/orgs', orgServCtrl.getOrgs);
     app.get('/api/org/:orgID', orgServCtrl.getOrg);
     app.put('/api/org/:orgID', orgServCtrl.updateOrg);
-    // app.post('/api/org/:orgID/admins', orgServCtrl.addAdmin); //Needs to be updated for new UserSchema
-    // app.put('/api/org/:orgID', orgServCtrl.addMentor);
     app.post('/api/org/:orgID/users', orgServCtrl.addOrgUser);
+    // app.put('/api/org/:orgID/users', orgServCtrl.removeOrgUser);
+    app.post('/api/org/:orgID/mentors', orgServCtrl.changeOrgRole);
+    app.post('/api/org/:orgID/admins', orgServCtrl.changeOrgRole);
+
     // app.put('/api/org/:orgID', orgServCtrl.addAppt);  //Includes archiveOrg
 
     //appt

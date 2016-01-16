@@ -1,19 +1,24 @@
 var mongoose = require('mongoose');
 var Org = require('../Models/orgSchema');
 var User = require('../Models/userSchema');
+var faker = require('faker');
+// var Person = require('.../testing');
 
 module.exports = {
 
   addUser: function(req, res) {
+    // var person = Person.makePerson();
+    var rando = faker.helpers.userCard();
+    console.log("rando", rando);
     console.log("addadd", req.body);
-    User.findOne({ email: req.body.email }).exec().then(function(user) {
+    User.findOne({ email: req.body.email || rando.email }).exec().then(function(user) {
       if (user) {
         return res.status(409).end();
       }
       user = new User({
-        email: req.body.email,
-        password:req.body.password,
-        name: req.body.name,
+        email: req.body.email || rando.email,
+        password:req.body.password || rando.name,
+        name: req.body.name || rando.name
       });
       console.log("adduser userservctrl, ", req.body);
       user.save().then(function() {
@@ -49,7 +54,7 @@ module.exports = {
       return res.status(500).json(err);
     });
   },
-  
+
   /* This searches every member of every organization to find an ID that matches the current
   user's ID and then returns all the organizations where a match occurred  */
   getUserOrgs: function(req, res) {
@@ -101,6 +106,7 @@ module.exports = {
           for (var j = 0; j < ary.length; j++) {
             if(ary[j].userid === req.params.id) {
               userRole = ary[j].role;
+              break;
             }
             else {
               userRole = "User";
