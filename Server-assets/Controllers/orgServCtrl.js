@@ -100,44 +100,57 @@ module.exports = {
 
   // app.get('/api/org/:orgID', orgServCtrl.addOrgUser);
   addOrgUser: function(req, res) {
-    console.log(3, req.params);
-    console.log(4, req.body);
-    Org.findById({_id: req.params.orgID}).exec().then(function(results) {
-      if(!results) {
-        res.status(404);
-      }
-      else {
-        var members = results.members;
-        var userExists;
-        console.log(5, members);
-        console.log(6, req.body);
-        for(var i = 0; i < members.length; i++) {
-          if(members[i].userid === req.body.userid){
-            console.log(7, members[i].userid);
-            console.log(8, req.body.userid);
-            userExists = true;
-            break;
-          }
-          else{
-              console.log(9, "Here");
-              userExists = false;
-          }
-        }
+   Org.findById({_id: req.params.orgID}).exec().then(function(org) {
+     if(!org) {
+       res.status(404);
+     }
+     else {
+       var members = org.members;
+       var userExists;
+       for(var i = 0; i < members.length; i++) {
+         if(members[i].userid === req.body.userid){
+           userExists = true;
+           break;
+         }
+         else{
+             userExists = false;
+         }
+       }
+       if(userExists === true) {
+         return res.send("User already in Org!").end();
+       }
+       else if (userExists === false) {
+         members.push(req.body);
+         org.save();
+       }
+     }
+   return res.status(200).end();
+   })
+  },
 
-        if(userExists === true) {
-            console.log(10, "Here");
-          return res.send("User already in Org!").end();
-        }
-        else if (userExists === false) {
-          members.push(req.body);
-          console.log(11, members);
-          Org.save();
-        }
-      }
-    console.log('Updated Org', Org);
-    return res.send("Org User Added", Org).end();
-    });
-  }
+  // app.put('/api/org/:orgID/users', orgServCtrl.removeOrgUser);
+  removeOrgUser: function(req, res) {
+          console.log("got to server")
+   Org.findById({_id: req.params.orgID}).exec().then(function(org) {
+     if(!org) {
+       res.status(404);
+     }
+     else {
+       var members = org.members;
+       for(var i = 0; i < members.length; i++) {
+         if(members[i].userid === req.body.userid){
+          console.log("anything")
+            members.splice(i, 1);  
+            break;
+         }
+       }
+       org.save();
+     }
+   console.log('Removed User from Org', org);
+   return res.status(200).end();
+   });
+ },
+
 
 
 

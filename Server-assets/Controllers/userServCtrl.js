@@ -64,7 +64,7 @@ module.exports = {
             }
         }
     }
-      console.log("UserOrgs", userOrgs);
+      // console.log("UserOrgs", userOrgs);
       return res.send(userOrgs);
     });
   },
@@ -84,7 +84,7 @@ module.exports = {
             }
         }
     }
-      console.log("UserOrg", userOrg);
+      // console.log("UserOrg", userOrg);
       return res.send(userOrg);
     });
   },
@@ -101,6 +101,7 @@ module.exports = {
           for (var j = 0; j < ary.length; j++) {
             if(ary[j].userid === req.params.id) {
               userRole = ary[j].role;
+              break;
             }
             else {
               userRole = "User";

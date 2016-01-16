@@ -25,11 +25,26 @@ angular.module("skedApp").service("orgService", function($http, $q){
 		return dfd.promise;
 	};
 
-	this.joinOrg = function(userId, orgId){
+	this.leaveOrg = function(userId, orgId){
+		console.log("userId: ", userId);
 		var dfd = $q.defer();
 		$http({
 			method: "PUT",
-			url: "/api/org/join/" + orgId,
+			url: "/api/org/" + orgId + "/users",
+			data: {
+				userid: userId
+			},
+		}).then(function(){
+			dfd.resolve();
+		})
+		return dfd.promise;
+	};
+
+	this.joinOrg = function(userId, orgId){
+		var dfd = $q.defer();
+		$http({
+			method: "POST",
+			url: "/api/org/" + orgId + "/users",
 			data: {
 				userid: userId,
 				role: "User",

@@ -1,4 +1,4 @@
-angular.module("skedApp").controller("myOrgCtrl", function($scope, orgService, user){
+angular.module("skedApp").controller("myOrgCtrl", function($scope, orgService, authService, user){
 
 	$scope.user = user;
 
@@ -15,5 +15,13 @@ angular.module("skedApp").controller("myOrgCtrl", function($scope, orgService, u
 
 		});
 	};
+
+	$scope.leaveOrg = function(orgId){
+		orgService.leaveOrg($scope.user._id, orgId).then(function(){
+			console.log("no longer member or org :(")
+		})
+	};
+
+	
 
 });
