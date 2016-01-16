@@ -41,7 +41,6 @@ module.exports = {
   //gets Organizations for users not associated with an organization yet
   getOrgs: function(req, res) {
     Org.find({})
-	.populate('admin')
     .exec().then(function(results) {
       return res.json(results);
     }).then(null, function(err) {
@@ -98,45 +97,46 @@ module.exports = {
     });
   },
 
+  updateOrgWithUser: function(req, res){
+    Org.findById(req.params.orgID).exec().then(function(org){
+      console.log("org: ", req.params.orgID)
+      console.log("user: ", req.body)
+      org.members.push(req.body);
+      return org.save().then(function(results){
+        console.log("results: ", results);
+        return res.json(results);
+      });
+    });
+  },
+
   // app.get('/api/org/:orgID', orgServCtrl.addOrgUser);
   addOrgUser: function(req, res) {
-    console.log(3, req.params);
-    console.log(4, req.body);
-    Org.findById({_id: req.params.orgID}).exec().then(function(results) {
-      if(!results) {
-        res.status(404);
-      }
-      else {
-        var members = results.members;
-        var userExists;
-        console.log(5, members);
-        console.log(6, req.body);
-        for(var i = 0; i < members.length; i++) {
-          if(members[i].userid === req.body.userid){
-            console.log(7, members[i].userid);
-            console.log(8, req.body.userid);
-            userExists = true;
-            break;
-          }
-          else{
-              console.log(9, "Here");
-              userExists = false;
-          }
-        }
-
-        if(userExists === true) {
-            console.log(10, "Here");
-          return res.send("User already in Org!").end();
-        }
-        else if (userExists === false) {
-          members.push(req.body);
-          console.log(11, members);
-          Org.save();
-        }
-      }
-    console.log('Updated Org', Org);
-    return res.send("Org User Added", Org).end();
-    });
+     Org.findById({_id: req.params.orgID}).exec().then(function(org) {
+       if(!org) {
+         res.status(404);
+       }
+       else {
+         var members = org.members;
+         var userExists;
+         for(var i = 0; i < members.length; i++) {
+           if(members[i].userid === req.body.userid){
+             userExists = true;
+             break;
+           }
+           else{
+               userExists = false;
+           }
+         }
+         if(userExists === true) {
+           return res.send("User already in Org!").end();
+         }
+         else if (userExists === false) {
+           members.push(req.body);
+           org.save();
+         }
+       }
+     return res.status(200).end();
+    })
   }
 
 

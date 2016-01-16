@@ -1,25 +1,29 @@
-<div class="container">
+<div class="container-fluid">
 	<div class="join-orgs-contain">
-		<div>
-			<input placeholder="search for orgs here">
+
+		<div class="input-group">
+  		<span class="input-group-addon" id="sizing-addon2"><strong>Search</strong></span>
+  			<input type="text" class="form-control" ng-model="searchOrg.name" placeholder="Enter organization name..." aria-describedby="sizing-addon2">
 		</div>
-		<div class="panel panel-default">
+
+		<div class="panel panel-primary">
 			<div class="panel-heading">Available Organizations</div>
-			<table class="table">
-				<tr>
-					<th>Organization</th>
-					<th>Description</th>
-					<th>Location</th>
-					<th></th>
-				</tr>
-				<tr ng-repeat="org in orgs">
-					<td><h2 class="hh2">{{org.name}}</h2></td>
-					<td>{{org.desc}}</td>
-					<td>{{org.location}}</td>
-					<td><button ng-click="joinOrg(org._id)">Join</button></td>
-				</tr>
-				
-			</table>
+			<div class="table-responsive">
+				<table class="table table-striped table-condensed">
+					<tr>
+						<th>Organization</th>
+						<th>Description</th>
+						<th>Location</th>
+						<th></th>
+					</tr>
+					<tr ng-repeat="org in orgs | filter:searchOrg">
+						<td><h2 class="hh2">{{org.name}}</h2></td>
+						<td>{{org.desc}}</td>
+						<td>{{org.location}}</td>
+						<td><button ng-click="joinOrg(org._id)">Join</button></td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>

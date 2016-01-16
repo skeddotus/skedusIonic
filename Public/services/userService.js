@@ -25,6 +25,18 @@ angular.module("skedApp").service("userService", function($http, $q) {
     return dfd.promise;
   };
 
+  this.getUser_role = function(userId, orgId) {
+    var dfd = $q.defer();
+    $http({
+     method: 'GET',
+     url: 'api/user/' + userId + '/org/' + orgId + '/role'
+   }).then(function(res) {
+     role = res.data;
+     dfd.resolve(role);
+   });
+   return dfd.promise;
+  };
+
   this.updateUser = function(userId, updateData) {
     updateData.name = updateData.firstName + " " + updateData.lastName;
     console.log("updateData: ", updateData);

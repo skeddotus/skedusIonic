@@ -1,4 +1,4 @@
-<nav id='navSidebar' class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm" autohide="false" role="nagivation" data-canvas="body">
+<nav id='navSidebar' class="navmenu navmenu-primary navmenu-fixed-left offcanvas-sm" autohide="false" disableScrolling="true" role="nagivation" toggle="false" data-canvas="body">
 	<a id="navSidebarButton-Out" class="hidden-md hidden-lg" type="button" data-toggle='offcanvas' data-target='#navSidebar'>╳</a>
 
 	<div class="mediumLogo">
@@ -9,17 +9,17 @@
 
 	<div id="navSidebarMenuItems">
 		<ul class='nav nav-sidebar'>
-			<li ui-sref-active="active" ui-sref="auth.myOrg"><a>My Home</a></li>
+			<li ui-sref-active="active" ui-sref="auth.myOrg({myOrg:myOrg})"><a>My Home</a></li>
 			<li class="dropdown" ui-sref-active="active" ng-repeat="org in myOrgs">
-				<a data-toggle="dropdown" id="menuCompanyName">{{org.name}} <b class="caret"></b>
-					<ul class="dropdown-menu navmenu-nav" role="menu">
+				<a data-toggle="dropdown" id="menuCompanyName" aria-expanded="false" aria-haspopup="true">{{org.name}} <span class="caret"></span></a>
+					<ul class="dropdown-menu navmenu-nav" id="companyMenuItems" role="menu">
 						<li ui-sref-active="active"><a ui-sref='auth.schedule({schedule:schedule})' data-target="">Schedule</a></li>
-		        		<li ui-sref-active="active"><a ui-sref='auth.dashboard({dashboard:dashboard})'>Dashboard</a></li>
-		        		<li ui-sref-active="active"><a ui-sref="auth.orgProfile({orgProfile:orgProfile})">User management</a></li>
-		        		<li ui-sref-active="active"><a ui-sref="auth.userProfile({userProfile:userProfile})">Organization</a></li>
+        		<li ui-sref-active="active"><a ui-sref='auth.dashboard({dashboard:dashboard})'>Dashboard</a></li>
+        		<li ui-sref-active="active"><a ui-sref="auth.orgProfile({orgProfile:orgProfile})">User management</a></li>
+        		<li ui-sref-active="active"><a ui-sref="auth.userProfile({userProfile:userProfile})">Organization</a></li>
 						<li ui-sref-active="active"><a ui-sref="auth.testRoute({testRoute:testRoute})">Test routes</a></li>
 					</ul>
-				</a>
+
 			</li>
 
 		</ul>
@@ -32,6 +32,7 @@
 			<li ui-sref-active="active" ui-sref="auth.userProfile"><a>My Profile</a></li>
 			<li ui-sref-active="active"><a ng-click="logout()">Logout</a></li>
 		</ul>
+		<br>
 	</div>
 </nav>
 

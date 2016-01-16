@@ -20,12 +20,13 @@ var express = require('express'),
     app.get('/api/users', userServCtrl.getUsers);
     app.get('/api/user/:id', userServCtrl.getUser);
     // app.get('/api/user/:id/orgs', orgServCtrl.getOrgbyUserId);
-    app.get('/api/user/:id/orgs', orgServCtrl.getUserOrgs);
+    // app.get('/api/user/:id/orgs', orgServCtrl.getUserOrgs);
     // app.get('/api/user/:id/orgs', userServCtrl.getOrgs);
     app.put('/api/user/:id', userServCtrl.updateUser); //Includes archiveUser
     app.get('/api/user/:id/orgs', userServCtrl.getUserOrgs);
     app.get('/api/user/:id/org/:orgID', userServCtrl.getUserOrg);
     app.get('/api/user/:id/org/:orgID/role', userServCtrl.getUserRole);
+    app.put('/api/org/join/:orgID', orgServCtrl.updateOrgWithUser);
 
     // //Org Request
     app.post('/api/orgs/:userID', orgServCtrl.addOrg);

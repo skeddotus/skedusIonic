@@ -49,7 +49,7 @@ module.exports = {
       return res.status(500).json(err);
     });
   },
-  
+
   /* This searches every member of every organization to find an ID that matches the current
   user's ID and then returns all the organizations where a match occurred  */
   getUserOrgs: function(req, res) {
@@ -101,6 +101,7 @@ module.exports = {
           for (var j = 0; j < ary.length; j++) {
             if(ary[j].userid === req.params.id) {
               userRole = ary[j].role;
+              break;
             }
             else {
               userRole = "User";
