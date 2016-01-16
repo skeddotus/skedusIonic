@@ -3,12 +3,35 @@ var Org = require('../Models/orgSchema');
 var User = require('../Models/userSchema');
 var faker = require('faker');
 // var Person = require('.../testing');
+var rando;
 
 module.exports = {
 
+  randomUser: function(req, res) {
+    rando = faker.helpers.userCard();
+    randomNum = function() {
+      return Math.floor(Math.random() * (99 - 1)) + 1;
+    };
+    var firstName = function() {
+      var space = rando.name.indexOf(" ");
+      if  (rando.name.indexOf(".") < 0) {
+        return rando.name.slice(0, space);
+      }
+      else {
+        var cutOff = rando.name.indexOf(".") + 2;
+        return rando.name.slice(cutOff, space);
+      }
+    };
+    console.log(firstName);
+    rando.firstName = firstName();
+    rando.email = rando.firstName.toLowerCase() + rando.email.slice(rando.email.indexOf('@'));
+    rando.username = rando.name.slice(0,3) + randomNum();
+    rando.password = rando.name.slice(0, 4).toLowerCase();
+    rando.lastName = rando.name.slice(rando.name.lastIndexOf(" ")+1);
+    return res.send(rando);
+  },
+
   addUser: function(req, res) {
-    // var person = Person.makePerson();
-    var rando = faker.helpers.userCard();
     console.log("rando", rando);
     console.log("addadd", req.body);
     User.findOne({ email: req.body.email || rando.email }).exec().then(function(user) {
@@ -17,7 +40,7 @@ module.exports = {
       }
       user = new User({
         email: req.body.email || rando.email,
-        password:req.body.password || rando.name,
+        password:req.body.password || rando.password,
         name: req.body.name || rando.name
       });
       console.log("adduser userservctrl, ", req.body);

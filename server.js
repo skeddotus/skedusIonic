@@ -16,6 +16,7 @@ var express = require('express'),
     app.use(cors(), bodyParser.json(), express.static(__dirname + '/Public'));
 
     //User Requests
+    app.get('/api/users/rando', userServCtrl.randomUser);
     app.post('/api/users', userServCtrl.addUser);
     app.get('/api/users', userServCtrl.getUsers);
     app.get('/api/user/:id', userServCtrl.getUser);

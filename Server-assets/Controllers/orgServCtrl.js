@@ -4,6 +4,7 @@ var User = require('../Models/userSchema');
 
 module.exports = {
 
+
   /* addOrg checks creators userID to see if it exists. If yes, then the function
   moves onto check whether if the Organzation name submitted is an original,
   if yes, then an Organization is created with the desired inputs from the user
