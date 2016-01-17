@@ -7,6 +7,8 @@ angular.module("skedApp").controller("homeCtrl", function($scope, $rootScope, au
   $scope.logoImg = "http://www.unicorn-cs.co.uk/SiteAssets/unicorn-logo-2.jpg";
   $scope.companyName = "Sked.Us Inc.";
 
+
+  //Get user specific organization list
 	$scope.user = user;
 
 	$scope.getMyOrgs = function(user){
@@ -15,7 +17,6 @@ angular.module("skedApp").controller("homeCtrl", function($scope, $rootScope, au
 		});
 	};
 	$scope.getMyOrgs($scope.user);
-
 
 
   //Listen for joinOrg method in joinOrgCtrl and run getMyOrgs to refresh page
