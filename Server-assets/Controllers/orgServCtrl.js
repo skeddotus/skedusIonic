@@ -4,6 +4,7 @@ var User = require('../Models/userSchema');
 
 module.exports = {
 
+
   /* addOrg checks creators userID to see if it exists. If yes, then the function
   moves onto check whether if the Organzation name submitted is an original,
   if yes, then an Organization is created with the desired inputs from the user
@@ -21,27 +22,20 @@ module.exports = {
             return res.status(500).end();
           }
           else {
-            console.log("req.params.id", req.params.id);
-          org = new Org({
-            name: req.body.name,
-            desc: req.body.desc,
-            location: req.body.location,
-            members: [{userid: req.params.userID, role: 'Admin'}]
+          org = new Org(req.body);
+          org.members.push({userid: req.params.userID, role: 'Admin'});
+          org.save(function() {
+            res.status(200).end();
           });
-          console.log("Before Org Save, ", req.body);
-          org.save();
+          }
+        });
       }
-      });
-      }
-      console.log('After', user);
-      res.status(200).end();
     });
   },
 
   //gets Organizations for users not associated with an organization yet
   getOrgs: function(req, res) {
-    Org.find({})
-    .exec().then(function(results) {
+    Org.find({}).sort({name: 1}).exec().then(function(results) {
       return res.json(results);
     }).then(null, function(err) {
       return res.status(500).json(err);
@@ -62,32 +56,6 @@ module.exports = {
     });
   },
 
-  //This function allows the addition of another admin to an organization
-  // addAdmin: function(req, res) {
-  //   Org.findById(req.params.orgID).populate('admin').exec().then(function(result) {
-  //     if(!result) {
-  //       res.status(404);
-  //     }
-  //     else {
-  //       var ary = result.admin;
-  //       for (var i = 0; i < ary.length; i++) {
-  //         if(ary[i]._id == req.body._id)  {
-  //           return res.status(500).end();
-  //         }
-  //         else {
-  //         ary.push(req.body._id);
-  //         User.findById(req.body._id).exec().then(function(user){
-  //           user.roles.push('Admin');
-  //         });
-  //         }
-  //       }
-  //       Org.save();
-  //       console.log(10101, Org);
-  //       res.send(Org).end();
-  //     }
-  //   });
-  // },
-
   //This allows for organization properties like description, location, name, etc. to be changed
   updateOrg: function(req, res) {
     Org.update({_id: req.params.orgID}, req.body).exec().then(function(results) {
@@ -97,47 +65,101 @@ module.exports = {
     });
   },
 
-  updateOrgWithUser: function(req, res){
-    Org.findById(req.params.orgID).exec().then(function(org){
-      console.log("org: ", req.params.orgID)
-      console.log("user: ", req.body)
-      org.members.push(req.body);
-      return org.save().then(function(results){
-        console.log("results: ", results);
-        return res.json(results);
-      });
-    });
+  // app.post('/api/org/:orgID/users', orgServCtrl.addOrgUser);
+  addOrgUser: function(req, res){
+    Org.findById({_id: req.params.orgID}).exec().then(function(org){
+		if(!org) {
+        res.status(404);
+      }
+      else {
+        var members = org.members;
+        var userExists;
+        for(var i = 0; i < members.length; i++) {
+          if(members[i].userid === req.body.userid){
+            userExists = true;
+            break;
+          }
+          else{
+              userExists = false;
+          }
+        }
+        if(userExists === true) {
+          return res.send("User already in Org!").end();
+        }
+        else if (userExists === false) {
+          members.push(req.body);
+          org.save();
+        }
+      }
+      return res.status(200).end();
+    })
   },
 
-  // app.get('/api/org/:orgID', orgServCtrl.addOrgUser);
-  addOrgUser: function(req, res) {
-     Org.findById({_id: req.params.orgID}).exec().then(function(org) {
-       if(!org) {
-         res.status(404);
-       }
-       else {
-         var members = org.members;
-         var userExists;
-         for(var i = 0; i < members.length; i++) {
-           if(members[i].userid === req.body.userid){
-             userExists = true;
-             break;
-           }
-           else{
-               userExists = false;
-           }
-         }
-         if(userExists === true) {
-           return res.send("User already in Org!").end();
-         }
-         else if (userExists === false) {
-           members.push(req.body);
-           org.save();
+  // app.put('/api/org/:orgID/users', orgServCtrl.removeOrgUser);
+  removeOrgUser: function(req, res) {
+   Org.findById({_id: req.params.orgID}).exec().then(function(org) {
+     if(!org) {
+       res.status(404);
+     }
+     else {
+       var members = org.members;
+       for(var i = 0; i < members.length; i++) {
+         if(members[i].userid === req.body.userid){
+            members.splice(i, 1);  
+            break;
          }
        }
-     return res.status(200).end();
-    })
-  }
+       org.save();
+     }
+   return res.status(200).end();
+   });
+ },
+
+// api/org/:orgID // GET
+ getOrgUsers: function(req, res){
+  console.log("orgID: ", req.params.orgID)
+  Org.findById({_id: req.params.orgID}).populate("members.userid").exec().then(function(results){
+    res.json(results.members);
+  });
+ },
+
+    changeOrgRole: function(req, res) {
+    Org.findById({_id: req.params.orgID}).exec().then(function(org) {
+      if(!org) {
+        res.status(404);
+      }
+      else {
+        var members = org.members;
+        var userExists;
+        for(var i = 0; i < members.length; i++) {
+          if(members[i].userid === req.body.userid){
+            userExists = true;
+            break;
+          }
+          else{
+              userExists = false;
+          }
+        }
+        if(userExists === true) {
+          members[i].role = req.body.role;
+        }
+        else if (userExists === false) {
+          console.log("User not in Org!");
+          return res.status(404).end();
+        }
+      }
+    org.save();
+    console.log('Changed User Role', org);
+    return res.status(200).end();
+  });
+  },
+
+
+
+
+
+
+
 
 
 

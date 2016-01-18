@@ -5,43 +5,72 @@ var Org = require('../Models/orgSchema');
 
 module.exports = {
 
-  //let a mentor create an appt TEST DONE
+
+  //  api/apt/:orgID/:userID // POST
   createAppt: function(req, res) {
-
-    appt = new Appt({
-      date : req.body.date,
-      org : req.params.orgID,
+    var apt = new Appt(req.body);
+    apt.save().then(function(err, results){
+      return res.status(201).end();
     });
+  }, 
 
-    console.log("appt adding", appt);
-
-    var currentUser;
-    var currentOrg;
-    
-    User.findOne({ _id : "5696c000a5a57cda03af07a8" }).exec().then(function(results) {/////////////////////////////////////
-    // User.findOne({_id: req.user._id }).exec().then(function(results) {
-      currentUser = results;
-
-      currentUser.host.push(appt._id);
-      currentUser.save();
-
-      appt.host = currentUser._id;
-      appt.save();
-
-      Org.findOne({ _id : req.params.orgID}).exec().then(function(results) {
-
-        currentOrg = results;
-
-        currentOrg.appts.push(appt._id);
-        currentOrg.save();
-
+  //  api/apt/:orgID/:userID // PUT
+  addApptToOrg: function(req, res){
+    Org.findOne({_id: req.params.orgID}).exec().then(function(org){
+      org.apts.push(req.body);
+      return org.save().then(function(results){
+        return res.json(results)
       })
-      
-
     })
-
-    return res.json(appt).status(201).end();
   },
+
+// api/apt/:orgID/:userID/open // GET
+  getMyOpenAppts: function(req, res){
+    Appt.find({mentor: req.params.userID}).find({org: req.params.orgID}).find({status: "open"}).sort({startTime: 1}).exec().then(function(results){
+      res.json(results);
+    })
+  },
+
+// api/apt/:orgID/mentor/:userID/booked // GET
+  getMyMentorBookedAppts: function(req, res){
+    Appt.find({mentor: req.params.userID}).find({org: req.params.orgID}).find({status: "booked"}).sort({startTime: 1}).exec().then(function(results){
+      res.json(results);
+    });
+  },
+
+  // api/apt/:userID/booked // GET
+  getMyMenteeBookedAppts: function(req, res){
+    Appt.find({mentee: req.params.userID}).sort({startTime: 1}).populate("org").populate("mentor").exec().then(function(results){
+      res.json(results);
+    });
+  },
+
+// api/apt/:orgID/open // GET
+  getOrgOpenAppts: function(req, res){
+    Appt.find({org: req.params.orgID}).find({status: "open"}).sort({startTime: 1}).populate("mentor").exec().then(function(results){
+      res.json(results);
+    })
+  },
+
+// api/apt/:aptID // PUT
+  skedApt: function(req, res){
+    Appt.update({_id: req.params.aptID}, req.body).then(function(){
+      res.status(200).end();
+    });
+  },
+
+// api/apt/cancel/:aptID // PUT
+  aptCancel: function(req, res){
+    console.log("got to server");
+    console.log("aptID: ", req.params.aptID);
+    Appt.update({_id: req.params.aptID}, req.body).then(function(){
+      res.status(201).end();
+    });
+  },
+
+
+
+
 
   //call all appts in organization TEST DO
   getAppts: function(req, res) {

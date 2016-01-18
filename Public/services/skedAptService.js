@@ -1,10 +1,10 @@
-angular.module("skedApp").service("orgService", function($http, $q){
+angular.module("skedApp").service("skedAptService", function($http, $q){
 
-	this.getOrgUsers = function(orgID){
+	this.getOrgOpenApts = function(orgID){
 		var dfd = $q.defer();
 		$http({
 			method: "GET",
-			url: "/api/org/" + orgID + "/users",
+			url: "/api/apt/" + orgID + "/open",
 		}).then(function(results){
 			dfd.resolve(results.data);
 		});
@@ -16,23 +16,25 @@ angular.module("skedApp").service("orgService", function($http, $q){
 		$http({
 			method: "GET",
 			url: "/api/org/" + orgID,
-		}).then(function(results){
-			dfd.resolve(results.data);
+		}).then(function(result){
+			dfd.resolve(result.data);	
 		});
 		return dfd.promise;
 	};
 
-	this.updateOrg = function(orgID, updateData){
+	this.skedApt = function(aptID, userID){
 		var dfd = $q.defer();
 		$http({
 			method: "PUT",
-			url: "/api/org/" + orgID,
-			data: updateData
+			url: "/api/apt/" + aptID,
+			data: {
+				mentee: userID,
+				status: "booked",
+			}
 		}).then(function(){
 			dfd.resolve();
-		});
+		})
 		return dfd.promise;
 	};
-
 
 });
