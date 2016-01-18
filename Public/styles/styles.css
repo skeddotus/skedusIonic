@@ -1,4 +1,5 @@
-/* http://meyerweb.com/eric/tools/css/reset/
+/*
+ http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -125,9 +126,13 @@ table {
 	width: 45%;
 }
 .my-orgs-contain, .join-orgs-contain {
-	width: 85%;
+	width: 70%;
 }
 
+/*.body {
+	height: 100vh;
+	width: 100vw;
+}*/
 
 #navSidebar {
 	width: 250px;
@@ -315,4 +320,7 @@ table {
 		min-height: 90% !important;
 	}
 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> d7125dd05d0d3db8b1ea1c62b29329221105576e

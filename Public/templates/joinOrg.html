@@ -1,7 +1,9 @@
 <div class="container-fluid">
 	<div class="join-orgs-contain">
-		<div>
-			<input placeholder="search for orgs here">
+
+		<div class="input-group">
+  		<span class="input-group-addon" id="sizing-addon2"><strong>Search</strong></span>
+  			<input type="text" class="form-control" ng-model="searchOrg.name" placeholder="Enter organization name..." aria-describedby="sizing-addon2">
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-heading"><h1>Available Organizations</h1></div>
@@ -12,7 +14,7 @@
 					<th>Location</th>
 					<th></th>
 				</tr>
-				<tr ng-repeat="org in orgs">
+				<tr ng-repeat="org in orgs | filter:searchOrg">
 					<td><h3>{{org.name}}</h3></td>
 					<td><h5>{{org.desc}}</h5></td>
 					<td><h5>{{org.location}}</h5></td>
