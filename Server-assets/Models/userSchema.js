@@ -41,7 +41,7 @@ var userSchema = new Schema({
 
 userSchema.methods.validPassword = function(givenPassword) {
 	console.log("going to validate password");
-	console.log("this.password", this.password);
+	// console.log("this.password", this.password);
 
 	//method 2 (localstrategy)
     var dfd = q.defer();
@@ -64,22 +64,22 @@ userSchema.methods.validPassword = function(givenPassword) {
 };
 
 userSchema.pre('save', function(next) {
-    console.log("going to hash password");
-    console.log('this,', this);
+    // console.log("going to hash password");
+    // console.log('this,', this);
    var user = this;
    if (user.isModified('password')) {
      bcrypt.genSalt(12, function(err, salt) {
          bcrypt.hash(user.password, salt, function(err, hash) {
-             console.log("user.password,", user.password);
-             console.log("hash, ", hash);
+             // console.log("user.password,", user.password);
+             // console.log("hash, ", hash);
              user.password = hash;
-             console.log("password hashed");
+             // console.log("password hashed");
              next();
          });
      });
    }
    else{
-     console.log("nothing doing");
+     // console.log("nothing doing");
      next();
    }
 

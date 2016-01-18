@@ -1,4 +1,5 @@
 var userServCtrl = require('../Controllers/userServCtrl.js');
+var User = require('../Models/userSchema.js');
 
 module.exports = function(app, passport) {
 
@@ -46,17 +47,17 @@ module.exports = function(app, passport) {
 	//USER ROUTES/////////////////////////////////////////////
 
 	//get users
-	app.get('/api/users', function(req, res) {
-		User.find().exec().then(function(res) {
-			if (!res) {
-				return res.status(404).end();
-			} else {
-				console.log(res);
-				return res.json(res);
-			}
-			// return res.status(200).end();
-		})
-	})
+	// app.get('/api/users', requireAuth, function(req, res) {
+	// 	User.find().exec().then(function(res) {
+	// 		if (!res) {
+	// 			return res.status(404).end();
+	// 		} else {
+	// 			console.log(res);
+	// 			return res.json(res);
+	// 		}
+	// 		// return res.status(200).end();
+	// 	})
+	// })
 
 	//update user
 	app.put('/api/users/:id', function(req, res) {
@@ -70,7 +71,7 @@ module.exports = function(app, passport) {
 	//CHECK LOGGED IN USER //////////////////////////////////
 
 	app.get('/api/users/currentUser', requireAuth, function(req, res) {
-		console.log("req.user", req.user);
+		// console.log("req.user", req.user);
 		return res.json(req.user);
 	});
 
