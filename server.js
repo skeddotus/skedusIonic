@@ -10,7 +10,7 @@ var express = require('express'),
   	port = process.env.PORT || 9001,
   	bodyParser = require('body-parser'),
   	session = require('express-session'),
-    mongoUri = mongoUri = require('./Server-assets/Config/database.js'),,
+    mongoUri = require('./Server-assets/Config/database.js'),
   	Secret = require('./Server-assets/Secrets/secrets.js');
 
     app.use(cors(), bodyParser.json(), express.static(__dirname + '/Public'));

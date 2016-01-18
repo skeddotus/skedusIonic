@@ -10,11 +10,7 @@ module.exports = {
       if (user) {
         return res.status(409).end();
       }
-      user = new User({
-        email: req.body.email,
-        password:req.body.password,
-        name: req.body.name,
-      });
+      user = new User(req.body);
       console.log("adduser userservctrl, ", req.body);
       user.save().then(function() {
         console.log("adduser userservctrl after saving", req.body);

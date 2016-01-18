@@ -1,10 +1,11 @@
-angular.module("skedApp").controller("mainCtrl", function($scope, authService, mainService, user){
+angular.module("skedApp").controller("mainCtrl", function($scope,$timeout, authService, mainService, user){
 
  
 	$scope.user = user;
 
-	$scope.getMyOrgs = function(user){
-		mainService.getMyOrgs($scope.user._id).then(function(res){
+	$scope.getMyOrgs = function(userID){
+		console.log('GOT ORGS')
+		return mainService.getMyOrgs(userID).then(function(res){
 			$scope.myOrgs = res;
 		});
 	};
@@ -42,10 +43,14 @@ angular.module("skedApp").controller("mainCtrl", function($scope, authService, m
 	};
 
 	$scope.createOrg = function(newOrg){
+		console.log('Hello!')
 		mainService.createOrg(newOrg, $scope.user._id).then(function(){
-			$scope.getMyOrgs($scope.user._id);
+			console.log("userID: ", $scope.user._id);
 			$scope.newOrg = "";
-		})
+			$timeout($scope.getMyOrgs($scope.user._id), 1000);
+			// debugger;
+		});
+		console.log('World!')
 	};
 
 	$scope.getMyMenteeBookedApts = function(userID){
