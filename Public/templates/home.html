@@ -9,7 +9,7 @@
 
 	<div class="mainMenuSettings">
 		<ul class="nav nav-sidebar">
-			<li ui-sref-active="active" ui-sref="auth.myOrg({myOrg:myOrg})"><a>My Home</a></li>
+			<li ui-sref-active="active" ui-sref="auth.myOrg({myOrg:myOrg})" class="menuItemSelected"><a>My Sked</a></li>
 			<hr id="menuSplit">
 
 			<div id="navSidebarMenuItems">
@@ -17,21 +17,21 @@
 					<li class="dropdown" ui-sref-active="active" ng-repeat="org in myOrgs">
 						<a data-toggle="dropdown" ui-sref-active="active" id="menuCompanyName" aria-expanded="false" aria-haspopup="true">{{org.name}} <span class="caret"></span></a>
 							<ul class="dropdown-menu navmenu-nav" id="companyMenuItems" role="menu">
-								<li ui-sref-active="active"><a ui-sref='auth.schedule({schedule:schedule})' data-target="">Schedule</a></li>
-		        		<li ui-sref-active="active"><a ui-sref='auth.dashboard({dashboard:dashboard})'>Dashboard</a></li>
+								<li ui-sref-active="active"><a ui-sref='auth.schedule({schedule:schedule})'>Schedule</a></li>
+		        		<li ui-sref-active="active"><a ui-sref='auth.dashboard({dashboard:dashboard})' id="itemSelected">Dashboard</a></li>
 		        		<li ui-sref-active="active"><a ui-sref="auth.userManage">User management</a></li>
 		        		<li ui-sref-active="active"><a ui-sref="auth.orgProfile">Organization</a></li>
-								<li ui-sref-active="active"><a ui-sref="auth.testRoute({testRoute:testRoute})">Test routes</a></li>
+								<li ui-sref-active="active"><a  ui-sref="auth.testRoute({testRoute:testRoute})">Test routes</a></li>
 							</ul>
 					</li>
 				</ul>
 			</div>
 
 			<hr id="menuSplit">
-			<li ui-sref-active="active" ui-sref="auth.joinOrg"><a>Join Organization</a></li>
-			<li ui-sref-active="active" ui-sref="auth.createOrg"><a>Create Organization</a></li>
-			<li ui-sref-active="active" ui-sref="auth.userProfile"><a>My Profile</a></li>
-			<li ui-sref-active="active"><a ng-click="logout()">Logout</a></li>
+			<li ui-sref-active="active" ui-sref="auth.joinOrg" class="menuItemSelected"><a>Join Organization</a></li>
+			<li ui-sref-active="active" ui-sref="auth.createOrg" class="menuItemSelected"><a>Create Organization</a></li>
+			<li ui-sref-active="active" ui-sref="auth.userProfile" class="menuItemSelected"><a>My Profile</a></li>
+			<li ui-sref-active="active" class="menuItemSelected"><a ng-click="logout()">Logout</a></li>
 		</ul>
 		<br>
 	</div>

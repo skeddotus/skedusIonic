@@ -1,5 +1,18 @@
 angular.module("skedApp").controller("homeCtrl", function($scope, $rootScope, authService, orgService, user){
 
+  //------------jQuery Stuff-------------------
+  $(document).ready(function(){
+
+    // auto close sidebar when select an item
+    $('.menuItemSelected').click(function(event) {
+      console.log('I ran');
+      $('#navSidebar').offcanvas("hide");
+    });
+
+
+  });
+  // ------------------------------------------
+
   //Page title
   $scope.pageTitle = "Schedule";
 
@@ -33,7 +46,6 @@ angular.module("skedApp").controller("homeCtrl", function($scope, $rootScope, au
   	$scope.getMyOrgs($scope.user);
   }
   // ------------------------------------
-
 
 
   // $('.navmenu-fixed-left').offcanvas({
