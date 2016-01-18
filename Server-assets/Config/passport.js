@@ -14,17 +14,54 @@ module.exports = function(passport) {
 	});
 
 	//LINKEDIN
+	// passport.use(new LinkedinStrategy({
+	// 		consumerKey: Secret.LINKED_IN_API_KEY,
+	// 		consumerSecret: Secret.LINKED_IN_API_SECRET,
+	// 		callbackURL: "http://127.0.0.1:9001/api/auth/linkedin/callback",
+	// 	},
+	// 	function(token, tokenSecret, profile, done) {
+	// 		process.nextTick(function () {
+	// 			return done(null, profile);
+	// 		});
+	// 	}
+	// ));
+
+
 	passport.use(new LinkedinStrategy({
 			consumerKey: Secret.LINKED_IN_API_KEY,
 			consumerSecret: Secret.LINKED_IN_API_SECRET,
 			callbackURL: "http://127.0.0.1:9001/api/auth/linkedin/callback",
+			passReqToCallback: true,
 		},
-		function(token, tokenSecret, profile, done) {
+		function(req, token, tokenSecret, profile, done) {
 			process.nextTick(function () {
-				return done(null, profile);
+
+				if(!req.user) { //if not logged in, authenticate with linkedin
+					return done(null, profile);
+				}
+				
+				else {
+
+
+
+
+
+
+				}
+
+
+
+
+
+
 			});
 		}
 	));
+
+
+
+
+
 
 	//LOCAL-AUTH
 	passport.use(new LocalStrategy({
