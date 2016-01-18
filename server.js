@@ -15,14 +15,42 @@ var express = require('express'),
 
     app.use(cors(), bodyParser.json(), express.static(__dirname + '/Public'));
 
+
+
+
+
+// required for passport
+app.use(session({
+	secret: Secret.SESSION_SECRET,
+	resave: false,
+	saveUninitialized: false,
+})); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
+//configure passport
+require('./Server-assets/Config/passport.js')(passport);
+
+//endpoints/routes
+require('./Server-assets/Config/routes.js')(app, passport);
+
+
+var requireAuth = function(req, res, next) {
+    if (!req.isAuthenticated()) {
+        return res.status(401).end();
+    }
+    console.log("requireAuth done")
+
+    next();
+};
+
     //User Requests
     app.get('/api/users/rando', userServCtrl.randomUser);
     app.post('/api/users', userServCtrl.addUser);
     app.get('/api/users', userServCtrl.getUsers);
     app.get('/api/user/:id', userServCtrl.getUser);
-    app.get('/api/user/:id/orgs', userServCtrl.getUserOrgs);
     app.put('/api/user/:id', userServCtrl.updateUser); //Includes archiveUser
-    app.get('/api/user/:id/orgs', userServCtrl.getUserOrgs);
+    app.get('/api/user/:id/orgs', requireAuth, userServCtrl.getUserOrgs);
     app.get('/api/user/:id/org/:orgID', userServCtrl.getUserOrg);
     app.get('/api/user/:id/org/:orgID/role', userServCtrl.getUserRole);
 
@@ -47,22 +75,6 @@ var express = require('express'),
     app.delete('/api/appt/:apptID/mentee', apptServCtrl.deleteAttendee);
     app.put('/api/appt/:apptID/mentor/', apptServCtrl.updateAppt); //changes for update and location section in schema, cancelling
 
-
-
-// required for passport
-app.use(session({
-	secret: Secret.SESSION_SECRET,
-	resave: false,
-	saveUninitialized: false,
-})); // session secret
-app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
-
-//configure passport
-require('./Server-assets/Config/passport.js')(passport);
-
-//endpoints/routes
-require('./Server-assets/Config/routes.js')(app, passport);
 
 app.listen(port, function() {
 	console.log("Listening on port ", port);

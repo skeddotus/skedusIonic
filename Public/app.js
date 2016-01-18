@@ -22,7 +22,7 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 		.state('auth', {
 			url: "",
 			templateUrl: "templates/home.html",
-			controller: "myOrgCtrl",
+			controller: "homeCtrl",
 			resolve: {
 				user: function(authService) {
 					return authService.getAuthedUser();

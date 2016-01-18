@@ -10,12 +10,10 @@ var userSchema = new Schema({
   email: {type: String, unique: true, required: true},
   password: {type: String, required: true},
 
-  linkedin : {
-    id : String,
-    token : String,
-    email : String,
-    name : String
-  },
+    linkedinId : String,
+    linkedinToken : String,
+    linkedinEmail : String,
+    linkedinName : String,
 
   appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}], //appts where you're an attendee
   host: [{type: Schema.Types.ObjectId, ref: 'Appt'}], //appts where you're the host
@@ -41,7 +39,7 @@ var userSchema = new Schema({
 
 userSchema.methods.validPassword = function(givenPassword) {
 	console.log("going to validate password");
-	console.log("this.password", this.password);
+	// console.log("this.password", this.password);
 
 	//method 2 (localstrategy)
     var dfd = q.defer();
@@ -64,22 +62,22 @@ userSchema.methods.validPassword = function(givenPassword) {
 };
 
 userSchema.pre('save', function(next) {
-    console.log("going to hash password");
-    console.log('this,', this);
+    // console.log("going to hash password");
+    // console.log('this,', this);
    var user = this;
    if (user.isModified('password')) {
      bcrypt.genSalt(12, function(err, salt) {
          bcrypt.hash(user.password, salt, function(err, hash) {
-             console.log("user.password,", user.password);
-             console.log("hash, ", hash);
+             // console.log("user.password,", user.password);
+             // console.log("hash, ", hash);
              user.password = hash;
-             console.log("password hashed");
+             // console.log("password hashed");
              next();
          });
      });
    }
    else{
-     console.log("nothing doing");
+     // console.log("nothing doing");
      next();
    }
 
