@@ -6,7 +6,8 @@ var bcrypt = require('bcrypt');
 var q = require('q');
 
 var userSchema = new Schema({
-  name: {type: String, index: true, required: true},
+  firstName: {type: String, index: true, required: true},
+  lastName: {type: String, index: true, required: true},
   email: {type: String, unique: true, required: true},
   password: {type: String, required: true},
 
@@ -16,9 +17,6 @@ var userSchema = new Schema({
     email : String,
     name : String
   },
-
-  appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}], //appts where you're an attendee
-  host: [{type: Schema.Types.ObjectId, ref: 'Appt'}], //appts where you're the host
   desc: {type: String},
   title: {type: String},
   image: {type: String},
@@ -31,11 +29,6 @@ var userSchema = new Schema({
     default: 'Active',
     enum: ['Active', 'Archived', 'Pending']
   },
-  // role: {
-  //   type: String,
-  //   required: true,
-  //   default: 'User',
-  // }
 });
 
 

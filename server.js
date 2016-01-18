@@ -10,7 +10,7 @@ var express = require('express'),
   	port = process.env.PORT || 9001,
   	bodyParser = require('body-parser'),
   	session = require('express-session'),
-  	mongoUri = require('./Server-assets/Config/database.js'),
+    mongoUri = mongoUri = require('./Server-assets/Config/database.js'),,
   	Secret = require('./Server-assets/Secrets/secrets.js');
 
     app.use(cors(), bodyParser.json(), express.static(__dirname + '/Public'));
@@ -35,12 +35,24 @@ var express = require('express'),
     app.put('/api/org/:orgID', orgServCtrl.updateOrg);
     // app.post('/api/org/:orgID/admins', orgServCtrl.addAdmin); //Needs to be updated for new UserSchema
     // app.put('/api/org/:orgID', orgServCtrl.addMentor);
+    app.get('/api/org/:orgID/users', orgServCtrl.getOrgUsers);
     app.post('/api/org/:orgID/users', orgServCtrl.addOrgUser);
     app.put('/api/org/:orgID/users', orgServCtrl.removeOrgUser);
     // app.put('/api/org/:orgID', orgServCtrl.addAppt);  //Includes archiveOrg
 
     //appt
-    app.post('/api/org/:orgID/appts', apptServCtrl.createAppt);
+    app.post('/api/apt/:orgID/:userID', apptServCtrl.createAppt);
+    app.put('/api/apt/:orgID/:userID', apptServCtrl.addApptToOrg);
+    app.get('/api/apt/:orgID/:userID/open', apptServCtrl.getMyOpenAppts);
+    app.get('/api/apt/:orgID/mentor/:userID/booked', apptServCtrl.getMyMentorBookedAppts);
+    app.get('/api/apt/:userID/booked', apptServCtrl.getMyMenteeBookedAppts);
+    app.get('/api/apt/:orgID/open', apptServCtrl.getOrgOpenAppts);
+    app.put('/api/apt/:aptID', apptServCtrl.skedApt);
+    app.patch('/api/apt/cancel/:aptID', apptServCtrl.aptCancel);
+
+
+
+
     app.get('/api/org/:orgID/appts', apptServCtrl.getAppts);
     app.get('/api/appt/:apptID', apptServCtrl.getAppt);
     app.delete('/api/appt/:apptID', apptServCtrl.deleteAppt);
@@ -69,7 +81,7 @@ app.listen(port, function() {
 	console.log("Listening on port ", port);
 });
 
-mongoose.connect(process.env.MONGOLAB_URI || mongoUri.url );
+mongoose.connect(process.env.MONGOLAB_URI || mongoUri.url);
 mongoose.connection.once('connected', function() {
   console.log('db connected');
 });

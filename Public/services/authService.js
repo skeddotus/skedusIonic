@@ -22,14 +22,14 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
   };
 
   this.login = function(credentials){
-    console.log(credentials);
+    // console.log(credentials);
     var dfd = $q.defer()
     $http({
       method: 'POST',
       url: '/api/auth/local',
       data: credentials
     }).then(function(res){
-      console.log('Result from user login', res)
+      // console.log('Result from user login', res)
       dfd.resolve(res);
     }).catch(function(res) {
       console.log("cannot login", res);

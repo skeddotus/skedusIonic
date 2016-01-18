@@ -11,7 +11,6 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 				templateUrl: 'templates/login.html',
 				controller: 'authCtrl'
 			})
-
 		.state('signup', {
 			url: '/signup',
 			templateUrl: 'templates/signup.html',
@@ -21,52 +20,63 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 //AUTH STATES ////////////////////////////////////////////////////////////////
 		.state('auth', {
 			url: "",
-			templateUrl: "templates/home.html",
-			controller: "homeCtrl",
+			templateUrl: "templates/main.html",
+			controller: "mainCtrl",
 			resolve: {
 				user: function(authService) {
 					return authService.getAuthedUser();
-				},
-				usersRef: function(userService) {
-					return userService.getUsers();
 				}
 			}
 		})
-
-		.state("auth.myOrg", {
+		.state("auth.myHome", {
 			url: "/home",
-			controller: "myOrgCtrl",
-			templateUrl: "templates/myOrg.html"
+			controller: "myHomeCtrl",
+			templateUrl: "templates/myHome.html"
 		})
-
 		.state("auth.createOrg", {
 			url: "/create",
 			controller: "createOrgCtrl",
 			templateUrl: "templates/createOrg.html"
 		})
-
 		.state("auth.joinOrg", {
 			url: "/join",
 			controller: "joinOrgCtrl",
 			templateUrl: "templates/joinOrg.html"
+		})
+		.state("auth.userProfile", {
+			url: "/profile",
+			controller: "profileCtrl",
+			templateUrl: "templates/profile.html",
+		})
+		.state("auth.skedAptOrg", {
+			url: "/skedApt/:id",
+			controller: "skedAptOrgCtrl",
+			templateUrl: "templates/skedAptOrg.html",
 		})
 		.state("auth.org", {
 			url: "/org/:id",
 			controller: "orgCtrl",
 			templateUrl: "templates/org.html"
 		})
-
-		.state("auth.schedule", {
-			url: "/schedule",
-			controller: "scheduleCtrl",
-			templateUrl: "templates/schedule.html"
+		.state("auth.orgManagement", {
+			url: "/org/management/:id",
+			controller: "orgManagementCtrl",
+			templateUrl: "templates/orgManagement.html"
+		})
+		.state("auth.aptAvailability", {
+			url: "/aptAvailability/:id",
+			controller: "aptAvailabilityCtrl",
+			templateUrl: "templates/aptAvailability.html"
 		})
 
-		.state("auth.dashboard", {
-			url: "/dashboard",
-			controller: "availabilityCtrl",
-			templateUrl: "templates/availability.html",
-		})
+
+
+
+
+		
+
+
+
 
 		.state("auth.userManage", {
 			url: "/manage",
@@ -74,24 +84,6 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 			templateUrl: "templates/manage.html",
 		})
 
-		.state("auth.orgProfile", {
-			url: "/organization",
-			controller: "orgCtrl",
-			templateUrl: "templates/org.html",
-		})
-
-		.state("auth.userProfile", {
-			url: "/profile",
-			controller: "profileCtrl",
-			templateUrl: "templates/profile.html",
-		})
-
-		// test route
-		.state("auth.testRoute", {
-			url: "/test",
-			controller: "testCtrl",
-			templateUrl: "templates/test.html",
-		})
 
 
 	$httpProvider.interceptors.push(function($q, $injector, $location) {

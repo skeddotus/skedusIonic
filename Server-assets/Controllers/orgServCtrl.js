@@ -21,28 +21,19 @@ module.exports = {
             return res.status(500).end();
           }
           else {
-            console.log("req.params.id", req.params.id);
-          org = new Org({
-            name: req.body.name,
-            desc: req.body.desc,
-            location: req.body.location,
-            members: [{userid: req.params.userID, role: 'Admin'}]
-          });
-          console.log("Before Org Save, ", req.body);
+          org = new Org(req.body);
+          org.members.push({userid: req.params.userID, role: 'Admin'});
           org.save();
+          }
+        });
       }
-      });
-      }
-      console.log('After', user);
       res.status(200).end();
     });
   },
 
   //gets Organizations for users not associated with an organization yet
   getOrgs: function(req, res) {
-    Org.find({})
-	.populate('admin')
-    .exec().then(function(results) {
+    Org.find({}).sort({name: 1}).exec().then(function(results) {
       return res.json(results);
     }).then(null, function(err) {
       return res.status(500).json(err);
@@ -98,39 +89,17 @@ module.exports = {
     });
   },
 
-  // app.get('/api/org/:orgID', orgServCtrl.addOrgUser);
-  addOrgUser: function(req, res) {
-   Org.findById({_id: req.params.orgID}).exec().then(function(org) {
-     if(!org) {
-       res.status(404);
-     }
-     else {
-       var members = org.members;
-       var userExists;
-       for(var i = 0; i < members.length; i++) {
-         if(members[i].userid === req.body.userid){
-           userExists = true;
-           break;
-         }
-         else{
-             userExists = false;
-         }
-       }
-       if(userExists === true) {
-         return res.send("User already in Org!").end();
-       }
-       else if (userExists === false) {
-         members.push(req.body);
-         org.save();
-       }
-     }
-   return res.status(200).end();
-   })
+  // app.post('/api/org/:orgID/users', orgServCtrl.addOrgUser);
+  addOrgUser: function(req, res){
+    Org.findById({_id: req.params.orgID}).exec().then(function(org){
+      org.members.push(req.body);
+      org.save();
+      return res.status(200).end();
+    })
   },
 
   // app.put('/api/org/:orgID/users', orgServCtrl.removeOrgUser);
   removeOrgUser: function(req, res) {
-          console.log("got to server")
    Org.findById({_id: req.params.orgID}).exec().then(function(org) {
      if(!org) {
        res.status(404);
@@ -139,16 +108,22 @@ module.exports = {
        var members = org.members;
        for(var i = 0; i < members.length; i++) {
          if(members[i].userid === req.body.userid){
-          console.log("anything")
             members.splice(i, 1);  
             break;
          }
        }
        org.save();
      }
-   console.log('Removed User from Org', org);
    return res.status(200).end();
    });
+ },
+
+// api/org/:orgID // GET
+ getOrgUsers: function(req, res){
+  console.log("orgID: ", req.params.orgID)
+  Org.findById({_id: req.params.orgID}).populate("members.userid").exec().then(function(results){
+    res.json(results.members);
+  });
  },
 
 

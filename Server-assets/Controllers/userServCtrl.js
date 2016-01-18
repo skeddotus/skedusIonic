@@ -60,10 +60,10 @@ module.exports = {
         ary = results[i].members;
           for (var j = 0; j < ary.length; j++) {
             if(ary[j].userid === req.params.id) {
-              userOrgs.push(results[i]);
+              userOrgs.push({org: results[i], role: ary[j].role});
             }
-        }
-    }
+          }
+      }
       // console.log("UserOrgs", userOrgs);
       return res.send(userOrgs);
     });
@@ -108,7 +108,7 @@ module.exports = {
             }
         }
     }
-      console.log("UserRole", userRole);
+      // console.log("UserRole", userRole);
       return res.send(userRole);
     });
   },
