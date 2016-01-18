@@ -1,5 +1,11 @@
 angular.module("skedApp").controller("authCtrl", function($scope, authService, $state){
 
+<<<<<<< HEAD
+=======
+  $scope.test = "controller link test successful";
+  $scope.newUser = {};
+>>>>>>> 5e07e582f0ba685c4f58588b32b0259c08270162
+
   $scope.signup = function(){
     console.log("email: ",$scope.newUser.email);
     authService.addUser($scope.newUser).then(function(res){

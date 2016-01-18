@@ -65,32 +65,12 @@ module.exports = {
     });
   },
 
+<<<<<<< HEAD
   // app.post('/api/org/:orgID/users', orgServCtrl.addOrgUser);
   addOrgUser: function(req, res){
     Org.findById({_id: req.params.orgID}).exec().then(function(org){
-		if(!org) {
-        res.status(404);
-      }
-      else {
-        var members = org.members;
-        var userExists;
-        for(var i = 0; i < members.length; i++) {
-          if(members[i].userid === req.body.userid){
-            userExists = true;
-            break;
-          }
-          else{
-              userExists = false;
-          }
-        }
-        if(userExists === true) {
-          return res.send("User already in Org!").end();
-        }
-        else if (userExists === false) {
-          members.push(req.body);
-          org.save();
-        }
-      }
+      org.members.push(req.body);
+      org.save();
       return res.status(200).end();
     })
   },
@@ -122,8 +102,119 @@ module.exports = {
     res.json(results.members);
   });
  },
+=======
+  addOrgUser: function(req, res) {
+    Org.findById({_id: req.params.orgID}).exec().then(function(org) {
+      if(!org) {
+        res.status(404);
+      }
+      else {
+        var members = org.members;
+        var userExists;
+        for(var i = 0; i < members.length; i++) {
+          if(members[i].userid === req.body.userid){
+            userExists = true;
+            break;
+          }
+          else{
+              userExists = false;
+          }
+        }
+        if(userExists === true) {
+          return res.send("User already in Org!").end();
+        }
+        else if (userExists === false) {
+          members.push(req.body);
+          org.save();
+        }
+      }
+    console.log('Added User to Org', org);
+    return res.status(200).end();
+    });
+  },
 
-    changeOrgRole: function(req, res) {
+  // //Could just make a changeRole function that updates role based on req.body
+  // addOrgMentor: function(req, res) {
+  //   Org.findById({_id: req.params.orgID}).exec().then(function(org) {
+  //     if(!org) {
+  //       res.status(404);
+  //     }
+  //     else {
+  //       var members = org.members;
+  //       for(var i = 0; i < members.length; i++) {
+  //         if(members[i].userid === req.body.userid && members[i].role === "Mentor"){
+  //           console.log("User is already a Mentor!");
+  //           return res.status(500).end();
+  //         }
+  //         else if(members[i].userid === req.body.userid && members[i].role !== "Mentor"){
+  //           members[i].role = "Mentor";
+  //           break;
+  //         }
+  //       }
+  //       org.save();
+  //     }
+  //   console.log('Added Mentor to Org', org);
+  //   return res.status(200).end();
+  //   });
+  // },
+
+  //This function allows the addition of another admin to an organization
+  // addOrgAdmin: function(req, res) {
+  //   Org.findById({_id: req.params.orgID}).exec().then(function(org) {
+  //     if(!org) {
+  //       res.status(404);
+  //     }
+  //     else {
+  //       var members = org.members;
+  //       for(var i = 0; i < members.length; i++) {
+  //         if(members[i].userid === req.body.userid && members[i].role === "Admin"){
+  //           console.log("User is already a Admin!");
+  //           return res.status(500).end();
+  //         }
+  //         else if(members[i].userid === req.body.userid && members[i].role !== "Admin"){
+  //           members[i].role = "Admin";
+  //           break;
+  //         }
+  //       }
+  //       org.save();
+  //     }
+  //   console.log('Added Admin to Org', org);
+  //   return res.status(200).end();
+  //   });
+  // },
+  //
+  // removeOrgUser: function(req, res) {
+  //   Org.findById({_id: req.params.orgID}).exec().then(function(org) {
+  //     if(!org) {
+  //       res.status(404);
+  //     }
+  //     else {
+  //       var members = org.members;
+  //       var userExists;
+  //       for(var i = 0; i < members.length; i++) {
+  //         if(members[i].userid === req.body.userid){
+  //           userExists = true;
+  //           break;
+  //         }
+  //         else{
+  //             userExists = false;
+  //         }
+  //       }
+  //       if(userExists === true) {
+  //         members.splice(i, 1);
+  //         org.save();
+  //       }
+  //       else if (userExists === false) {
+  //         return res.send("User not in Org!").end();
+  //       }
+  //     }
+  //   console.log('Removed User from Org', org);
+  //   return res.status(200).end();
+  //   });
+  // },
+
+//If this works then cleaner than other
+  changeOrgRole: function(req, res) {
     Org.findById({_id: req.params.orgID}).exec().then(function(org) {
       if(!org) {
         res.status(404);
@@ -159,6 +250,7 @@ module.exports = {
 
 
 
+>>>>>>> 5e07e582f0ba685c4f58588b32b0259c08270162
 
 
 

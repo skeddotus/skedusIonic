@@ -20,8 +20,13 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 //AUTH STATES ////////////////////////////////////////////////////////////////
 		.state('auth', {
 			url: "",
+<<<<<<< HEAD
+			templateUrl: "templates/main.html",
+			controller: "mainCtrl",
+=======
 			templateUrl: "templates/home.html",
 			controller: "homeCtrl",
+>>>>>>> 5e07e582f0ba685c4f58588b32b0259c08270162
 			resolve: {
 				user: function(authService) {
 					return authService.getAuthedUser();

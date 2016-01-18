@@ -1,5 +1,7 @@
 angular.module("skedApp").controller("authCtrl", function($scope, authService, $state){
 
+  $scope.test = "controller link test successful";
+
   $scope.signup = function(){
     console.log("email: ",$scope.newUser.email);
     authService.addUser($scope.newUser).then(function(res){
@@ -17,25 +19,14 @@ angular.module("skedApp").controller("authCtrl", function($scope, authService, $
     	password: $scope.password
     }).then(function(){
       $scope.credentials = {};
-      $state.go('auth.myHome');
+      $state.go('auth.myOrg');
     });
   }
 
   $scope.logout = function() {
     authService.logout().then(function() {
       $state.go('login');
-    });
+    })
   }
-
-  $scope.randomUser = function() {
-    authService.getRandomUser().then(function(results) {
-      $scope.newUser.firstName = results.firstName;
-      $scope.newUser.lastName = results.lastName;
-      $scope.newUser.email = results.email;
-      $scope.newUser.password = results.password;
-      $scope.password2 = results.password;
-      console.log('RandomUser', $scope.newUser);
-    });
-  };
 
 });

@@ -1,10 +1,10 @@
-<div class="container">
+<div class="container-fluid">
 	<div class="join-orgs-contain">
 		<div>
 			<input placeholder="search for orgs here">
 		</div>
 		<div class="panel panel-default">
-			<div class="panel-heading">Available Organizations</div>
+			<div class="panel-heading"><h1>Available Organizations</h1></div>
 			<table class="table">
 				<tr>
 					<th>Organization</th>
@@ -13,12 +13,11 @@
 					<th></th>
 				</tr>
 				<tr ng-repeat="org in orgs">
-					<td><h2 class="hh2">{{org.name}}</h2></td>
-					<td>{{org.desc}}</td>
-					<td>{{org.location}}</td>
+					<td><h3>{{org.name}}</h3></td>
+					<td><h5>{{org.desc}}</h5></td>
+					<td><h5>{{org.location}}</h5></td>
 					<td><button ng-click="joinOrg(org._id)">Join</button></td>
 				</tr>
-				
 			</table>
 		</div>
 	</div>
