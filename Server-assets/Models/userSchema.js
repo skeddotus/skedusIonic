@@ -10,12 +10,10 @@ var userSchema = new Schema({
   email: {type: String, unique: true, required: true},
   password: {type: String, required: true},
 
-  linkedin : {
-    id : String,
-    token : String,
-    email : String,
-    name : String
-  },
+    linkedinId : String,
+    linkedinToken : String,
+    linkedinEmail : String,
+    linkedinName : String,
 
   appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}], //appts where you're an attendee
   host: [{type: Schema.Types.ObjectId, ref: 'Appt'}], //appts where you're the host

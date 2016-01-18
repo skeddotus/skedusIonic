@@ -15,42 +15,9 @@ var express = require('express'),
 
     app.use(cors(), bodyParser.json(), express.static(__dirname + '/Public'));
 
-<<<<<<< HEAD
-=======
-    //User Requests
-    app.get('/api/users/rando', userServCtrl.randomUser);
-    app.post('/api/users', userServCtrl.addUser);
-    app.get('/api/users', userServCtrl.getUsers);
-    app.get('/api/user/:id', userServCtrl.getUser);
-    app.get('/api/user/:id/orgs', userServCtrl.getUserOrgs);
-    app.put('/api/user/:id', userServCtrl.updateUser); //Includes archiveUser
-    app.get('/api/user/:id/orgs', userServCtrl.getUserOrgs);
-    app.get('/api/user/:id/org/:orgID', userServCtrl.getUserOrg);
-    app.get('/api/user/:id/org/:orgID/role', userServCtrl.getUserRole);
-
-    // //Org Request
-    app.post('/api/orgs/:userID', orgServCtrl.addOrg);
-    app.get('/api/orgs', orgServCtrl.getOrgs);
-    app.get('/api/org/:orgID', orgServCtrl.getOrg);
-    app.put('/api/org/:orgID', orgServCtrl.updateOrg);
-    app.post('/api/org/:orgID/users', orgServCtrl.addOrgUser);
-    // app.put('/api/org/:orgID/users', orgServCtrl.removeOrgUser);
-    app.post('/api/org/:orgID/mentors', orgServCtrl.changeOrgRole);
-    app.post('/api/org/:orgID/admins', orgServCtrl.changeOrgRole);
-
-    // app.put('/api/org/:orgID', orgServCtrl.addAppt);  //Includes archiveOrg
-
-    //appt
-    app.post('/api/org/:orgID/appts', apptServCtrl.createAppt);
-    app.get('/api/org/:orgID/appts', apptServCtrl.getAppts);
-    app.get('/api/appt/:apptID', apptServCtrl.getAppt);
-    app.delete('/api/appt/:apptID', apptServCtrl.deleteAppt);
-    app.put('/api/appt/:apptID/mentee', apptServCtrl.addAttendee);
-    app.delete('/api/appt/:apptID/mentee', apptServCtrl.deleteAttendee);
-    app.put('/api/appt/:apptID/mentor/', apptServCtrl.updateAppt); //changes for update and location section in schema, cancelling
 
 
->>>>>>> f8426274ba0383129c117f43a321bbacc75a62b3
+
 
 // required for passport
 app.use(session({
@@ -77,37 +44,36 @@ var requireAuth = function(req, res, next) {
     next();
 };
 
-//User Requests
-app.post('/api/users', userServCtrl.addUser);
-app.get('/api/users', userServCtrl.getUsers);
-app.get('/api/user/:id', userServCtrl.getUser);
-// app.get('/api/user/:id/orgs', orgServCtrl.getOrgbyUserId);
-// app.get('/api/user/:id/orgs', requireAuth, userServCtrl.getUserOrgs);
-// app.get('/api/user/:id/orgs', userServCtrl.getOrgs);
-app.put('/api/user/:id', userServCtrl.updateUser); //Includes archiveUser
-app.get('/api/user/:id/orgs', requireAuth, userServCtrl.getUserOrgs);
-app.get('/api/user/:id/org/:orgID', userServCtrl.getUserOrg);
-app.get('/api/user/:id/org/:orgID/role', userServCtrl.getUserRole);
+    //User Requests
+    app.get('/api/users/rando', userServCtrl.randomUser);
+    app.post('/api/users', userServCtrl.addUser);
+    app.get('/api/users', userServCtrl.getUsers);
+    app.get('/api/user/:id', userServCtrl.getUser);
+    app.put('/api/user/:id', userServCtrl.updateUser); //Includes archiveUser
+    app.get('/api/user/:id/orgs', requireAuth, userServCtrl.getUserOrgs);
+    app.get('/api/user/:id/org/:orgID', userServCtrl.getUserOrg);
+    app.get('/api/user/:id/org/:orgID/role', userServCtrl.getUserRole);
 
-// //Org Request
-app.post('/api/orgs/:userID', orgServCtrl.addOrg);
-app.get('/api/orgs', orgServCtrl.getOrgs);
-app.get('/api/org/:orgID', orgServCtrl.getOrg);
-app.put('/api/org/:orgID', orgServCtrl.updateOrg);
-// app.post('/api/org/:orgID/admins', orgServCtrl.addAdmin); //Needs to be updated for new UserSchema
-// app.put('/api/org/:orgID', orgServCtrl.addMentor);
-app.post('/api/org/:orgID/users', orgServCtrl.addOrgUser);
-// app.put('/api/org/:orgID', orgServCtrl.addAppt);  //Includes archiveOrg
+    // //Org Request
+    app.post('/api/orgs/:userID', orgServCtrl.addOrg);
+    app.get('/api/orgs', orgServCtrl.getOrgs);
+    app.get('/api/org/:orgID', orgServCtrl.getOrg);
+    app.put('/api/org/:orgID', orgServCtrl.updateOrg);
+    app.post('/api/org/:orgID/users', orgServCtrl.addOrgUser);
+    // app.put('/api/org/:orgID/users', orgServCtrl.removeOrgUser);
+    app.post('/api/org/:orgID/mentors', orgServCtrl.changeOrgRole);
+    app.post('/api/org/:orgID/admins', orgServCtrl.changeOrgRole);
 
-//appt
-app.post('/api/org/:orgID/appts', apptServCtrl.createAppt);
-app.get('/api/org/:orgID/appts', apptServCtrl.getAppts);
-app.get('/api/appt/:apptID', apptServCtrl.getAppt);
-app.delete('/api/appt/:apptID', apptServCtrl.deleteAppt);
-app.put('/api/appt/:apptID/mentee', apptServCtrl.addAttendee);
-app.delete('/api/appt/:apptID/mentee', apptServCtrl.deleteAttendee);
-app.put('/api/appt/:apptID/mentor/', apptServCtrl.updateAppt); //changes for update and location section in schema, cancelling
+    // app.put('/api/org/:orgID', orgServCtrl.addAppt);  //Includes archiveOrg
 
+    //appt
+    app.post('/api/org/:orgID/appts', apptServCtrl.createAppt);
+    app.get('/api/org/:orgID/appts', apptServCtrl.getAppts);
+    app.get('/api/appt/:apptID', apptServCtrl.getAppt);
+    app.delete('/api/appt/:apptID', apptServCtrl.deleteAppt);
+    app.put('/api/appt/:apptID/mentee', apptServCtrl.addAttendee);
+    app.delete('/api/appt/:apptID/mentee', apptServCtrl.deleteAttendee);
+    app.put('/api/appt/:apptID/mentor/', apptServCtrl.updateAppt); //changes for update and location section in schema, cancelling
 
 
 app.listen(port, function() {
