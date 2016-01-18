@@ -7,16 +7,22 @@ var Appt = require('./apptSchema');
 var orgSchema = new Schema({
   name: {type: String, index: true, required: true, unique: true},
   members: [{
-    userid: String,
-    role: String
+    userid: {type: String, ref: "User"},
+    role: {type: String, enum: ['Admin', 'Mentor', 'User']},
   }],
-  appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}],
-  // mentors: [{type: Schema.Types.ObjectId, ref: 'User'}],
-  // mentees: [{type: Schema.Types.ObjectId, ref: 'User'}],
-  location: {type: String},
+  apts: [{
+    apt: {type: String, ref: "Appt"}
+  }],
   desc: {type: String},
+  add1: {type: String},
+  add2: {type: String},
+  city: {type: String},
+  st: {type: String},
+  zip: {type: String},
+  linkedin: {type: String},
+  facebook: {type: String},
+  twitter: {type: String},
   image: {type: String},
-  socialMedia: [{type: String}],
   status: {
     type: String,
     required: true,

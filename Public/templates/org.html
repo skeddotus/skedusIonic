@@ -1,14 +1,16 @@
 <div class="container">
-	<div class="my-orgs-contain">
-		<div class="panel panel-default">
-			<div class="panel-heading"><h1>Available Appointments</h1></div>
-			<div class="panel-body">
-				<div class="col-md-4" ng-repeat="app in appts">
-					<h2 class="hh2">{{app.date}}</h2>
-					<h4 class="hh4">Mentor: mentor name</h4>
-					<h4 class="hh4">organization name</h4>
-					<button>Schedule Appointment</button>
-				</div>
+	<h1>ORG INFO/PROFILE</h1>
+	<h1>ORG APPTS</h1>
+
+
+	<div class="panel panel-default">
+		<div class="panel-heading"><h1>Available Appointments</h1></div>
+		<div class="panel-body">
+			<div class="col-md-4" ng-repeat="app in appts">
+				<h2>{{app.date}}</h2>
+				<h4>Mentor: mentor name</h4>
+				<h4>organization name</h4>
+				<button>Schedule Appointment</button>
 			</div>
 		</div>
 	</div>

@@ -1,23 +1,10 @@
 angular.module("skedApp").service("userService", function($http, $q) {
 
-  this.getUsers = function(res) {
+  this.getUser = function(userID) {
     var dfd = $q.defer();
     $http({
       method: 'GET',
-      url: '/api/users',
-    }).then(function(res) {
-      users = res.data;
-      // console.log(users);
-      dfd.resolve(users);
-    });
-    return dfd.promise;
-  };
-
-  this.getUser_id = function(userId) {
-    var dfd = $q.defer();
-    $http({
-      method: 'GET',
-      url: 'api/user/' + userId,
+      url: 'api/user/' + userID,
     }).then(function(res) {
       user = res.data;
       dfd.resolve(user);
@@ -25,15 +12,11 @@ angular.module("skedApp").service("userService", function($http, $q) {
     return dfd.promise;
   };
 
-  this.updateUser = function(userId, updateData) {
-    updateData.name = updateData.firstName + " " + updateData.lastName;
-    console.log("updateData: ", updateData);
-    console.log("userId: ", userId);
-
+  this.updateUser = function(userID, updateData) {
     var dfd = $q.defer();
     $http({
       method: 'PUT',
-      url: 'api/user/' + userId,
+      url: 'api/user/' + userID,
       data: updateData
     }).then(function() {
       dfd.resolve();
@@ -41,11 +24,14 @@ angular.module("skedApp").service("userService", function($http, $q) {
     return dfd.promise;
   };
 
-  this.deleteUser = function(userId) {
+  this.deactivateUser = function(userID) {
     var dfd = $q.defer();
     $http({
       method: 'PUT',
-      url: 'api/users/' + userId
+      url: 'api/user/' + userID,
+      data: {
+        status: "Archived",
+      }
     }).then(function() {
       dfd.resolve();
     })
