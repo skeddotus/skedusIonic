@@ -2,7 +2,10 @@
 	<div class="col-md-offset-1 col-md-5">
 		<h2>Current Profile</h2>
 		<hr>
-		<h4>Name: {{user.name}}</h4>
+	    <div id="add-linkedin-contain">
+	        <a href="/api/auth/linkedin"><div id="linkedin-add"></div></a>
+	    </div>
+		<h4>Name: {{user.firstName}} {{user.lastName}}</h4>
 		<h4>About: {{user.desc}}</h4>
 		<h4>Company: {{user.company}}</h4>
 		<h4>Job Title: {{user.title}}</h4>
