@@ -4,10 +4,8 @@ angular.module("skedApp").controller("mainCtrl", function($scope,$timeout, authS
 	$scope.user = user;
 
 	$scope.getMyOrgs = function(userID){
-		console.log('GETTING ORGS', userID)
 		mainService.getMyOrgs(userID).then(function(res){
 			$scope.myOrgs = res;
-			console.log("got orgs", $scope.myOrgs);
 		});
 	};
 	$scope.getMyOrgs($scope.user._id);
@@ -46,14 +44,9 @@ angular.module("skedApp").controller("mainCtrl", function($scope,$timeout, authS
 	$scope.createOrg = function(newOrg){
 		console.log('Hello!')
 		mainService.createOrg(newOrg, $scope.user._id).then(function(){
-			console.log("userID: ", $scope.user._id);
-			$scope.newOrg = "";
-			//console.log("myOrgs", $scope.myOrgs);
-			//var myFunction = function() {};
 			$scope.getMyOrgs($scope.user._id);
-			// debugger;
+			$scope.newOrg = "";
 		});
-		console.log('World!')
 	};
 
 	$scope.getMyMenteeBookedApts = function(userID){

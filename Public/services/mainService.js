@@ -2,7 +2,6 @@ angular.module("skedApp").service("mainService", function($http, $q){
 
 	// gets specific users orgs and their role within each org
 	this.getMyOrgs = function(userID){
-		console.log('SERVICE GOT ORGS')
 		var dfd = $q.defer();
 		$http({
 			method: "GET",
@@ -60,15 +59,12 @@ angular.module("skedApp").service("mainService", function($http, $q){
 
 	//creates a new org and sets the user that created it to an admin role
 	this.createOrg = function(newOrg, userID){
-		console.log('SERVICE! newOrg', newOrg)
-		console.log('SERVICE! userID', userID)
 		var dfd = $q.defer();
 		$http({
 			method: "POST",
 			url: "/api/orgs/" + userID,
 			data: newOrg
 		}).then(function(res){
-			console.log("SERVICE RES", res);
 			dfd.resolve();
 		})
 		return dfd.promise;

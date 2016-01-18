@@ -2,10 +2,15 @@ var mongoose = require('mongoose');
 var Org = require('../Models/orgSchema');
 var User = require('../Models/userSchema');
 var faker = require('faker');
-// var Person = require('.../testing');
+var Secret = require('../Secrets/secrets.js');
+var mandrill = require('mandrill-api/mandrill');
+var mandrill_client = new mandrill.Mandrill(Secret.MANDRILL_API_KEY);
+// var message = require('../config/mandrill');
 var rando;
+var async = false;
 
 module.exports = {
+
 
   randomUser: function(req, res) {
     rando = faker.helpers.userCard();
@@ -41,7 +46,31 @@ module.exports = {
       user = new User(req.body);
       console.log("adduser userservctrl, ", req.body);
       user.save().then(function() {
-        console.log("adduser userservctrl after saving", req.body);
+        // console.log("adduser userservctrl after saving", req.body);
+        //   var message = { "html": "<p>Please Verify Your Email</p>",
+        //     "text": "Hi! Please verify your new Sked account.",
+        //     "subject": "Sked Email Verification",
+        //     "from_email": "info@sked.us",
+        //     "from_name": "no_reply@sked",
+        //     "to": [{
+        //             "email": user.email,
+        //             "name": user.name,
+        //             "type": "to"
+        //         }],
+        //     "important": true,
+        //     "recipient_metadata": [{
+        //             "rcpt": user.email,
+        //             "values": {
+        //                 "user_id": user._id
+        //             }
+        //         }],
+        //
+        // };
+        // mandrill_client.messages.send({"message": message, "async": async, "send_at": user.createdAt}, function(result) {
+        //   console.log(result);
+        // }, function(e) {
+        //   console.log('A mandrill error occurred' + e.name + ' - ' + e.message);
+        // });
         return res.status(201).end();
       });
     });

@@ -38,7 +38,7 @@ var requireAuth = function(req, res, next) {
     if (!req.isAuthenticated()) {
         return res.status(401).end();
     }
-    console.log("requireAuth done")
+    console.log("requireAuth done");
 
     next();
 };

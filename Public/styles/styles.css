@@ -1,4 +1,5 @@
-/* http://meyerweb.com/eric/tools/css/reset/
+/*
+ http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
 */
@@ -70,7 +71,7 @@ table {
 .tagline {
 	margin-bottom: 50px;
 }
-#linkedin-contain {
+#linkedin-contain, #add-linkedin-contain {
 	width: 200px;
 	height: 50px;
 	margin: 0 auto;
@@ -86,6 +87,22 @@ table {
 #linkedin:hover {
 	background-image: url(../images/linkedin-hover.png);
 }
+#add-linkedin-contain {
+	width: 125px;
+	height: 35px;
+	margin-left: 0px;
+}
+#linkedin-add, #linkedin-add:hover {
+	background-image: url(../images/add-linkedin-default.png);
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	height: 100%;
+	cursor: pointer;
+}
+#linkedin-add:hover {
+	background-image: url(../images/add-linkedin-hover.png);
+}
+
 .line, .login-contain {
 	margin: 0 auto;
 }
@@ -109,9 +126,13 @@ table {
 	width: 45%;
 }
 .my-orgs-contain, .join-orgs-contain {
-	width: 85%;
+	width: 70%;
 }
 
+/*.body {
+	height: 100vh;
+	width: 100vw;
+}*/
 
 #navSidebar {
 	width: 250px;
@@ -127,11 +148,25 @@ table {
 }
 
 #navSidebarMenuItems {
-	min-height: 70% !important;
+	min-height: 60% !important;
+	overflow: auto;
+}
+
+#menuCompanyName {
+	background-color: #333333 !important;
+}
+
+#companyMenuItems a:hover {
+	/*background-color: #333333 !important;*/
+	background-color: #008CBA !important;
 }
 
 #navSidebarMenuItems ul li {
 	word-wrap: break-word;
+}
+
+#menuCompanyName:hover {
+	background-color: #474C55 !important;
 }
 
 #navSidebar li {
@@ -139,10 +174,6 @@ table {
 	cursor: pointer;
 	outline: none;
 	text-decoration: none;
-}
-
-#navSidebar li #menuCompanyName{
-	font-weight: bold;
 }
 
 #navSidebar .dropdown-menu {
@@ -167,11 +198,21 @@ table {
 #navSidebar li a:hover {
 	text-decoration: none;
 	background-color: #474C55;
-	outline: none;
 }
 
-#navSidebar .active a {
+#menuSplit {
+	margin: 0;
+}
+
+#navSidebar .mainMenuSettings .active a {
 	background-color: #474C55;
+	/*background-color: #008CBA;*/
+	text-decoration: none;
+}
+
+#navSidebar .dropdown .active a {
+	/*background-color: #2A9FD6;*/
+	background-color: #008CBA;
 	text-decoration: none;
 }
 
@@ -218,15 +259,14 @@ table {
 }
 
 .mainMenuSettings {
-	height: 20% !important;
+	min-height: 90% !important;
 }
 
 .mediumLogo {
 	color: white;
 	font-size: 3em;
-	/*bottom: 1em;*/
 	margin-left: 1.9em;
-	min-height: 10% !important;
+	min-height: 5% !important;
 	font-family: monospace;
 }
 
@@ -244,34 +284,43 @@ table {
 }
 
 @media (max-width: 992px) {
+	.rightViewContent {
+		z-index: 300;
+		box-shadow: -10px 0 20px 5px hsla(0,0%,0%,.25);
+		position: relative;
+	}
 	.page-content {
+		height: 100vh;
 		padding-top: 70px;
 	}
-	.logoImg img {
-		margin-left: 39px;
+	.mediumLogo {
+		min-height: 4% !important;
+	}
+	.mediumLogo p {
+		font-size: 0.8em;
+		margin-left: 0.3em;
+		margin-top: 0.3em;
 	}
 	#navSidebar {
-		box-shadow: inset -15px 0 20px -5px hsla(0,0%,0%,.25);
+		z-index: 100;
+		box-shadow: none;
 	}
-	#navSidebar li #menuCompanyName{
+	#navSidebar li #menuCompanyName {
 		font-size: 1.2em;
-		font-weight: bold;
+		/*font-weight: bold;*/
 	}
 	#navSidebar .dropdown-menu {
-		font-size: 1em;
+		font-size: 1.1em;
 		font-style: italic;
 	}
 	#navSidebarMenuItems {
-		min-height: 60% !important;
+		max-height: 60% !important;
 	}
 	.mainMenuSettings {
-		height: 30% !important;
-	}
-	#navSidebar .dropdown-menu li {
-
+		min-height: 90% !important;
 	}
 }
+<<<<<<< HEAD
 
-.page-content {
-	max-width: 100%;
-}
+=======
+>>>>>>> d7125dd05d0d3db8b1ea1c62b29329221105576e
