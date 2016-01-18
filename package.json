@@ -24,6 +24,7 @@
     "cors": "^2.7.1",
     "express": "^4.13.3",
     "express-session": "^1.12.1",
+    "faker": "^3.0.1",
     "moment": "^2.11.1",
     "mongoose": "^4.3.4",
     "passport": "^0.3.2",
