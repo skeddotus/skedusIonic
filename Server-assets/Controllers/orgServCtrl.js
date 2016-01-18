@@ -23,11 +23,12 @@ module.exports = {
           else {
           org = new Org(req.body);
           org.members.push({userid: req.params.userID, role: 'Admin'});
-          org.save();
+          org.save(function() {
+            res.status(200).end();
+          });
           }
         });
       }
-      res.status(200).end();
     });
   },
 
