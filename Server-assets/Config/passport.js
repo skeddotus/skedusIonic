@@ -14,54 +14,17 @@ module.exports = function(passport) {
 	});
 
 	//LINKEDIN
-	// passport.use(new LinkedinStrategy({
-	// 		consumerKey: Secret.LINKED_IN_API_KEY,
-	// 		consumerSecret: Secret.LINKED_IN_API_SECRET,
-	// 		callbackURL: "http://127.0.0.1:9001/api/auth/linkedin/callback",
-	// 	},
-	// 	function(token, tokenSecret, profile, done) {
-	// 		process.nextTick(function () {
-	// 			return done(null, profile);
-	// 		});
-	// 	}
-	// ));
-
-
 	passport.use(new LinkedinStrategy({
 			consumerKey: Secret.LINKED_IN_API_KEY,
 			consumerSecret: Secret.LINKED_IN_API_SECRET,
-			callbackURL: "http://127.0.0.1:9001/api/auth/linkedin/callback",
-			passReqToCallback: true,
+			callbackURL: "http://127.0.0.1:9001/#/api/auth/linkedin/callback",
 		},
-		function(req, token, tokenSecret, profile, done) {
+		function(token, tokenSecret, profile, done) {
 			process.nextTick(function () {
-
-				if(!req.user) { //if not logged in, authenticate with linkedin
-					return done(null, profile);
-				}
-				
-				else {
-
-
-
-
-
-
-				}
-
-
-
-
-
-
+				return done(null, profile);
 			});
 		}
 	));
-
-
-
-
-
 
 	//LOCAL-AUTH
 	passport.use(new LocalStrategy({
@@ -85,3 +48,68 @@ module.exports = function(passport) {
 
 
 }
+
+	// passport.use(new LinkedinStrategy({
+	// 		consumerKey: Secret.LINKED_IN_API_KEY,
+	// 		consumerSecret: Secret.LINKED_IN_API_SECRET,
+	// 		callbackURL: "http://127.0.0.1:9001/api/auth/linkedin/callback",
+	// 		passReqToCallback: true,
+	// 	},
+	// 	function(req, token, tokenSecret, profile, done) {
+	// 		process.nextTick(function () {
+
+	// 			return done(null, profile);
+
+	// 			if(!req.user) { //if not logged in, authenticate with linkedin or create a new user
+				
+
+	// 				User.findOne({ linkedinId : profile.id }, function(err, user) {
+	// 					if (err) {
+	// 						console.log("linkedin error : ", err);
+	// 						return done(err);
+	// 					}
+
+	// 					if (user) {
+	// 						console.log("authenticating with linkedin, found user : ", user)
+	// 						return done(null, user);
+	// 					}
+
+	// 					else {
+	// 						console.log("creating user with linkedin : ", profile);
+
+	// 						var user = new User ({
+
+	// 							"user.linkedinId ": profile.id,
+	// 							"user.linkedinToken" : token,
+	// 							"user.linkedinEmail" : profile.email,
+	// 							"user.linkedinName" : profile.name,
+
+	// 						})
+
+	// 						user.save();
+	// 						console.log("user created with linkedin : ",  user);
+	// 					}
+	// 				})
+
+	// 			} 
+	// 			else { //if logged in, link accounts
+
+	// 				user = req.user;
+
+	// 				user.linkedinId = profile.id,
+	// 				user.linkedinToken = token,
+	// 				user.linkedinEmail = profile.email,
+	// 				user.linkedinName = profile.name,
+
+	// 				user.save();
+
+	// 				console.log("user linked to linkedin : ", user);
+
+	// 			}
+
+	// 		});
+	// 	}
+	// ));
+
+
+
