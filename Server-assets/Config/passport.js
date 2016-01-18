@@ -2,7 +2,7 @@ var LocalStrategy = require('passport-local').Strategy,
 	LinkedinStrategy = require('passport-linkedin').Strategy,
 	User = require('../../Server-assets/Models/userSchema.js'),
 	Secret = require('../../Server-assets/Secrets/secrets.js');
-	
+
 
 module.exports = function(passport) {
 		//configuration ------------
@@ -48,4 +48,3 @@ module.exports = function(passport) {
 
 
 }
-

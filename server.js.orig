@@ -49,6 +49,12 @@ var requireAuth = function(req, res, next) {
     app.post('/api/users', userServCtrl.addUser);
     app.get('/api/users', userServCtrl.getUsers);
     app.get('/api/user/:id', userServCtrl.getUser);
+<<<<<<< HEAD
+    // app.get('/api/user/:id/orgs', orgServCtrl.getOrgbyUserId);
+    // app.get('/api/user/:id/orgs', orgServCtrl.getUserOrgs);
+    // app.get('/api/user/:id/orgs', userServCtrl.getOrgs);
+=======
+>>>>>>> 5e07e582f0ba685c4f58588b32b0259c08270162
     app.put('/api/user/:id', userServCtrl.updateUser); //Includes archiveUser
     app.get('/api/user/:id/orgs', requireAuth, userServCtrl.getUserOrgs);
     app.get('/api/user/:id/org/:orgID', userServCtrl.getUserOrg);
@@ -60,12 +66,19 @@ var requireAuth = function(req, res, next) {
     app.get('/api/orgs', orgServCtrl.getOrgs);
     app.get('/api/org/:orgID', orgServCtrl.getOrg);
     app.put('/api/org/:orgID', orgServCtrl.updateOrg);
-	app.get('/api/org/:orgID/users', orgServCtrl.getOrgUsers);
+<<<<<<< HEAD
+    // app.post('/api/org/:orgID/admins', orgServCtrl.addAdmin); //Needs to be updated for new UserSchema
+    // app.put('/api/org/:orgID', orgServCtrl.addMentor);
+    app.get('/api/org/:orgID/users', orgServCtrl.getOrgUsers);
     app.post('/api/org/:orgID/users', orgServCtrl.addOrgUser);
     app.put('/api/org/:orgID/users', orgServCtrl.removeOrgUser);
+=======
+    app.post('/api/org/:orgID/users', orgServCtrl.addOrgUser);
+    // app.put('/api/org/:orgID/users', orgServCtrl.removeOrgUser);
     app.post('/api/org/:orgID/mentors', orgServCtrl.changeOrgRole);
     app.post('/api/org/:orgID/admins', orgServCtrl.changeOrgRole);
 
+>>>>>>> 5e07e582f0ba685c4f58588b32b0259c08270162
     // app.put('/api/org/:orgID', orgServCtrl.addAppt);  //Includes archiveOrg
 
     //appt
@@ -80,7 +93,7 @@ var requireAuth = function(req, res, next) {
 
 
 
-	app.post('/api/org/:orgID/appts', apptServCtrl.createAppt);
+
     app.get('/api/org/:orgID/appts', apptServCtrl.getAppts);
     app.get('/api/appt/:apptID', apptServCtrl.getAppt);
     app.delete('/api/appt/:apptID', apptServCtrl.deleteAppt);

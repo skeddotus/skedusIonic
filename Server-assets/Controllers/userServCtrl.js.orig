@@ -38,7 +38,15 @@ module.exports = {
       if (user) {
         return res.status(409).end();
       }
+<<<<<<< HEAD
       user = new User(req.body);
+=======
+      user = new User({
+        email: req.body.email || rando.email,
+        password:req.body.password || rando.password,
+        name: req.body.name || rando.name
+      });
+>>>>>>> 5e07e582f0ba685c4f58588b32b0259c08270162
       console.log("adduser userservctrl, ", req.body);
       user.save().then(function() {
         console.log("adduser userservctrl after saving", req.body);
