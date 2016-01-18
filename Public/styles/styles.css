@@ -71,7 +71,7 @@ table {
 .tagline {
 	margin-bottom: 50px;
 }
-#linkedin-contain {
+#linkedin-contain, #add-linkedin-contain {
 	width: 200px;
 	height: 50px;
 	margin: 0 auto;
@@ -87,6 +87,22 @@ table {
 #linkedin:hover {
 	background-image: url(../images/linkedin-hover.png);
 }
+#add-linkedin-contain {
+	width: 125px;
+	height: 35px;
+	margin-left: 0px;
+}
+#linkedin-add, #linkedin-add:hover {
+	background-image: url(../images/add-linkedin-default.png);
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+	height: 100%;
+	cursor: pointer;
+}
+#linkedin-add:hover {
+	background-image: url(../images/add-linkedin-hover.png);
+}
+
 .line, .login-contain {
 	margin: 0 auto;
 }
@@ -304,3 +320,7 @@ table {
 		min-height: 90% !important;
 	}
 }
+<<<<<<< HEAD
+
+=======
+>>>>>>> d7125dd05d0d3db8b1ea1c62b29329221105576e

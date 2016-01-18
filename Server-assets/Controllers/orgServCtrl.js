@@ -68,31 +68,10 @@ module.exports = {
   // app.post('/api/org/:orgID/users', orgServCtrl.addOrgUser);
   addOrgUser: function(req, res){
     Org.findById({_id: req.params.orgID}).exec().then(function(org){
-		if(!org) {
-        res.status(404);
-      }
-      else {
-        var members = org.members;
-        var userExists;
-        for(var i = 0; i < members.length; i++) {
-          if(members[i].userid === req.body.userid){
-            userExists = true;
-            break;
-          }
-          else{
-              userExists = false;
-          }
-        }
-        if(userExists === true) {
-          return res.send("User already in Org!").end();
-        }
-        else if (userExists === false) {
-          members.push(req.body);
-          org.save();
-        }
-      }
+      org.members.push(req.body);
+      org.save();
       return res.status(200).end();
-    })
+      })
   },
 
   // app.put('/api/org/:orgID/users', orgServCtrl.removeOrgUser);
