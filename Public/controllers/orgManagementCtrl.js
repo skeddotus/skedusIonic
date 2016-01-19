@@ -50,8 +50,8 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 					$scope.getMyOrgs($scope.user._id);
 				});
 			};
-		});
 		$state.go("auth.myHome");
+		});
 	};
 
 	$scope.makeAdmin = function(userID){
