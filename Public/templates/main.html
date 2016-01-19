@@ -11,7 +11,7 @@
 			<div id="navSidebarMenuItems">
 				<ul class='nav nav-sidebar'>
 					<li class="dropdown" ui-sref-active="active" ng-repeat="org in myOrgs">
-						<a data-toggle="dropdown" ui-sref-active="active" id="menuCompanyName" aria-expanded="false" aria-haspopup="true">{{org.org.name}} <span class="caret"></span></a>
+						<a ng-if="org.org.status === 'Active'" data-toggle="dropdown" ui-sref-active="active" id="menuCompanyName" aria-expanded="false" aria-haspopup="true">{{org.org.name}} <span class="caret"></span></a>
 
 							<ul class="dropdown-menu navmenu-nav" id="companyMenuItems" role="menu">
 								<li ui-sref-active="active"><a ui-sref='auth.skedAptOrg({id: org.org._id})' data-target="">Appointments</a></li> <!-- all users -->

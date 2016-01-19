@@ -42,7 +42,6 @@ angular.module("skedApp").controller("mainCtrl", function($scope,$timeout, authS
 	};
 
 	$scope.createOrg = function(newOrg){
-		console.log('Hello!')
 		mainService.createOrg(newOrg, $scope.user._id).then(function(){
 			$scope.getMyOrgs($scope.user._id);
 			$scope.newOrg = "";
@@ -61,6 +60,7 @@ angular.module("skedApp").controller("mainCtrl", function($scope,$timeout, authS
 			$scope.getMyMenteeBookedApts($scope.user._id);
 		});
 	};
+
 
 
 	$scope.logout = function() {
