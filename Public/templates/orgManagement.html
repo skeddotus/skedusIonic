@@ -1,32 +1,78 @@
 <div class="contain-fluid">
-	<div class="join-orgs-contain row">
-		<div class="panel panel-default">
-            <div class="panel-heading"><h1>All Org Users</h1></div>
-            <div class="table-responsive">
-	            <table class="table table-striped table-hover">
-	                <tr>
-	                    <th>Name</th>
-	                    <th>Email</th>
-	                    <th>Status</th>
-	                    <th>Role</th>
-	                    <th>Remove</th>
-	                </tr>
-	                <tr ng-repeat="user in orgUsers">
-	                    <td><h5>{{user.userid.lastName}}, {{user.userid.firstName}}</h5></td>
-	                    <td><h5>{{user.userid.email}}</h5></td>
-	                    <td><h5>{{user.userid.status}}</h5></td>
-	                    <td>
-	                    	<div class="btn-group">
-		                    	<button class="btn btn-sm btn-primary org-role" ng-class="{'disabled': user.role === 'Admin'}" ng-click="makeAdmin(user.userid._id)" >Admin</button>
-		                    	<button class="btn btn-sm btn-primary org-role" ng-class="{'disabled': user.role === 'Mentor'}" ng-click="makeMentor(user.userid._id)" >Mentor</button>
-		                    	<button class="btn btn-sm btn-primary org-role" ng-class="{'disabled': user.role === 'User'}" ng-click="makeUser(user.userid._id)" >User</button>
-	                    	</div>
-	                    </td>
-	                    <td><span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="removeUser(user.userid._id)"></span></td>
-	                </tr>
-	            </table>
-            </div>
-        </div>
+	<div class=" join-orgs-contain">
+		<div class="row">
+			<div class="panel panel-default">
+	            <div class="panel-heading"><h1>All Org Users</h1></div>
+	            <div class="table-responsive">
+		            <table class="table table-striped table-hover">
+		                <tr>
+		                    <th>Name</th>
+		                    <th>Email</th>
+		                    <th>Status</th>
+		                    <th>Role</th>
+		                    <th>Remove</th>
+		                </tr>
+		                <tr ng-repeat="user in orgUsers">
+		                    <td><h5>{{user.userid.lastName}}, {{user.userid.firstName}}</h5></td>
+		                    <td><h5>{{user.userid.email}}</h5></td>
+		                    <td><h5>{{user.userid.status}}</h5></td>
+		                    <td>
+		                    	<div class="btn-group">
+			                    	<button class="btn btn-sm btn-primary org-role" ng-class="{'disabled': user.role === 'Admin'}" ng-click="makeAdmin(user.userid._id, user.role)" >Admin</button>
+			                    	<button class="btn btn-sm btn-primary org-role" ng-class="{'disabled': user.role === 'Mentor'}" ng-click="makeMentor(user.userid._id, user.role)" >Mentor</button>
+			                    	<button class="btn btn-sm btn-primary org-role" ng-class="{'disabled': user.role === 'User'}" ng-click="makeUser(user.userid._id, user.role)" >User</button>
+		                    	</div>
+		                    </td>
+		                    <td><span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="removeUser(user.userid._id)"></span></td>
+		                </tr>
+		            </table>
+	            </div>
+	        </div>
+		</div>
+        <hr>
+	    <div class="row">
+	    	<div class="panel panel-default">
+	            <div class="panel-heading"><h1>User Statistics</h1></div>
+	            <div class="table-responsive">
+		            <table class="table table-striped table-hover">
+		                <tr>
+		                    <th># of Users</th>
+		                    <th>Admins</th>
+		                    <th>Mentors</th>
+		                    <th>User</th>
+		                </tr>
+		                <tr>
+		                    <td>{{currentOrg.members.length}}</td>
+		                    <td>{{currentOrg.numAdmins}}</td>
+		                    <td>{{currentOrg.numMentors}}</td>
+		                    <td>{{currentOrg.numUsers}}</td>
+		                </tr>
+		            </table>
+	            </div>
+	        </div>
+	    </div>
+	    <hr>
+	    <div class="row">
+	    	<div class="panel panel-default">
+	            <div class="panel-heading"><h1>Appointment Statistics</h1></div>
+	            <div class="table-responsive">
+		            <table class="table table-striped table-hover">
+		                <tr>
+		                    <th>Open Apts</th>
+		                    <th>Booked Apts</th>
+		                    <th>Booked Past Apts</th>
+		                    <th>UnBooked Past Apts</th>
+		                </tr>
+		                <tr>
+		                    <td>{{orgApts.open}}</td>
+		                    <td>{{orgApts.booked}}</td>
+		                    <td>{{orgApts.completed}}</td>
+		                    <td>{{orgApts.past}}</td>
+		                </tr>
+		            </table>
+	            </div>
+	        </div>
+	    </div>
 	    <hr>
 	    <div class="row">
 	        <div class="col-md-6">
@@ -79,9 +125,6 @@
 			        </div>
 				</form>
 			</div>
-	    </div>
-	    <div class="row">
-
 	    </div>
 	</div>
 </div>

@@ -38,7 +38,7 @@ var requireAuth = function(req, res, next) {
     if (!req.isAuthenticated()) {
         return res.status(401).end();
     }
-    console.log("requireAuth done");
+    console.log("requireAuth done")
 
     next();
 };
@@ -75,7 +75,7 @@ var requireAuth = function(req, res, next) {
     app.get('/api/apt/:orgID/:userID/open', apptServCtrl.getMyOpenAppts);
     app.get('/api/apt/:orgID/mentor/:userID/booked', apptServCtrl.getMyMentorBookedAppts);
     app.get('/api/apt/:userID/booked', apptServCtrl.getMyMenteeBookedAppts);
-    app.get('/api/apt/:orgID/open', apptServCtrl.getOrgOpenAppts);
+    app.get('/api/apt/:orgID', apptServCtrl.getOrgAppts);
     app.put('/api/apt/:aptID', apptServCtrl.skedApt);
     app.patch('/api/apt/cancel/:aptID', apptServCtrl.aptCancel);
 
