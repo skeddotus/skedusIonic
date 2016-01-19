@@ -60,7 +60,7 @@ var requireAuth = function(req, res, next) {
     app.get('/api/orgs', orgServCtrl.getOrgs);
     app.get('/api/org/:orgID', orgServCtrl.getOrg);
     app.put('/api/org/:orgID', orgServCtrl.updateOrg);
-	app.get('/api/org/:orgID/users', orgServCtrl.getOrgUsers);
+	  app.get('/api/org/:orgID/users', orgServCtrl.getOrgUsers);
     app.post('/api/org/:orgID/users', orgServCtrl.addOrgUser);
     app.put('/api/org/:orgID/users', orgServCtrl.removeOrgUser);
     app.post('/api/org/:orgID/mentors', orgServCtrl.changeOrgRole);
@@ -82,13 +82,17 @@ var requireAuth = function(req, res, next) {
 
 
 
-	app.post('/api/org/:orgID/appts', apptServCtrl.createAppt);
+	  app.post('/api/org/:orgID/appts', apptServCtrl.createAppt);
     app.get('/api/org/:orgID/appts', apptServCtrl.getAppts);
     app.get('/api/appt/:apptID', apptServCtrl.getAppt);
     app.delete('/api/appt/:apptID', apptServCtrl.deleteAppt);
     app.put('/api/appt/:apptID/mentee', apptServCtrl.addAttendee);
     app.delete('/api/appt/:apptID/mentee', apptServCtrl.deleteAttendee);
     app.put('/api/appt/:apptID/mentor/', apptServCtrl.updateAppt); //changes for update and location section in schema, cancelling
+
+
+    //Mandrill Email Verification endpoint
+    app.get('/api/user/email/validation/:userID', userServCtrl.validateEmail);
 
 
 app.listen(port, function() {
