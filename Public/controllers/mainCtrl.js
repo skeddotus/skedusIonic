@@ -1,4 +1,4 @@
-angular.module("skedApp").controller("mainCtrl", function($scope,$timeout, authService, mainService, user){
+angular.module("skedApp").controller("mainCtrl", function($scope, $timeout, authService, mainService, user){
 
   //------------jQuery Stuff-------------------
 $(document).ready(function(){
@@ -8,13 +8,12 @@ $(document).ready(function(){
   //   console.log('I ran');
   //   $('#navSidebar').offcanvas("hide");
   // });
-
-
+	
 });
 // ------------------------------------------
 
-//Page title
-$scope.pageTitle = "Schedule";
+	//Page title
+	$scope.pageTitle = "Schedule";
 
 	$scope.user = user;
 
