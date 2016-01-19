@@ -73,7 +73,7 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
 
 
 
-		
+
 
 
 

@@ -1,6 +1,21 @@
 angular.module("skedApp").controller("mainCtrl", function($scope,$timeout, authService, mainService, user){
 
- 
+  //------------jQuery Stuff-------------------
+$(document).ready(function(){
+
+  // auto close sidebar when select an item
+  // $('.menuItemSelected').click(function(event) {
+  //   console.log('I ran');
+  //   $('#navSidebar').offcanvas("hide");
+  // });
+
+
+});
+// ------------------------------------------
+
+//Page title
+$scope.pageTitle = "Schedule";
+
 	$scope.user = user;
 
 	$scope.getMyOrgs = function(userID){
@@ -56,10 +71,13 @@ angular.module("skedApp").controller("mainCtrl", function($scope,$timeout, authS
 	};
 	$scope.getMyMenteeBookedApts($scope.user._id);
 
+
 	$scope.cancelApt = function(aptID){
-		mainService.cancelApt(aptID).then(function(){
-			$scope.getMyMenteeBookedApts($scope.user._id);
-		});
+    if (confirm("Are you sure you want to remove this appointment?") === true) {
+      mainService.cancelApt(aptID).then(function(){
+        $scope.getMyMenteeBookedApts($scope.user._id);
+      });
+    };
 	};
 
 

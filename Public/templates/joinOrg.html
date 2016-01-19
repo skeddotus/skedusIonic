@@ -7,20 +7,22 @@
 		</div>
 		<div class="panel panel-default">
 			<div class="panel-heading"><h1>Available Organizations</h1></div>
-			<table class="table">
-				<tr>
-					<th>Organization</th>
-					<th>Description</th>
-					<th>Location</th>
-					<th></th>
-				</tr>
-				<tr ng-repeat="org in orgs | filter:searchOrg">
-					<td><h3>{{org.name}}</h3></td>
-					<td><h5>{{org.desc}}</h5></td>
-					<td><h5>{{org.location}}</h5></td>
-					<td><button ng-click="joinOrg(org._id)">Join</button></td>
-				</tr>
-			</table>
+			<div class="table-responsive">
+				<table class="table">
+					<tr>
+						<th>Organization</th>
+						<th>Description</th>
+						<th>Location</th>
+						<th></th>
+					</tr>
+					<tr ng-repeat="org in orgs | filter:searchOrg">
+						<td><h3>{{org.name}}</h3></td>
+						<td><h5>{{org.desc}}</h5></td>
+						<td><h5>{{org.location}}</h5></td>
+						<td><button ng-click="joinOrg(org._id)">Join</button></td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>
