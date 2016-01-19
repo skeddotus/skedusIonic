@@ -1,4 +1,4 @@
-angular.module("skedApp").controller("profileCtrl", function($scope, userService){
+angular.module("skedApp").controller("profileCtrl", function($scope, $state, userService){
 
 
 	var getUser = function(userID){
@@ -17,8 +17,20 @@ angular.module("skedApp").controller("profileCtrl", function($scope, userService
 	};
 
 	$scope.deactivateUser = function(userID){
-		userService.deactivateUser(userID).then(function(){
-			return getUser($scope.user._id);
+		swal({
+			title: "Are you sure you want to deactivate your account?",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Deactivate",
+			cancelButtonText: "Cancel",
+		}, function(isConfirm){
+			if(isConfirm){
+				userService.deactivateUser(userID).then(function(){
+					getUser($scope.user._id);
+				});
+			};
+		$state.go("login");
 		});
 	};
 

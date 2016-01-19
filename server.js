@@ -65,6 +65,8 @@ var requireAuth = function(req, res, next) {
     app.put('/api/org/:orgID/users', orgServCtrl.removeOrgUser);
     app.post('/api/org/:orgID/mentors', orgServCtrl.changeOrgRole);
     app.post('/api/org/:orgID/admins', orgServCtrl.changeOrgRole);
+    app.post('/api/org/:orgID/user', orgServCtrl.changeOrgRole);
+
 
     // app.put('/api/org/:orgID', orgServCtrl.addAppt);  //Includes archiveOrg
 
