@@ -30,8 +30,8 @@
 		<div class="panel panel-default">
 			<div class="panel-heading"><h1>My Orgs</h1></div>
 			<div class="panel-body">
-				<div class="col-md-4" ng-repeat="org in myOrgs">
-					<h2>{{org.org.name}} <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="leaveOrg(org.org._id)"></span></h2>
+				<div class="col-md-4" ng-repeat="org in myOrgs" ng-if="org.org.status === 'Active'">
+					<h2>{{org.org.name}} <span ng-if="org.role !== 'Admin'" class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="leaveOrg(org.org._id)"></span></h2>
 					<h4>{{org.org.desc}}</h4>
 					<h4>{{org.org.location}}</h4>
 					<button ui-sref="auth.org({id: org.org._id})">Go to org page</button>

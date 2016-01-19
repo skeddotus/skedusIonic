@@ -22,7 +22,8 @@
     "angular": "latest",
     "datetimepicker": "~2.4.5",
     "angular-bootstrap-datetimepicker-directive": "~0.1.3",
-    "angular-ui-calendar": "latest",
+    "sweetalert": "~1.1.3"
+	"angular-ui-calendar": "latest",
     "angular-ui-router": "~0.2.15"
   }
 }

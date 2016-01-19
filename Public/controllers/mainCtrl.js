@@ -57,7 +57,6 @@ $scope.pageTitle = "Schedule";
 	};
 
 	$scope.createOrg = function(newOrg){
-		console.log('Hello!')
 		mainService.createOrg(newOrg, $scope.user._id).then(function(){
 			$scope.getMyOrgs($scope.user._id);
 			$scope.newOrg = "";
@@ -79,6 +78,7 @@ $scope.pageTitle = "Schedule";
       });
     };
 	};
+
 
 
 	$scope.logout = function() {

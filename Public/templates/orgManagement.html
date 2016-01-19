@@ -1,74 +1,87 @@
 <div class="contain-fluid">
-	<div class="join-orgs-contain">
+	<div class="join-orgs-contain row">
 		<div class="panel panel-default">
             <div class="panel-heading"><h1>All Org Users</h1></div>
-            <table class="table">
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                    <th>Role</th>
-                    <th></th>
-                </tr>
-                <tr ng-repeat="user in orgUsers">
-                    <td><h5>{{user.userid.name}}</h5></td>
-                    <td><h5>{{user.userid.email}}</h5></td>
-                    <td><h5>{{user.userid.status}}</h5></td>
-                    <td><h5>{{user.role}}</h5></td>
-                    <td><button id="admin-btn" ng-click="makeAdmin(user.userid._id)" >Make Admin</button><button id="mentor-btn" ng-click="makeMentor(user.userid._id)" >Make Mentor</button><button id="user-btn" ng-click="makeUser(user.userid._id)" >Make User</button><button ng-click="removeUser(user.userid._id)" >Remove from Org</button></td>
-                </tr>
-            </table>
+            <div class="table-responsive">
+	            <table class="table table-striped table-hover">
+	                <tr>
+	                    <th>Name</th>
+	                    <th>Email</th>
+	                    <th>Status</th>
+	                    <th>Role</th>
+	                    <th>Remove</th>
+	                </tr>
+	                <tr ng-repeat="user in orgUsers">
+	                    <td><h5>{{user.userid.lastName}}, {{user.userid.firstName}}</h5></td>
+	                    <td><h5>{{user.userid.email}}</h5></td>
+	                    <td><h5>{{user.userid.status}}</h5></td>
+	                    <td>
+	                    	<div class="btn-group">
+		                    	<button class="btn btn-sm btn-primary org-role" ng-class="{'disabled': user.role === 'Admin'}" ng-click="makeAdmin(user.userid._id)" >Admin</button>
+		                    	<button class="btn btn-sm btn-primary org-role" ng-class="{'disabled': user.role === 'Mentor'}" ng-click="makeMentor(user.userid._id)" >Mentor</button>
+		                    	<button class="btn btn-sm btn-primary org-role" ng-class="{'disabled': user.role === 'User'}" ng-click="makeUser(user.userid._id)" >User</button>
+	                    	</div>
+	                    </td>
+	                    <td><span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="removeUser(user.userid._id)"></span></td>
+	                </tr>
+	            </table>
+            </div>
         </div>
-        <hr>
-        <div class="col-md-6">
-		<h2>Current Profile</h2>
-		<hr>
-		<h4>Name: {{currentOrg.name}}</h4>
-		<h4>About: {{currentOrg.desc}}</h4>
-		<h4>Location: {{currentOrg.location}}</h4>
-		<h4>LinkedIn: {{currentOrg.linkedin}}</h4>
-		<h4>Facebook: {{currentOrg.facebook}}</h4>
-		<h4>Twitter: {{currentOrg.twitter}}</h4>
-		<button ng-click="deactivateOrg()">Deactivate Org</button>
-	</div>
-	<div class="col-md-6">
-		<h2>Update Profile Here</h2>
-		<hr>
-		<form>
-			<div class="form-group">
-				<input ng-model="orgUpdateData.name" class="form-control" placeholder="Org Name">
+	    <hr>
+	    <div class="row">
+	        <div class="col-md-6">
+				<h2>Current Profile</h2>
+				<hr>
+				<h4>Name: {{currentOrg.name}}</h4>
+				<h4>About: {{currentOrg.desc}}</h4>
+				<h4>Location: {{currentOrg.add1}} {{currentOrg.add2}} {{currentOrg.city}}, {{currentOrg.st}} {{currentOrg.zip}}</h4>
+				<h4>LinkedIn: {{currentOrg.linkedin}}</h4>
+				<h4>Facebook: {{currentOrg.facebook}}</h4>
+				<h4>Twitter: {{currentOrg.twitter}}</h4>
+				<button ng-click="deactivateOrg(currentOrg._id)">Deactivate Org</button>
 			</div>
-			<div class="form-group">
-				<textarea ng-model="orgUpdateData.desc" class="form-control" placeholder="About Org..."></textarea>
+			<div class="col-md-6">
+				<h2>Update Profile Here</h2>
+				<hr>
+				<form>
+					<div class="form-group">
+						<input ng-model="orgUpdateData.name" class="form-control" placeholder="Org Name">
+					</div>
+					<div class="form-group">
+						<textarea ng-model="orgUpdateData.desc" class="form-control" placeholder="About Org..."></textarea>
+					</div>
+			        <div class="form-group">
+			            <input ng-model="orgUpdateData.add1" class="form-control" type="text" placeholder="Address 1">
+			        </div>
+			        <div class="form-group">
+			            <input ng-model="orgUpdateData.add2" class="form-control" type="text" placeholder="Address 2">
+			        </div>
+			        <div class="form-group">
+			            <input ng-model="orgUpdateData.city" class="form-control" type="text" placeholder="City">
+			        </div>
+			        <div class="form-group">
+			            <input ng-model="orgUpdateData.st" class="form-control" type="text" placeholder="State">
+			        </div>
+			        <div class="form-group">
+			            <input ng-model="orgUpdateData.zip" class="form-control" type="text" placeholder="Zip Code">
+			        </div>
+			        <div class="form-group">
+						<input ng-model="orgUpdateData.linkedin" class="form-control" placeholder="Link to LinkedIn">
+					</div>
+					<div class="form-group">
+						<input ng-model="orgUpdateData.facebook" class="form-control" placeholder="Link to Facebook">
+					</div>
+					<div class="form-group">
+						<input ng-model="orgUpdateData.twitter" class="form-control" placeholder="Link to Twitter">
+					</div>			
+					<div class="form-group">
+			            <button class=" btn btn-default login-button" type="submit" ng-click="updateOrg(orgUpdateData)">Save Changes</button>
+			        </div>
+				</form>
 			</div>
-	        <div class="form-group">
-	            <input ng-model="orgUpdateData.add1" class="form-control" type="text" placeholder="Address 1">
-	        </div>
-	        <div class="form-group">
-	            <input ng-model="orgUpdateData.add2" class="form-control" type="text" placeholder="Address 2">
-	        </div>
-	        <div class="form-group">
-	            <input ng-model="orgUpdateData.city" class="form-control" type="text" placeholder="City">
-	        </div>
-	        <div class="form-group">
-	            <input ng-model="orgUpdateData.st" class="form-control" type="text" placeholder="State">
-	        </div>
-	        <div class="form-group">
-	            <input ng-model="orgUpdateData.zip" class="form-control" type="text" placeholder="Zip Code">
-	        </div>
-	        <div class="form-group">
-				<input ng-model="orgUpdateData.linkedin" class="form-control" placeholder="Link to LinkedIn">
-			</div>
-			<div class="form-group">
-				<input ng-model="orgUpdateData.facebook" class="form-control" placeholder="Link to Facebook">
-			</div>
-			<div class="form-group">
-				<input ng-model="orgUpdateData.twitter" class="form-control" placeholder="Link to Twitter">
-			</div>			
-			<div class="form-group">
-	            <button class=" btn btn-default login-button" type="submit" ng-click="updateOrg(orgUpdateData)">Save Changes</button>
-	        </div>
-		</form>
-	</div>
+	    </div>
+	    <div class="row">
+
+	    </div>
 	</div>
 </div>

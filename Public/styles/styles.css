@@ -129,6 +129,11 @@ table {
 	width: 70%;
 }
 
+/*org management*/
+.org-role:hover {
+	cursor: default;
+}
+
 /*.body {
 	height: 100vh;
 	width: 100vw;
