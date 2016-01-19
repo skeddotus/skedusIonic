@@ -93,8 +93,8 @@ angular.module("skedApp", ["ui.router"]).config(function($stateProvider, $urlRou
         if (rejection.status === 401) {
           console.log("BAD DOG", rejection);
           document.location = "/#/login";
-
         }
+
 
         /* If not a 401, do nothing with this error.
          * This is necessary to make a `responseError`

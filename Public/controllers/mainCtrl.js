@@ -73,7 +73,6 @@ angular.module("skedApp").controller("mainCtrl", function($scope,$timeout, authS
 	};
 
 
-
 	$scope.logout = function() {
 		authService.logout();
 	};

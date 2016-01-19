@@ -1,14 +1,21 @@
 angular.module("skedApp").controller("authCtrl", function($scope, authService, $state){
 
-  $scope.signup = function(){
-    console.log("email: ",$scope.newUser.email);
-    authService.addUser($scope.newUser).then(function(res){
-    	$state.go('login');
-    }).catch(function(err) {
-    	if (err.status) {
-    		$scope.error = "Sorry, that user already exists.";
-    	}
-    });
+  $scope.signup = function(newUser){
+    if(newUser.password !== $scope.password2){
+      swal({
+        title: "Passwords don't match",
+        type: "error",
+        allowOutsideClick: true,
+      })
+    } else {
+      authService.addUser(newUser).then(function(res){
+      	$state.go('login');
+      }).catch(function(err) {
+      	if (err.status) {
+      		$scope.error = "Sorry, that user already exists.";
+      	}
+      });
+    }
   };
 
   $scope.login = function(){
