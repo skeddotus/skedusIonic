@@ -46,8 +46,8 @@ module.exports = {
   },
 
 // api/apt/:orgID/open // GET
-  getOrgOpenAppts: function(req, res){
-    Appt.find({org: req.params.orgID}).find({status: "open"}).sort({startTime: 1}).populate("mentor").exec().then(function(results){
+  getOrgAppts: function(req, res){
+    Appt.find({org: req.params.orgID}).sort({startTime: 1}).populate("mentor").exec().then(function(results){
       res.json(results);
     })
   },

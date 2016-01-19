@@ -1,11 +1,11 @@
 angular.module("skedApp").controller("skedAptOrgCtrl", function($scope, $state, skedAptService){
 
-	$scope.getOrgOpenApts = function(orgID){
-		skedAptService.getOrgOpenApts(orgID).then(function(results){
-			$scope.orgOpenApts = results;
+	$scope.getOrgApts = function(orgID){
+		skedAptService.getOrgApts(orgID).then(function(results){
+			$scope.orgApts = results;
 		});
 	};
-	$scope.getOrgOpenApts($state.params.id);
+	$scope.getOrgApts($state.params.id);
 
 	$scope.getOrg = function(orgID){
 		skedAptService.getOrg(orgID).then(function(result){
@@ -16,7 +16,8 @@ angular.module("skedApp").controller("skedAptOrgCtrl", function($scope, $state, 
 
 	$scope.skedApt = function(aptID){
 		skedAptService.skedApt(aptID, $scope.user._id).then(function(){
-			$scope.getOrgOpenApts($state.params.id);
+			$scope.getOrgApts($state.params.id);
+			$scope.getMyMenteeBookedApts($scope.user._id);
 		});
 	};
 

@@ -44,7 +44,7 @@ module.exports = {
 
   //gets an Organization for users not associated with an organization yet
   getOrg: function(req, res) {
-    Org.findById(req.params.orgID).exec().then(function(results) {
+    Org.findById(req.params.orgID).populate("apts._id").exec().then(function(results) {
       if(!results) {
         res.status(404);
       }

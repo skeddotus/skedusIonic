@@ -22,6 +22,17 @@ angular.module("skedApp").service("orgService", function($http, $q){
 		return dfd.promise;
 	};
 
+	this.getOrgApts = function(orgID){
+		var dfd = $q.defer();
+		$http({
+			method: "GET",
+			url: "/api/apt/" + orgID,
+		}).then(function(results){
+			dfd.resolve(results.data);
+		});
+		return dfd.promise;
+	};
+
 	this.updateOrg = function(orgID, updateData){
 		var dfd = $q.defer();
 		$http({
