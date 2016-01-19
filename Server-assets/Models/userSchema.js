@@ -6,8 +6,8 @@ var bcrypt = require('bcrypt');
 var q = require('q');
 
 var userSchema = new Schema({
-  firstName: {type: String, index: true},
-  lastName: {type: String, index: true},
+  firstName: {type: String},
+  lastName: {type: String},
   email: {type: String, unique: true},
   password: {type: String},
   linkedinId : String,
@@ -71,7 +71,7 @@ userSchema.pre('save', function(next) {
      });
    }
    else{
-     // console.log("nothing doing");
+    //  console.log("nothing doing");
      next();
    }
 
