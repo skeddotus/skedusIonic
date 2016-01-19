@@ -54,7 +54,7 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
     } else {
       $http({
         method: 'GET',
-        url: '/api/users/currentuser'
+        url: '/api/users/currentUser'
       }).then(function(res){
         user = res.data;
         console.log('Result getting the logged in user', res);

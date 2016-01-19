@@ -8,15 +8,12 @@ var q = require('q');
 var userSchema = new Schema({
   firstName: {type: String},
   lastName: {type: String},
-  email: {type: String, unique: true, required: true},
-  validatedEmail: {type: Boolean, required: true, default: false},
-  password: {type: String, required: true},
-
-    linkedinId : String,
-    linkedinToken : String,
-    linkedinEmail : String,
-    linkedinName : String,
-
+  email: {type: String, unique: true},
+  password: {type: String},
+  linkedinId : String,
+  linkedinToken : String,
+  linkedinEmail : String,
+  linkedinName : String,
   appts: [{type: Schema.Types.ObjectId, ref: 'Appt'}], //appts where you're an attendee
   host: [{type: Schema.Types.ObjectId, ref: 'Appt'}], //appts where you're the host
   desc: {type: String},
