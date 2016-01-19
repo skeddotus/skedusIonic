@@ -28,7 +28,7 @@ app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
 //configure passport
-require('./Server-assets/Config/passport.js')(passport);
+require('./Server-assets/Config/passport.js')(passport, app);
 
 //endpoints/routes
 require('./Server-assets/Config/routes.js')(app, passport);
@@ -92,6 +92,7 @@ app.listen(port, function() {
     console.log("Listening on port ", port);
 });
 
+// mongoose.connect(process.env.PORT || 'mongodb://127.0.0.1:27017/skedus');
 mongoose.connect(process.env.MONGOLAB_URI || mongoUri.url);
 mongoose.connection.once('connected', function() {
   console.log('db connected');

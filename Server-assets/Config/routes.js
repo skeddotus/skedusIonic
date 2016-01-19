@@ -18,6 +18,8 @@ module.exports = function(app, passport) {
 	app.get('/api/auth/linkedin',
 		passport.authenticate('linkedin'),
 		function(req, res) {
+			app.post('/api/users', req.user);
+			console.log("posted new linkedin user : ", req.user);
 	})
 
 	app.get('/api/auth/linkedin/callback',
@@ -59,9 +61,16 @@ module.exports = function(app, passport) {
 		})
 	})
 
+	app.get('/api/user/:id', function(req, res) {
+		User.findOne({ _id : req.params.id }).exec().then(function(res) {
+			console.log(res);
+			return res.json(res).end();
+		})
+	})
+
 	//update user
 	app.put('/api/users/:id', function(req, res) {
-		User.update({_id: req.params.id}, req.body).exec().then(function(res) {
+		User.update({ _id: req.params.id}, req.body).exec().then(function(res) {
 			console.log(res);
 			return res.status(200).end();
 		})
@@ -75,6 +84,18 @@ module.exports = function(app, passport) {
 		return res.json(req.user);
 	});
 
+
+	//ADDING LINKEDIN ////////////////////////////////////////
+
+  // send to facebook to do the authentication
+  app.get('/connect/linkedin', passport.authorize('linkedin', { scope : 'email' }));
+
+  // handle the callback after linkedin has authorized the user
+  app.get('/connect/linkedin/callback',
+      passport.authorize('linkedin', {
+          successRedirect : '/profile',
+          failureRedirect : '/'
+      }));
 	
 
 }
