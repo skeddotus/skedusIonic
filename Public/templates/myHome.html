@@ -1,28 +1,35 @@
 <div class="container-fluid">
 	<div class="my-orgs-contain">
+
+		<circle-spinner ng-show="notLoaded"></circle-spinner>
+		<calendar-directive ng-show="calendarLoaded"></calendar-directive>
+
+		<br>
 		<div class="panel panel-default">
 			<div class="panel-heading"><h1>My Apts</h1></div>
 			<div class="panel-body">
-				<table class="table">
-					<tr>
-						<th>Day</th>
-						<th>Start Time</th>
-						<th>End Time</th>
-						<th>Org</th>
-						<th>Mentor</th>
-						<th>Location</th>
-						<th></th>
-					</tr>
-					<tr ng-repeat="apt in myMenteeBookedApts">
-						<td><h5>{{apt.startTime | date: "EEEE - M/d/yy"}}</h5></td>
-	                    <td><h5>{{apt.startTime | date: "shortTime"}}</h5></td>
-	                    <td><h5>{{apt.endTime | date: "shortTime"}}</h5></td>
-	                    <td><h5>{{apt.org.name}}</h5></td>
-	                    <td><h5>{{apt.mentor.name}}</h5></td>
-	                    <td><h5>{{apt.loc}}</h5></td>
-						<td><button class="btn btn-primary" ng-click="cancelApt(apt._id)">Cancel Appointment</button></td>
-					</tr>
-				</table>
+				<div class="table-responsive">
+					<table class="table">
+						<tr>
+							<th>Day</th>
+							<th>Start Time</th>
+							<th>End Time</th>
+							<th>Org</th>
+							<th>Mentor</th>
+							<th>Location</th>
+							<th></th>
+						</tr>
+						<tr ng-repeat="apt in myMenteeBookedApts">
+							<td><h5>{{apt.startTime | date: "EEEE - M/d/yy"}}</h5></td>
+							<td><h5>{{apt.startTime | date: "shortTime"}}</h5></td>
+							<td><h5>{{apt.endTime | date: "shortTime"}}</h5></td>
+							<td><h5>{{apt.org.name}}</h5></td>
+							<td><h5>{{apt.mentor.name}}</h5></td>
+							<td><h5>{{apt.loc}}</h5></td>
+							<td><button ng-click="cancelApt(apt._id)">Cancel Appointment</button></td>
+						</tr>
+					</table>
+				</div>
 			</div>
 		</div>
 		<div class="panel panel-default">
