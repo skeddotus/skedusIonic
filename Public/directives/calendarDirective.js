@@ -1,12 +1,12 @@
-angular.module('skedApp').directive('calendarDirective', function() {
+angular.module('skedApp').directive('calendarDirective', function($timeout) {
   return {
     restrict: 'E',
     templateUrl: '/templates/calendarDirective.html',
-    link: function(scope, ele, attrs) {
-      scope.$watch('ready', function() {
+    link: function(scope, elem, attrs) {
+      $timeout(function() {
         scope.notLoaded = false;
         scope.calendarLoaded = true;
-      })
+      });
     },
     controller: function($scope) {
 
