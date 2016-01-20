@@ -1,10 +1,10 @@
 angular.module("skedApp").service("skedAptService", function($http, $q){
 
-	this.getOrgOpenApts = function(orgID){
+	this.getOrgApts = function(orgID){
 		var dfd = $q.defer();
 		$http({
 			method: "GET",
-			url: "/api/apt/" + orgID + "/open",
+			url: "/api/apt/" + orgID,
 		}).then(function(results){
 			dfd.resolve(results.data);
 		});

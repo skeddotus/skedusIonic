@@ -14,10 +14,53 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 
 	var getOrg = function(orgID){
 		orgService.getOrg($state.params.id).then(function(results){
+			var numAdmins = 0,
+				numMentors = 0,
+				numUsers = 0,
+				members = results.members;
+			for(var i = 0; i < members.length; i++){
+				if(members[i].role === "Admin"){
+					numAdmins ++;
+				} else if(members[i].role === "Mentor" ){
+					numMentors++;
+				} else {
+					numUsers++
+				}
+			}
+			results.numAdmins = numAdmins;
+			results.numMentors = numMentors;
+			results.numUsers = numUsers;
 			$scope.currentOrg = results;
 		})
 	};
 	getOrg($state.params.id);
+
+	$scope.getOrgApts = function(orgID){
+		orgService.getOrgApts(orgID).then(function(results){
+			numOpen = 0,
+			numBooked = 0,
+			numCompleted = 0,
+			numPast = 0;
+			for(var i = 0; i < results.length; i ++){
+				if(results[i].status === "open"){
+					numOpen ++;
+				} else if(results[i].status === "booked" ){
+					numBooked++;
+				} else if(results[i].status === "completed" ){
+					numCompleted++;
+				} else {
+					numPast++
+				}
+			}
+			results.open = numOpen;
+			results.booked = numBooked;
+			results.completed = numCompleted;
+			results.past = numPast;
+			$scope.orgApts = results;
+			console.log("orgApts: ", $scope.orgApts)
+		});
+	};
+	$scope.getOrgApts($state.params.id);
 
 	$scope.updateOrg = function(){
 		orgService.updateOrg($state.params.id, $scope.orgUpdateData).then(function(res){
@@ -48,28 +91,135 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 			if(isConfirm){
 				orgService.deactivateOrg(orgID).then(function(){
 					$scope.getMyOrgs($scope.user._id);
+					$state.go("auth.myHome");
 				});
 			};
-		$state.go("auth.myHome");
 		});
 	};
 
-	$scope.makeAdmin = function(userID){
-		orgService.makeAdmin(userID, $state.params.id).then(function(){
-			$scope.getOrgUsers($state.params.id);
-		});
+	$scope.makeAdmin = function(userID, userRole){
+		if(userRole === "Admin"){
+			return;
+		} else if(userRole === "Mentor"){
+			swal({
+				title: "Are you sure you want to make this user an admin?",
+				text: "They will have access to Organization Management.",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "Confirm",
+				cancelButtonText: "Cancel",
+				}, 
+				function(isConfirm){
+					if(isConfirm){
+						orgService.makeAdmin(userID, $state.params.id).then(function(){
+							$scope.getOrgUsers($state.params.id);
+							getOrg($state.params.id);
+						});
+					};
+				}
+			);	
+		} else if(userRole === "User"){
+			swal({
+				title: "Are you sure you want to make this user an admin?",
+				text: "They will have access to Organization Management and Set Availability.",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "Confirm",
+				cancelButtonText: "Cancel",
+				}, 
+				function(isConfirm){
+					if(isConfirm){
+						orgService.makeAdmin(userID, $state.params.id).then(function(){
+							$scope.getOrgUsers($state.params.id);
+							getOrg($state.params.id);
+						});
+					};
+				}
+			);	
+		}
 	};
 
-	$scope.makeMentor = function(userID){
-		orgService.makeMentor(userID, $state.params.id).then(function(){
-			$scope.getOrgUsers($state.params.id);
-		});
+	$scope.makeMentor = function(userID, userRole){
+		if(userRole === "Admin"){
+			swal({
+			title: "Are you sure you want to make this user a Mentor?",
+			text: "They will no longer have access to Organization Management",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Confirm",
+			cancelButtonText: "Cancel",
+			}, 
+			function(isConfirm){
+				if(isConfirm){
+					orgService.makeMentor(userID, $state.params.id).then(function(){
+						$scope.getOrgUsers($state.params.id);
+						getOrg($state.params.id);
+					});
+				};
+			});
+		} else if(userRole === "User"){
+			swal({
+			title: "Are you sure you want to make this user a Mentor?",
+			text: "They will have access to Set Availability.",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Confirm",
+			cancelButtonText: "Cancel",
+			}, 
+			function(isConfirm){
+				if(isConfirm){
+					orgService.makeMentor(userID, $state.params.id).then(function(){
+						$scope.getOrgUsers($state.params.id);
+						getOrg($state.params.id);
+					});
+				};
+			});
+		}
 	};
 
-	$scope.makeUser = function(userID){
-		orgService.makeUser(userID, $state.params.id).then(function(){
-			$scope.getOrgUsers($state.params.id);
-		});
+	$scope.makeUser = function(userID, userRole){
+		if(userRole === "Admin"){
+			swal({
+			title: "Are you sure you want to make this user a User?",
+			text: "They will no longer have access to Organization Management and Set Availability.",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Confirm",
+			cancelButtonText: "Cancel",
+			}, 
+			function(isConfirm){
+				if(isConfirm){
+					orgService.makeUser(userID, $state.params.id).then(function(){
+						$scope.getOrgUsers($state.params.id);
+						getOrg($state.params.id);
+					});
+				};
+			});
+		} else if(userRole === "Mentor"){
+			swal({
+			title: "Are you sure you want to make this user a User?",
+			text: "They will no longer have access to Set Availability.",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Confirm",
+			cancelButtonText: "Cancel",
+			}, 
+			function(isConfirm){
+				if(isConfirm){
+					orgService.makeUser(userID, $state.params.id).then(function(){
+						$scope.getOrgUsers($state.params.id);
+						getOrg($state.params.id);
+					});
+				};
+			});
+		}
+		
 	};
 
 	$scope.removeUser = function(userID){

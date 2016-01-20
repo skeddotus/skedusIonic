@@ -6,12 +6,11 @@ var express = require('express'),
     orgServCtrl = require('./Server-assets/Controllers/orgServCtrl.js'),
     apptServCtrl = require('./Server-assets/Controllers/apptServCtrl.js'),
     mongoose = require('mongoose'),
-  	passport = require('passport'),
-  	port = process.env.PORT || 9001,
-  	bodyParser = require('body-parser'),
-  	session = require('express-session'),
+    passport = require('passport'),
+    port = process.env.PORT || 9001,
+    session = require('express-session'),
     mongoUri = require('./Server-assets/Config/database.js'),
-  	Secret = require('./Server-assets/Secrets/secrets.js');
+    Secret = require('./Server-assets/Secrets/secrets.js');
 
     app.use(cors(), bodyParser.json(), express.static(__dirname + '/Public'));
 
@@ -21,15 +20,15 @@ var express = require('express'),
 
 // required for passport
 app.use(session({
-	secret: Secret.SESSION_SECRET,
-	resave: false,
-	saveUninitialized: false,
+    secret: Secret.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
 })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
 //configure passport
-require('./Server-assets/Config/passport.js')(passport);
+require('./Server-assets/Config/passport.js')(passport, app);
 
 //endpoints/routes
 require('./Server-assets/Config/routes.js')(app, passport);
@@ -39,7 +38,7 @@ var requireAuth = function(req, res, next) {
     if (!req.isAuthenticated()) {
         return res.status(401).end();
     }
-    console.log("requireAuth done");
+    console.log("requireAuth done")
 
     next();
 };
@@ -60,7 +59,7 @@ var requireAuth = function(req, res, next) {
     app.get('/api/orgs', orgServCtrl.getOrgs);
     app.get('/api/org/:orgID', orgServCtrl.getOrg);
     app.put('/api/org/:orgID', orgServCtrl.updateOrg);
-	app.get('/api/org/:orgID/users', orgServCtrl.getOrgUsers);
+    app.get('/api/org/:orgID/users', orgServCtrl.getOrgUsers);
     app.post('/api/org/:orgID/users', orgServCtrl.addOrgUser);
     app.put('/api/org/:orgID/users', orgServCtrl.removeOrgUser);
     app.post('/api/org/:orgID/mentors', orgServCtrl.changeOrgRole);
@@ -76,13 +75,13 @@ var requireAuth = function(req, res, next) {
     app.get('/api/apt/:orgID/:userID/open', apptServCtrl.getMyOpenAppts);
     app.get('/api/apt/:orgID/mentor/:userID/booked', apptServCtrl.getMyMentorBookedAppts);
     app.get('/api/apt/:userID/booked', apptServCtrl.getMyMenteeBookedAppts);
-    app.get('/api/apt/:orgID/open', apptServCtrl.getOrgOpenAppts);
+    app.get('/api/apt/:orgID', apptServCtrl.getOrgAppts);
     app.put('/api/apt/:aptID', apptServCtrl.skedApt);
     app.patch('/api/apt/cancel/:aptID', apptServCtrl.aptCancel);
 
 
 
-	app.post('/api/org/:orgID/appts', apptServCtrl.createAppt);
+    app.post('/api/org/:orgID/appts', apptServCtrl.createAppt);
     app.get('/api/org/:orgID/appts', apptServCtrl.getAppts);
     app.get('/api/appt/:apptID', apptServCtrl.getAppt);
     app.delete('/api/appt/:apptID', apptServCtrl.deleteAppt);
@@ -91,8 +90,12 @@ var requireAuth = function(req, res, next) {
     app.put('/api/appt/:apptID/mentor/', apptServCtrl.updateAppt); //changes for update and location section in schema, cancelling
 
 
+    //Mandrill Email Verification endpoint
+    app.get('/api/user/email/validation/:userID', userServCtrl.validateEmail);
+
+
 app.listen(port, function() {
-	console.log("Listening on port ", port);
+    console.log("Listening on port ", port);
 });
 
 mongoose.connect(process.env.MONGOLAB_URI || mongoUri.url);

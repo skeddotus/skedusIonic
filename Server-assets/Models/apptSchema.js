@@ -14,7 +14,7 @@ var apptSchema = new Schema({
     message: {type: String},
     updated: {type: Date, default: Date.now}
   }],
-  status: {type: String, required: true, default: 'open', enum: ['open', 'booked', 'past']},
+  status: {type: String, required: true, default: 'open', enum: ['open', 'booked', 'past', 'completed']},
 }, {timestamps: true});
 
 module.exports = mongoose.model('Appt', apptSchema);

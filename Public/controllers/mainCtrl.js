@@ -71,13 +71,21 @@ $(document).ready(function(){
 
 
 	$scope.cancelApt = function(aptID){
-    if (confirm("Are you sure you want to remove this appointment?") === true) {
-      mainService.cancelApt(aptID).then(function(){
-        $scope.getMyMenteeBookedApts($scope.user._id);
-      });
-    };
+		swal({
+			title: "Are you sure you want to Cancel Appointment?",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes",
+			cancelButtonText: "No, I want to keep it!",
+		}, function(isConfirm){
+			if(isConfirm){
+				mainService.cancelApt(aptID).then(function(){
+					$scope.getMyMenteeBookedApts($scope.user._id);
+				});
+			};
+		});
 	};
-
 
 
 	$scope.logout = function() {

@@ -11,7 +11,7 @@
 					<th>Location</th>
 					<th></th>
 				</tr>
-				<tr ng-repeat="apt in orgOpenApts">
+				<tr ng-repeat="apt in orgApts" ng-if="apt.status === 'open'">
 					<td><h5>{{apt.startTime | date: "fullDate"}}</h5></td>
                     <td><h5>{{apt.startTime | date: "shortTime"}}</h5></td>
                     <td><h5>{{apt.endTime | date: "shortTime"}}</h5></td>

@@ -44,7 +44,7 @@ module.exports = {
 
   //gets an Organization for users not associated with an organization yet
   getOrg: function(req, res) {
-    Org.findById(req.params.orgID).exec().then(function(results) {
+    Org.findById(req.params.orgID).populate("apts._id").exec().then(function(results) {
       if(!results) {
         res.status(404);
       }
@@ -65,20 +65,42 @@ module.exports = {
           return res.send("exists");
         } else {
           Org.update({_id: req.params.orgID}, req.body).exec().then(function(results){
-            return res.send("Organization Updated")
-          })
+            return res.send("Organization Updated");
+          });
         }
-    })
+    });
   },
 
   // app.post('/api/org/:orgID/users', orgServCtrl.addOrgUser);
   addOrgUser: function(req, res){
     Org.findById({_id: req.params.orgID}).exec().then(function(org){
-      org.members.push(req.body);
-      org.save(function() {
-            res.status(200).end();
-          });
-      })
+      if(!org) {
+        res.status(404);
+      }
+      else {
+        var members = org.members;
+        var userExists;
+        for(var i = 0; i < members.length; i++) {
+          if(members[i].userid === req.body.userid){
+            userExists = true;
+            break;
+          }
+          else{
+              userExists = false;
+          }
+        }
+        if(userExists === true) {
+          org.members.push(req.body);
+          org.save(function() {
+              return res.status(200).end();
+            });
+        }
+        else if (userExists === false) {
+          console.log("User not in Org!");
+          return res.status(404).end();
+        }
+      }
+      });
   },
 
   // app.put('/api/org/:orgID/users', orgServCtrl.removeOrgUser);
@@ -91,7 +113,7 @@ module.exports = {
        var members = org.members;
        for(var i = 0; i < members.length; i++) {
          if(members[i].userid === req.body.userid){
-            members.splice(i, 1);  
+            members.splice(i, 1);
             break;
          }
        }

@@ -3,16 +3,21 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
 	var user;
 
   this.addUser = function(newUser){
-    console.log("sent data 2 userService");
-    console.log(newUser);
     var dfd = $q.defer();
     $http({
       method: 'POST',
       url: '/api/users',
       data: newUser,
     }).then(function(res) {
-      console.log("Result from user login,", res)
       dfd.resolve(res.data);
+    }).catch(function(res) {
+      if(res.status === 409){
+        swal({
+          title: "Account with that email already exists.",
+          type: "error",
+          allowOutsideClick: true,
+        });
+      };
     })
     return dfd.promise;
   };
@@ -54,7 +59,7 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
     } else {
       $http({
         method: 'GET',
-        url: '/api/users/currentuser'
+        url: '/api/users/currentUser'
       }).then(function(res){
         user = res.data;
         console.log('Result getting the logged in user', res);

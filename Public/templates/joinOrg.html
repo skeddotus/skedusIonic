@@ -15,10 +15,31 @@
 						<th>Location</th>
 						<th></th>
 					</tr>
-					<tr ng-repeat="org in orgs | filter:searchOrg">
-						<td><h3>{{org.name}}</h3></td>
+					<tr ng-repeat="org in orgs | filter:searchOrg" >
+						<td data-toggle="modal" data-target="#myModal{{org._id}}"><h3>{{org.name}}</h3></td>
 						<td><h5>{{org.desc}}</h5></td>
 						<td><h5>{{org.add1}} {{org.add2}} {{org.city}} {{org.st}} {{org.zip}}</h5></td>
+						<td>
+							<div class="modal fade" id="myModal{{org._id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+							  <div class="modal-dialog" role="document">
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							        <h2 class="modal-title" id="myModalLabel">{{org.name}}</h2>
+							      </div>
+							      <div class="modal-body">
+									<h2>About:</h2><h4> {{org.desc}}</h4>
+									<h2>Company:</h2><h4>{{user.userid.company}}</h4>
+									<h2>Job Title:</h2><h4>{{user.userid.title}}</h4>
+									<h2>Specialities:</h2><h4>{{user.userid.specialities}}</h4>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							      </div>
+							    </div>
+							  </div>
+							</div>
+						</td>
 						<td><button ng-click="joinOrg(org._id)">Join</button></td>
 					</tr>
 				</table>
