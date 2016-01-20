@@ -34,7 +34,7 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
       dfd.resolve(res);
     }).catch(function(res) {
       console.log("cannot login", res);
-       if(res.status === 400){
+       if(res.status !== 200){
         swal({
           title: "Email and Password combination not found",
           text: "Please try again",

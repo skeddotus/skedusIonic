@@ -17,16 +17,16 @@
 							<th>Org</th>
 							<th>Mentor</th>
 							<th>Location</th>
-							<th></th>
+							<th>Cancel</th>
 						</tr>
 						<tr ng-repeat="apt in myMenteeBookedApts">
 							<td><h5>{{apt.startTime | date: "EEEE - M/d/yy"}}</h5></td>
-							<td><h5>{{apt.startTime | date: "shortTime"}}</h5></td>
-							<td><h5>{{apt.endTime | date: "shortTime"}}</h5></td>
-							<td><h5>{{apt.org.name}}</h5></td>
-							<td><h5>{{apt.mentor.name}}</h5></td>
-							<td><h5>{{apt.loc}}</h5></td>
-							<td><button ng-click="cancelApt(apt._id)">Cancel Appointment</button></td>
+		                    <td><h5>{{apt.startTime | date: "shortTime"}}</h5></td>
+		                    <td><h5>{{apt.endTime | date: "shortTime"}}</h5></td>
+		                    <td><h5>{{apt.org.name}}</h5></td>
+		                    <td><h5>{{apt.mentor.firstName}} {{apt.mentor.lastName}}</h5></td>
+		                    <td><h5>{{apt.loc}}</h5></td>
+							<td><span ng-click="cancelApt(apt._id)" class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="leaveOrg(org.org._id)"></span></td>
 						</tr>
 					</table>
 				</div>

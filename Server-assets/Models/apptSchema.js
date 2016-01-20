@@ -7,8 +7,8 @@ var apptSchema = new Schema({
   org: {type: String, ref: "Org"},
   mentor: {type: String, ref:'User', required: true},
   mentee: {type: String, ref:'User'},
-  startTime: {type: Date},
-  endTime: {type: Date},
+  startsAt: {type: Date},
+  endsAt: {type: Date},
   loc: {type: String},
   updates: [{
     message: {type: String},
