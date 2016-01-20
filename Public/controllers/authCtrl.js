@@ -22,7 +22,7 @@ angular.module("skedApp").controller("authCtrl", function($scope, authService, $
     authService.login({
     	email: $scope.email,
     	password: $scope.password
-    }).then(function(res){
+    }).then(function(){
       $scope.credentials = {};
       $state.go('auth.myHome');
     });
