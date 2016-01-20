@@ -39,7 +39,7 @@ userSchema.methods.validPassword = function(givenPassword) {
     var dfd = q.defer();
     bcrypt.compare(givenPassword, this.password, function(err, result) {
         if(result) {
-        	console.log("treu");
+        	console.log("true");
             dfd.resolve(true);
         }
         else {

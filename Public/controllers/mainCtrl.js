@@ -50,6 +50,7 @@ angular.module("skedApp").controller("mainCtrl", function($scope,$timeout, authS
 
 	$scope.getMyMenteeBookedApts = function(userID){
 		mainService.getMyMenteeBookedApts(userID).then(function(results){
+			console.log("myApts: ", results)
 			$scope.myMenteeBookedApts = results;
 		});
 	};
