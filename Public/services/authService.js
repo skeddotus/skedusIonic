@@ -34,6 +34,7 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
       dfd.resolve(res);
     }).catch(function(res) {
       console.log("cannot login", res);
+<<<<<<< HEAD
        if(res.status !== 200){
         swal({
           title: "Email and Password combination not found",
@@ -42,6 +43,13 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
           allowOutsideClick: true,
         });
       };
+=======
+      swal({
+          title: "Incorrect email/password. Please try again.",
+          type: "error",
+          allowOutsideClick: true,
+        });
+>>>>>>> e962955cc287c4cca07b0b428147fb571733ea5c
       $state.go('login');
     })
     return dfd.promise;
@@ -55,7 +63,6 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
     })
     .then(function(res){
       dfd.resolve(res);
-      $state.go('login');
     })
     return dfd.promise;
   }

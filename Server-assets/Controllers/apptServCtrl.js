@@ -3,6 +3,7 @@ var Appt = require('../Models/apptSchema');
 var User = require('../Models/userSchema');
 var Org = require('../Models/orgSchema');
 
+
 module.exports = {
 
 
@@ -12,14 +13,14 @@ module.exports = {
     apt.save().then(function(err, results){
       return res.status(201).end();
     });
-  }, 
+  },
 
   //  api/apt/:orgID/:userID // PUT
   addApptToOrg: function(req, res){
     Org.findOne({_id: req.params.orgID}).exec().then(function(org){
       org.apts.push(req.body);
       return org.save().then(function(results){
-        return res.json(results)
+        return res.json(results);
       })
     })
   },
@@ -131,7 +132,7 @@ module.exports = {
           for (var i = 0; i < currentAppt.attendees; i++) {
 
             User.findOne({ _id : currentAppt.attendees[i] }).exec().then(function(results) {
-              
+
               var currentUser = results;
               // console.log("USER BEFORE : ", currentUser);
               var userIndex = currentUser.appts.indexOf(req.params.apptId);
@@ -142,7 +143,7 @@ module.exports = {
             })
 
           }
-          
+
 
           Appt.remove({ _id : req.params.apptID }).exec();
 
@@ -154,16 +155,16 @@ module.exports = {
       })
 
     })
-    
+
   },
 
   //add an attendee to an appointment TEST DONE
-  addAttendee : function(req, res) { 
+  addAttendee : function(req, res) {
 
     var currentAppt = req.params.apptID;
     // var currentUser = req.user._id;
     var currentUser = "5696bfa5ac8f7eeb0aba1a10"; /////////////////////////////////////////////////////
-    
+
 
     Appt.findOne({ _id : currentAppt }).exec().then(function(results) {
 

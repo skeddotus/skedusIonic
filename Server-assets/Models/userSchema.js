@@ -9,7 +9,10 @@ var userSchema = new Schema({
   firstName: {type: String},
   lastName: {type: String},
   email: {type: String, unique: true},
+  validatedEmail : {type: String, required: true, default: false},
   password: {type: String},
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
   linkedinId : String,
   linkedinToken : String,
   linkedinEmail : String,
@@ -27,8 +30,8 @@ var userSchema = new Schema({
     required: true,
     default: 'Active',
     enum: ['Active', 'Archived', 'Pending']
-  },
-});
+  }
+},{timestamps: true});
 
 
 userSchema.methods.validPassword = function(givenPassword) {
@@ -50,9 +53,9 @@ userSchema.methods.validPassword = function(givenPassword) {
     return dfd.promise;
 
     //method 1 (localstrategy)
-     // var validPass = bcrypt.compareSync(givenPassword, this.password);
-     // console.log('validPass', validPass)
-     // return validPass
+     var validPass = bcrypt.compareSync(givenPassword, this.password);
+     console.log('validPass', validPass)
+     return validPass
 };
 
 userSchema.pre('save', function(next) {
