@@ -1,4 +1,5 @@
 angular.module("skedApp").controller("mainCtrl", function($scope, $timeout, authService, mainService, user){
+angular.module("skedApp").controller("mainCtrl", function($scope,$timeout, authService, mainService, user){
 
   //------------jQuery Stuff-------------------
 $(document).ready(function(){
@@ -92,7 +93,9 @@ $(document).ready(function(){
 
 
 	$scope.logout = function() {
-		authService.logout();
+		authService.logout().then(function() {
+			location.reload();
+		})
 	};
 
 

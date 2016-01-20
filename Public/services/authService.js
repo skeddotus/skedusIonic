@@ -34,6 +34,11 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
       dfd.resolve(res);
     }).catch(function(res) {
       console.log("cannot login", res);
+      swal({
+          title: "Incorrect email/password. Please try again.",
+          type: "error",
+          allowOutsideClick: true,
+        });
       $state.go('login');
     })
     return dfd.promise;
@@ -47,7 +52,6 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
     })
     .then(function(res){
       dfd.resolve(res);
-      $state.go('login');
     })
     return dfd.promise;
   }
