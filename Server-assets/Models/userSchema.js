@@ -9,6 +9,7 @@ var userSchema = new Schema({
   firstName: {type: String},
   lastName: {type: String},
   email: {type: String, unique: true},
+  validatedEmail : {type: String, required: true, default: false},
   password: {type: String},
   linkedinId : String,
   linkedinToken : String,
@@ -27,8 +28,8 @@ var userSchema = new Schema({
     required: true,
     default: 'Active',
     enum: ['Active', 'Archived', 'Pending']
-  },
-});
+  }
+},{timestamps: true});
 
 
 userSchema.methods.validPassword = function(givenPassword) {
