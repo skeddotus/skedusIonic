@@ -1,4 +1,4 @@
-angular.module("skedApp").controller("mainCtrl", function($scope, $timeout, authService, mainService, user){
+angular.module("skedApp").controller("mainCtrl", function($scope, authService, mainService, user){
 
   //------------jQuery Stuff-------------------
 $(document).ready(function(){
@@ -65,12 +65,14 @@ $(document).ready(function(){
 		});
 	};
 
-	$scope.getMyMenteeBookedApts = function(userID){
-		mainService.getMyMenteeBookedApts(userID).then(function(results){
-			$scope.myMenteeBookedApts = results;
-		});
-	};
-	$scope.getMyMenteeBookedApts($scope.user._id);
+	// moved into calendar directive
+	// $scope.getMyMenteeBookedApts = function(userID){
+	// 	mainService.getMyMenteeBookedApts(userID).then(function(results){
+	// 		$scope.myMenteeBookedApts = results;
+	// 		$scope.events = results;
+	// 	});
+	// };
+	// $scope.getMyMenteeBookedApts($scope.user._id);
 
 
 	$scope.cancelApt = function(aptID){
@@ -94,6 +96,7 @@ $(document).ready(function(){
 	$scope.logout = function() {
 		authService.logout();
 	};
+
 
 
 });
