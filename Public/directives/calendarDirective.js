@@ -12,7 +12,6 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
 
       $scope.getMyMenteeBookedApts = function(userID){
     		mainService.getMyMenteeBookedApts(userID).then(function(results){
-    			$scope.myMenteeBookedApts = results;
     			$scope.events = results;
     		});
     	};
@@ -68,8 +67,8 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
 
       $scope.eventClicked = function(event) {
         swal({
-          title: 'Clicked',
-          text: event
+          title: event.title,
+          text: "the meeting is at "+event.loc+".",
         });
       };
 

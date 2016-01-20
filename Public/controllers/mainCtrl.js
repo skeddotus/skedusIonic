@@ -22,6 +22,17 @@ $(document).ready(function(){
 
 	$scope.getMyOrgs = function(userID){
 		mainService.getMyOrgs(userID).then(function(res){
+			for (var prop in res) {
+				if (prop.role === "Admin") {
+					prop.type = "important";
+				}
+				else if (prop.role === "mentor") {
+					prop.type = "warning";
+				}
+				else {
+					prop.type = "success";
+				}
+			};
 			$scope.myOrgs = res;
 		});
 	};
@@ -65,16 +76,14 @@ $(document).ready(function(){
 		});
 	};
 
-	// moved into calendar directive
-	// $scope.getMyMenteeBookedApts = function(userID){
-	// 	mainService.getMyMenteeBookedApts(userID).then(function(results){
-	// 		$scope.myMenteeBookedApts = results;
-	// 		$scope.events = results;
-	// 	});
-	// };
-	// $scope.getMyMenteeBookedApts($scope.user._id);
+	$scope.getMyMenteeBookedApts = function(userID){
+		mainService.getMyMenteeBookedApts(userID).then(function(results){
+			$scope.myMenteeBookedApts = results;
+		});
+	};
+	$scope.getMyMenteeBookedApts($scope.user._id);
 
-
+	//not working yet
 	$scope.cancelApt = function(aptID){
 		swal({
 			title: "Are you sure you want to Cancel Appointment?",
