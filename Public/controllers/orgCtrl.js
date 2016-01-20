@@ -2,12 +2,13 @@ angular.module("skedApp").controller("orgCtrl", function($scope, orgService, use
 
 	$scope.getOrgUsers = function(orgID){
 		orgService.getOrgUsers(orgID).then(function(results){
-			var sorted = results.sort(function(a, b) {
-			    var textA = a.userid.lastName.toUpperCase();
-			    var textB = b.userid.lastName.toUpperCase();
-			    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-			});
-			$scope.orgUsers = sorted;
+			console.log("results: ", results)
+			// var sorted = results.sort(function(a, b) {
+			//     var textA = a.userid.lastName.toUpperCase();
+			//     var textB = b.userid.lastName.toUpperCase();
+			//     return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+			// });
+			$scope.orgUsers = results;
 		})
 	};
 	$scope.getOrgUsers($state.params.id);

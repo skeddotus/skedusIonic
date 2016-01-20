@@ -1,25 +1,29 @@
 <div class="container-fluid">
-	<div class="panel panel-default">
-		<div class="panel-heading"><h1>{{thisOrg.name}}</h1></div>
-		<div class="panel-body">
-			<table class="table">
-				<tr>
-					<th>Day</th>
-					<th>Start Time</th>
-					<th>End Time</th>
-					<th>Mentor</th>
-					<th>Location</th>
-					<th></th>
-				</tr>
-				<tr ng-repeat="apt in orgApts" ng-if="apt.status === 'open'">
-					<td><h5>{{apt.startTime | date: "fullDate"}}</h5></td>
-                    <td><h5>{{apt.startTime | date: "shortTime"}}</h5></td>
-                    <td><h5>{{apt.endTime | date: "shortTime"}}</h5></td>
-                    <td><h5>{{apt.mentor.name}}</h5></td>
-                    <td><h5>{{apt.loc}}</h5></td>
-					<td><button ng-click="skedApt(apt._id)">Sked Apt</button></td>
-				</tr>
-			</table>
+	<div class="my-orgs-contain">
+		<circle-spinner ng-show="notLoaded"></circle-spinner>
+		<calendar-directive ng-show="calendarLoaded"></calendar-directive>
+		<div class="panel panel-default">
+			<div class="panel-heading"><h1>{{thisOrg.name}}</h1></div>
+			<div class="panel-body">
+				<table class="table">
+					<tr>
+						<th>Day</th>
+						<th>Start Time</th>
+						<th>End Time</th>
+						<th>Mentor</th>
+						<th>Location</th>
+						<th></th>
+					</tr>
+					<tr ng-repeat="apt in orgApts" ng-if="apt.status === 'open'">
+						<td><h5>{{apt.startsAt | date: "fullDate"}}</h5></td>
+	                    <td><h5>{{apt.startsAt | date: "shortTime"}}</h5></td>
+	                    <td><h5>{{apt.endsAt | date: "shortTime"}}</h5></td>
+	                    <td><h5>{{apt.mentor.name}}</h5></td>
+	                    <td><h5>{{apt.loc}}</h5></td>
+						<td><button ng-click="skedApt(apt._id)">Sked Apt</button></td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>
