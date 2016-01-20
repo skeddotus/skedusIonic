@@ -1,4 +1,4 @@
-angular.module("skedApp").controller("mainCtrl", function($scope,$timeout, authService, mainService, user){
+angular.module("skedApp").controller("mainCtrl", function($scope,$timeout, authService, mainService, user, $state){
 
  
 	$scope.user = user;
@@ -74,7 +74,9 @@ angular.module("skedApp").controller("mainCtrl", function($scope,$timeout, authS
 
 
 	$scope.logout = function() {
-		authService.logout();
+		authService.logout().then(function() {
+			location.reload();
+		})
 	};
 
 

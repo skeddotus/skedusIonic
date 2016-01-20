@@ -9,6 +9,8 @@ var express = require('express'),
     passport = require('passport'),
     port = process.env.PORT || 9001,
     session = require('express-session'),
+    async = require('async'),
+    crypto = require('crypto'),
     mongoUri = require('./Server-assets/Config/database.js'),
     Secret = require('./Server-assets/Secrets/secrets.js');
 

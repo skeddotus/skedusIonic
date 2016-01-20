@@ -10,6 +10,8 @@ var userSchema = new Schema({
   lastName: {type: String},
   email: {type: String, unique: true},
   password: {type: String},
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
   linkedinId : String,
   linkedinToken : String,
   linkedinEmail : String,
@@ -36,23 +38,23 @@ userSchema.methods.validPassword = function(givenPassword) {
 	// console.log("this.password", this.password);
 
 	//method 2 (localstrategy)
-    var dfd = q.defer();
-    bcrypt.compare(givenPassword, this.password, function(err, result) {
-        if(result) {
-        	console.log("treu");
-            dfd.resolve(true);
-        }
-        else {
-        	console.log("false");
-            dfd.reject(false);
-        }
-    });
-    return dfd.promise;
+    // var dfd = q.defer();
+    // bcrypt.compare(givenPassword, this.password, function(err, result) {
+    //     if(result) {
+    //     	console.log("treu");
+    //         dfd.resolve(true);
+    //     }
+    //     else {
+    //     	console.log("false");
+    //         dfd.reject(false);
+    //     }
+    // });
+    // return dfd.promise;
 
     //method 1 (localstrategy)
-     // var validPass = bcrypt.compareSync(givenPassword, this.password);
-     // console.log('validPass', validPass)
-     // return validPass
+     var validPass = bcrypt.compareSync(givenPassword, this.password);
+     console.log('validPass', validPass)
+     return validPass
 };
 
 userSchema.pre('save', function(next) {
