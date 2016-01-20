@@ -1,7 +1,8 @@
 <div class="container-fluid">
 	<div class="my-orgs-contain">
 
-		<calendar-directive></calendar-directive>
+		<calendar-directive ng-show="calendarLoaded"></calendar-directive>
+		<circle-spinner ng-show="notLoaded"></circle-spinner>
 
 		<br>
 		<div class="panel panel-default">

@@ -2,6 +2,12 @@ angular.module('skedApp').directive('calendarDirective', function() {
   return {
     restrict: 'E',
     templateUrl: '/templates/calendarDirective.html',
+    link: function(scope, ele, attrs) {
+      scope.$watch('ready', function() {
+        scope.notLoaded = false;
+        scope.calendarLoaded = true;
+      })
+    },
     controller: function($scope) {
 
       $scope.calendarView = 'month';

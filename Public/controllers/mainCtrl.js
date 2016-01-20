@@ -8,9 +8,12 @@ $(document).ready(function(){
   //   console.log('I ran');
   //   $('#navSidebar').offcanvas("hide");
   // });
-	
+
 });
 // ------------------------------------------
+
+	$scope.calendarLoaded = false;
+	$scope.notLoaded = true;
 
 	//Page title
 	$scope.pageTitle = "Schedule";
