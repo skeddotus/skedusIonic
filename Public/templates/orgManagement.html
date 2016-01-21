@@ -1,5 +1,6 @@
 <div class="contain-fluid">
-	<div class=" join-orgs-contain">
+	<circle-spinner ng-show="notLoaded"></circle-spinner>
+	<div ng-show="stuffLoaded" class=" join-orgs-contain">
 		<div class="row">
 			<div class="panel panel-default">
 	            <div class="panel-heading"><h1>All Org Users</h1></div>
@@ -142,7 +143,7 @@
 					</div>
 					<div class="form-group">
 						<input ng-model="orgUpdateData.twitter" class="form-control" placeholder="Link to Twitter">
-					</div>			
+					</div>
 					<div class="form-group">
 			            <button class=" btn btn-default login-button" type="submit" ng-click="updateOrg(orgUpdateData)">Save Changes</button>
 			        </div>

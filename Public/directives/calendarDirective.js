@@ -8,10 +8,23 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
         scope.calendarLoaded = true;
       });
     },
-    controller: function($scope) {
+    controller: function($scope, mainService) {
+
+      $scope.getMyMenteeBookedApts = function(userID){
+    		mainService.getMyMenteeBookedApts(userID).then(function(results){
+          for (var i = 0; i < results.length; i++) {
+  					results[i].type = "info";
+    			};
+    			$scope.events = results;
+    		});
+    	};
+    	$scope.getMyMenteeBookedApts($scope.user._id);
 
       $scope.calendarView = 'month';
       $scope.viewDate = new Date();
+
+      // $scope.enableEdit = '<i class=\'glyphicon glyphicon-pencil\'></i>';
+      // $scope.enableDel = '<i class=\'glyphicon glyphicon-remove\'></i>';
 
       // $scope.events = [
       // {
@@ -29,39 +42,39 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
       // }];
 
       // $scope.events = [
-      //     {
-      //       title: 'An event',
-      //       type: 'warning',
-      //       startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
-      //       endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
-      //       draggable: true,
-      //       resizable: true
-      //     },
-      //     {
-      //       title: '<i class="glyphicon glyphicon-asterisk"></i> <span class="text-primary">Another event</span>, with a <i>html</i> title',
-      //       type: 'info',
-      //       startsAt: moment().subtract(1, 'day').toDate(),
-      //       endsAt: moment().add(5, 'days').toDate(),
-      //       draggable: true,
-      //       resizable: true
-      //     },
-      //     {
-      //       title: 'This is a really long event title that occurs on every year',
-      //       type: 'important',
-      //       startsAt: moment().startOf('day').add(7, 'hours').toDate(),
-      //       endsAt: moment().startOf('day').add(19, 'hours').toDate(),
-      //       recursOn: 'year',
-      //       draggable: true,
-      //       resizable: true
-      //     }
-      //   ];
+      //   {
+      //     title: 'An event',
+      //     type: 'warning',
+      //     startsAt: moment().startOf('week').subtract(2, 'days').add(8, 'hours').toDate(),
+      //     endsAt: moment().startOf('week').add(1, 'week').add(9, 'hours').toDate(),
+      //     draggable: true,
+      //     resizable: true
+      //   },
+      //   {
+      //     title: '<i class="glyphicon glyphicon-asterisk"></i> <span class="text-primary">Another event</span>, with a <i>html</i> title',
+      //     type: 'info',
+      //     startsAt: moment().subtract(1, 'day').toDate(),
+      //     endsAt: moment().add(5, 'days').toDate(),
+      //     draggable: true,
+      //     resizable: true
+      //   },
+      //   {
+      //     title: 'This is a really long event title that occurs on every year',
+      //     type: 'important',
+      //     startsAt: moment().startOf('day').add(7, 'hours').toDate(),
+      //     endsAt: moment().startOf('day').add(19, 'hours').toDate(),
+      //     recursOn: 'year',
+      //     draggable: true,
+      //     resizable: true
+      //   }
+      // ];
 
       $scope.isCellOpen = false;
 
       $scope.eventClicked = function(event) {
         swal({
-          title: 'Clicked',
-          text: event
+          title: event.title,
+          text: "the meeting is at "+event.loc+".",
         });
       };
 
