@@ -68,6 +68,7 @@ $(document).ready(function(){
 	$scope.getMyMenteeBookedApts = function(userID){
 		mainService.getMyMenteeBookedApts(userID).then(function(results){
 			$scope.myMenteeBookedApts = results;
+			$scope.events = results;
 		});
 	};
 	$scope.getMyMenteeBookedApts($scope.user._id);
@@ -92,7 +93,9 @@ $(document).ready(function(){
 
 
 	$scope.logout = function() {
-		authService.logout();
+		authService.logout().then(function() {
+			location.reload();
+		})
 	};
 
 

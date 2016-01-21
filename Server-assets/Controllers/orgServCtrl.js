@@ -89,13 +89,13 @@ module.exports = {
               userExists = false;
           }
         }
-        if(userExists === true) {
+        if(userExists === false) {
           org.members.push(req.body);
           org.save(function() {
               return res.status(200).end();
             });
         }
-        else if (userExists === false) {
+        else if (userExists === true) {
           console.log("User not in Org!");
           return res.status(404).end();
         }

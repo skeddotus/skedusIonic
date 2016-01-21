@@ -16,6 +16,16 @@ angular.module("skedApp", ["ui.router", 'mwl.calendar', 'ui.bootstrap', 'ngAnima
 			templateUrl: 'templates/signup.html',
 			controller: 'authCtrl'
 		})
+		.state('forgot', {
+			url: '/forgot',
+			templateUrl: 'templates/forgot.html',
+			controller: 'authCtrl'
+		})
+		.state('reset', {
+			url: '/reset',
+			templateUrl: 'templates/reset.html',
+			controller: 'authCtrl'
+		})
 
 //AUTH STATES ////////////////////////////////////////////////////////////////
 		.state('auth', {

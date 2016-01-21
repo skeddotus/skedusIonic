@@ -1,6 +1,7 @@
 angular.module("skedApp").service('aptService', function($http, $q) {
 
   this.createApt = function(newApt, orgID, userID){
+    console.log("newApt:", newApt.endsAt)
     var dfd = $q.defer();
     $http({
       method: 'POST',
@@ -8,8 +9,8 @@ angular.module("skedApp").service('aptService', function($http, $q) {
       data: {
         org: orgID,
         mentor: userID,
-        startTime: newApt.startTime,
-        endTime: newApt.endTime,
+        startsAt: newApt.startsAt,
+        endsAt: newApt.endsAt,
         loc: newApt.loc
       },
     }).then(function() {

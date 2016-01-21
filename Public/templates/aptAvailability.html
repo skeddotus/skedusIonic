@@ -5,9 +5,8 @@
                 <input ng-model="newApt.startsAt" class="form-control" placeholder="Start Time"/>
                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
-            <div class=' form-group input-group date' id='datetimepicker7'>
-                <input ng-model="newApt.endsAt" class="form-control" placeholder="End Time"/>
-                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            <div class=' form-group'>
+                <select ng-model="newApt.endsAt" ng-options="duration for duration in aptDurations" class="form-control" placeholder="Appointment Duration"></select>
             </div>
     		<div class="form-group">
     			<input ng-model="newApt.loc" class="form-control" placeholder="Location">
@@ -28,10 +27,10 @@
                     <th></th>
                 </tr>
                 <tr ng-repeat="apt in myOpenApts">
-                    <td><h5>{{apt.startTime | date: "fullDate"}}</h5></td>
-                    <td><h5>{{apt.startTime | date: "shortTime"}}</h5></td>
-                    <td><h5>{{apt.endTime | date: "shortTime"}}</h5></td>
-                    <td><span ng-click="cancelOpenApt(apt._id)" class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+                    <td><h5>{{apt.startsAt | date: "fullDate"}}</h5></td>
+                    <td><h5>{{apt.startsAt | date: "shortTime"}}</h5></td>
+                    <td><h5>{{apt.endsAt | date: "shortTime"}}</h5></td>
+                    <td><span ng-click="cancelApt(apt._id)" class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
                 </tr>
             </table>
         </div>
@@ -43,17 +42,17 @@
     $(function () {
         $('#datetimepicker6').datetimepicker({
         	minDate: new Date(),
-        	sideBySide: true
-        });
-        $('#datetimepicker7').datetimepicker({
         	sideBySide: true,
-            useCurrent: false //Important! See issue #1075
         });
-        $("#datetimepicker6").on("dp.change", function (e) {
-            $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-        });
-        // $("#datetimepicker7").on("dp.change", function (e) {
-        //     $('#datetimepicker6').data("DateTimePicker").maxDate(e.date);
+        // $('#datetimepicker7').datetimepicker({
+        // 	sideBySide: true,
+        //     useCurrent: false //Important! See issue #1075
+        // });
+        // $("#datetimepicker6").on("dp.change", function (e) {
+        //     $('#datetimepicker7').data("DateTimePicker").minDate(e.date).defaultDate(e.date);
+        // });
+        // $("#datetimepicker6").on("dp.update", function (e) {
+        //     $('#datetimepicker7').data("DateTimePicker").defaultDate(e.date);
         // });
     });
 </script>

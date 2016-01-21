@@ -19,19 +19,41 @@ module.exports = function(passport, app) {
 	//LOCAL-AUTH
 	passport.use(new LocalStrategy({
 				usernameField: 'email',
-				passwordField: 'password'
+				passwordField: 'password',
+				passReqToCallback: true,
 			},
-	    function(email, password, done) {
+	    function(req, email, password, done) {
 	    	console.log("local strategy", password);
 	      User.findOne({ email: email }, function (err, user) {
-	        if (err) { return done(err); }
-	        if (!user) { return done(null, false); }
-	        user.validPassword(password).then(function(result){
+	        if (err) { 
+	        	req.flash('error', 'something went wrong');
+	        	return done(err); 
+	        }
+	        if (!user) { 
+	        	req.flash('error', 'email does not exist, please register email')
+	        	return done(null, false); 
+	        }
+	        // user.validPassword(password).then(function(result){
+	        // 	console.log("paoidjf");
+	        // 	if(!result){
+	    				// console.log(req.flash);
+	        // 		req.flash('error', 'wrong password');
+	        // 		return done(null, false);
+	        // 	}
+	        // 	return done(null, user);
+
+
+	        var result = user.validPassword(password);
+
 	        	if(!result){
 	        		return done(null, false);
 	        	}
 	        	return done(null, user);
-	        })
+
+
+
+
+	        // })
 	      });
 	    }
 	  ));

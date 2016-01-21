@@ -30,10 +30,18 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
       url: '/api/auth/local',
       data: credentials
     }).then(function(res){
-      // console.log('Result from user login', res)
+      console.log('Result from user login', res)
       dfd.resolve(res);
     }).catch(function(res) {
       console.log("cannot login", res);
+       if(res.status !== 200){
+        swal({
+          title: "Email and Password combination not found",
+          text: "Please try again",
+          type: "error",
+          allowOutsideClick: true,
+        });
+      };
       $state.go('login');
     })
     return dfd.promise;
@@ -47,7 +55,6 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
     })
     .then(function(res){
       dfd.resolve(res);
-      $state.go('login');
     })
     return dfd.promise;
   }

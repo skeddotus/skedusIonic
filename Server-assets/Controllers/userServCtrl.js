@@ -2,12 +2,8 @@ var mongoose = require('mongoose');
 var Org = require('../Models/orgSchema');
 var User = require('../Models/userSchema');
 var faker = require('faker');
-var Secret = require('../Secrets/secrets.js');
-var mandrill = require('mandrill-api/mandrill');
-var mandrill_client = new mandrill.Mandrill(Secret.MANDRILL_API_KEY);
-// var message = require('../config/mandrill');
+var mandrillService = require('../Services/mandrillService');
 var rando;
-var async = false;
 
 module.exports = {
 
@@ -44,34 +40,10 @@ module.exports = {
         return res.status(409).end();
       }
       user = new User(req.body);
-      console.log("adduser userservctrl, ", req.body);
+      console.log("addUser Before Save ", req.body);
       user.save().then(function() {
-        console.log("adduser userservctrl after saving", req.body);
-          var message = { "html": "",
-            "text": "Please verify your email address by clicking the following link localhost:9001/api/user/email/validation/"+ user._id,
-            "subject": "Sked Email Verification",
-            "from_email": "info@sked.us",
-            "from_name": "no_reply@sked",
-            "to": [{
-                    "email": user.email,
-                    "name": user.name,
-                    "type": "to"
-                }],
-            "important": true,
-            "auto_html": true,
-            "recipient_metadata": [{
-                    "rcpt": user.email,
-                    "values": {
-                        "user_id": user._id
-                    }
-                }],
-
-        };
-        mandrill_client.messages.send({"message": message, "async": async, "send_at": user.createdAt}, function(result) {
-          console.log(result);
-        }, function(e) {
-          console.log('A mandrill error occurred' + e.name + ' - ' + e.message);
-        });
+        mandrillService.emailVerify(user);
+        console.log("addUser After Save", req.body);
         return res.status(201).end();
       });
     });
