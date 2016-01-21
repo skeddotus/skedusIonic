@@ -7,30 +7,29 @@ var rando;
 
 module.exports = {
 
-
-  randomUser: function(req, res) {
-    rando = faker.helpers.userCard();
-    randomNum = function() {
-      return Math.floor(Math.random() * (99 - 1)) + 1;
-    };
-    var firstName = function() {
-      var space = rando.name.indexOf(" ");
-      if  (rando.name.indexOf(".") < 0) {
-        return rando.name.slice(0, space);
-      }
-      else {
-        var cutOff = rando.name.indexOf(".") + 2;
-        return rando.name.slice(cutOff, space);
-      }
-    };
-    console.log(firstName);
-    rando.firstName = firstName();
-    rando.email = rando.firstName.toLowerCase() + rando.email.slice(rando.email.indexOf('@'));
-    rando.username = rando.name.slice(0,3) + randomNum();
-    rando.password = rando.name.slice(0, 4).toLowerCase();
-    rando.lastName = rando.name.slice(rando.name.lastIndexOf(" ")+1);
-    return res.send(rando);
-  },
+  // randomUser: function(req, res) {
+  //   rando = faker.helpers.userCard();
+  //   randomNum = function() {
+  //     return Math.floor(Math.random() * (99 - 1)) + 1;
+  //   };
+  //   var firstName = function() {
+  //     var space = rando.name.indexOf(" ");
+  //     if  (rando.name.indexOf(".") < 0) {
+  //       return rando.name.slice(0, space);
+  //     }
+  //     else {
+  //       var cutOff = rando.name.indexOf(".") + 2;
+  //       return rando.name.slice(cutOff, space);
+  //     }
+  //   };
+  //   console.log(firstName);
+  //   rando.firstName = firstName();
+  //   rando.email = rando.firstName.toLowerCase() + rando.email.slice(rando.email.indexOf('@'));
+  //   rando.username = rando.name.slice(0,3) + randomNum();
+  //   rando.password = rando.name.slice(0, 4).toLowerCase();
+  //   rando.lastName = rando.name.slice(rando.name.lastIndexOf(" ")+1);
+  //   return res.send(rando);
+  // },
 
   addUser: function(req, res) {
     // console.log("rando", rando);
@@ -43,10 +42,10 @@ module.exports = {
       // console.log("addUser Before Save ", req.body);
       user.save().then(function() {
         mandrillService.emailVerify(user);
-        console.log("addUser After Save", req.body);
+      });
+        // console.log("addUser After Save", req.body);
         return res.status(201).end();
       });
-    });
   },
   getUsers: function(req, res) {
     User.find({}).exec().then(function(results) {

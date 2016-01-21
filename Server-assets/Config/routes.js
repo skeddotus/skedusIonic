@@ -1,10 +1,8 @@
 var userServCtrl = require('../Controllers/userServCtrl.js');
 var User = require('../Models/userSchema.js');
-var async = require('async');
+var mandrillService = require('../Services/mandrillService');
 var crypto = require('crypto');
-var Secret = require('../Secrets/secrets.js');
-var mandrill = require('mandrill-api/mandrill');
-var mandrill_client = new mandrill.Mandrill(Secret.MANDRILL_API_KEY);
+
 
 module.exports = function(app, passport) {
 
@@ -120,10 +118,9 @@ module.exports = function(app, passport) {
 	          // req.flash('error', 'No account with that email address exists.');
 	          res.redirect('/#/login');
 	        }
-
 	        user.resetPasswordToken = token;
 	        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-
+			//mandrillService.forgotPass(req, token, user);
 	        user.save().then(function() {
 		          var message = { "html": "",
 		            "text": 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
@@ -188,7 +185,7 @@ module.exports = function(app, passport) {
 	        user.password = req.params.password;
 	        user.resetPasswordToken = undefined;
 	        user.resetPasswordExpires = undefined;
-
+			//mandrillService.PassChangeConfirm(user);
 	        user.save().then(function() {
 		          var message = { "html": "",
 		            "text": 'Hello,\n\n' +
@@ -225,6 +222,6 @@ module.exports = function(app, passport) {
 	    res.redirect('/home');
 	  });
 	});
-	
+
 
 }
