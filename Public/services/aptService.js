@@ -11,6 +11,7 @@ angular.module("skedApp").service('aptService', function($http, $q) {
         mentor: userID,
         startsAt: newApt.startsAt,
         endsAt: newApt.endsAt,
+        title: newApt.title,
         loc: newApt.loc
       },
     }).then(function() {
@@ -37,7 +38,3 @@ angular.module("skedApp").service('aptService', function($http, $q) {
   };
 
 });
-
-
-
-

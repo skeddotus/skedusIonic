@@ -79,21 +79,11 @@ angular.module("skedApp", ["ui.router", 'mwl.calendar', 'ui.bootstrap', 'ngAnima
 			templateUrl: "templates/aptAvailability.html"
 		})
 
-
-
-
-
-
-
-
-
-
 		.state("auth.userManage", {
 			url: "/manage",
 			controller: "manageCtrl",
 			templateUrl: "templates/manage.html",
 		})
-
 
 
 	$httpProvider.interceptors.push(function($q, $injector, $location) {
