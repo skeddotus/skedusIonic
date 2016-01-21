@@ -45,4 +45,12 @@ angular.module("skedApp").controller("authCtrl", function($scope, authService, $
     });
   };
 
+  $scope.forgot = function() {
+    authService.forgotPassword($scope.email);
+  };
+
+  $scope.reset = function() {
+    authService.resetPassword($scope.newPassword);
+  };
+
 });

@@ -89,4 +89,48 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
 		return dfd.promise;
 	};
 
+  this.forgotPassword = function(email) {
+      var dfd = $q.defer();
+    $http({
+      method: 'POST',
+      url: '/api/auth/forgot/' + email,
+    }).then(function(res) {
+      dfd.resolve(res);
+      swal({
+          title: "Password reset link sent to email.",
+          text: "",
+          type: "success",
+          allowOutsideClick: true,
+        });
+    }).catch(function(err) {
+      swal({
+          title: "Email does not exist.",
+          text: "",
+          type: "warning",
+          allowOutsideClick: true,
+        });
+    });
+    return dfd.promise;
+  };
+
+  this.resetPassword = function(newPassword) {
+    var dfd = $q.defer();
+    $http({
+      method: 'POST',
+      url: '/reset/' + $state.params.token + "/" + newPassword,
+      // data: newPassword
+    }).then(function(res) {
+      dfd.resolve(res);
+      swal({
+          title: "Password reset successful!.",
+          text: "Log in with your new password...",
+          type: "success",
+          allowOutsideClick: true,
+        }, function(){
+          $state.go('login');
+        });
+    });
+    return dfd.promise;
+  };
+
 });
