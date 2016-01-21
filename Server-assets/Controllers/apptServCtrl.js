@@ -50,12 +50,14 @@ module.exports = {
   getOrgAppts: function(req, res){
     Appt.find({org: req.params.orgID}).sort({startTime: 1}).populate("mentor").exec().then(function(results){
       res.json(results);
-    })
+    });
   },
 
 // api/apt/:aptID // PUT
   skedApt: function(req, res){
-    Appt.update({_id: req.params.aptID}, req.body).then(function(){
+    Appt.update({_id: req.params.aptID}, req.body).then(function(results){
+      console.log(results);
+      console.log(req);
       res.status(200).end();
     });
   },
