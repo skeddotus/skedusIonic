@@ -106,7 +106,6 @@ module.exports = function(app, passport) {
   //FORGOT PASSWORD//////////////////////////////////////////
 
   app.post('/api/auth/forgot/:email', function(req, res, next) {
-  	console.log("clicked forgot");
 	  async.waterfall([
 	    function(done) {
 	      crypto.randomBytes(20, function(err, buf) {
@@ -151,7 +150,6 @@ module.exports = function(app, passport) {
 
 		        };
 		        mandrill_client.messages.send({"message": message, "async": async}, function(result) {
-		          console.log("result from forgot message email : ", result);
 		        }, function(e) {
 		          console.log('A mandrill error occurred' + e.name + ' - ' + e.message);
 		        });
@@ -166,7 +164,6 @@ module.exports = function(app, passport) {
 	});
 
 	app.get('/reset/:token', function(req, res) {
-		console.log("resetting");
 	  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
 	    if (!user) {
 	      // req.flash('error', 'Password reset token is invalid or has expired.');
@@ -188,14 +185,11 @@ module.exports = function(app, passport) {
 	          return res.redirect('back');
 	        }
 
-	        console.log("processing reset user: ", user);
-
 	        user.password = req.params.password;
 	        user.resetPasswordToken = undefined;
 	        user.resetPasswordExpires = undefined;
 
 	        user.save().then(function() {
-		        console.log("sending password reset FINISH email");
 		          var message = { "html": "",
 		            "text": 'Hello,\n\n' +
           				'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n',
@@ -218,7 +212,6 @@ module.exports = function(app, passport) {
 		            "send_at": user.updatedAt,
 
 		        };
-		        console.log("processing reset user DONE : ", user);
 		        mandrill_client.messages.send({"message": message, "async": async}, function(result) {
 		          console.log(result);
 		        }, function(e) {
@@ -228,26 +221,6 @@ module.exports = function(app, passport) {
 		      });
 	      });
 	    },
-	    // function(user, done) {
-	    //   var smtpTransport = nodemailer.createTransport('SMTP', {
-	    //     service: 'SendGrid',
-	    //     auth: {
-	    //       user: '!!! YOUR SENDGRID USERNAME !!!',
-	    //       pass: '!!! YOUR SENDGRID PASSWORD !!!'
-	    //     }
-	    //   });
-	    //   var mailOptions = {
-	    //     to: user.email,
-	    //     from: 'passwordreset@demo.com',
-	    //     subject: 'Your password has been changed',
-	    //     text: 'Hello,\n\n' +
-	    //       'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
-	    //   };
-	    //   smtpTransport.sendMail(mailOptions, function(err) {
-	    //     req.flash('success', 'Success! Your password has been changed.');
-	    //     done(err);
-	    //   });
-	    // }
 	  ], function(err) {
 	    res.redirect('/home');
 	  });

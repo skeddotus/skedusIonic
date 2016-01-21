@@ -114,7 +114,6 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
   };
 
   this.resetPassword = function(newPassword) {
-    console.log("service reset :", newPassword)
     var dfd = $q.defer();
     $http({
       method: 'POST',
