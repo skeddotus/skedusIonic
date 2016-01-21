@@ -1,4 +1,4 @@
-angular.module("skedApp").controller("aptAvailabilityCtrl", function($scope, $state, aptService){
+angular.module("skedApp").controller("aptAvailabilityCtrl", function($scope, $state, aptService, mainService){
 
 	$scope.createApt = function(newApt, orgID, userID){
 		$scope.newApt.startsAt = (moment($('#datetimepicker6').data("DateTimePicker").date())._d).getTime();

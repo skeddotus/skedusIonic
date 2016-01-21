@@ -1,4 +1,4 @@
-angular.module("skedApp").controller("mainCtrl", function($scope, $timeout, authService, mainService, user){
+angular.module("skedApp").controller("mainCtrl", function($scope, authService, mainService, user){
 
   //------------jQuery Stuff-------------------
 $(document).ready(function(){
@@ -86,7 +86,7 @@ $(document).ready(function(){
 	};
 	$scope.getMyMenteeBookedApts($scope.user._id);
 
-
+	//not working yet
 	$scope.cancelApt = function(aptID){
 		swal({
 			title: "Are you sure you want to Cancel Appointment?",
@@ -110,6 +110,7 @@ $(document).ready(function(){
 			location.reload();
 		})
 	};
+
 
 
 });
