@@ -1,5 +1,4 @@
 angular.module("skedApp").controller("mainCtrl", function($scope, $timeout, authService, mainService, user){
-angular.module("skedApp").controller("mainCtrl", function($scope,$timeout, authService, mainService, user){
 
   //------------jQuery Stuff-------------------
 $(document).ready(function(){
