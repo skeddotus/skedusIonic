@@ -4,12 +4,13 @@
     <div class="line"><hr></div>
     <div class="login-contain">
     	<h3>Forgot Password</h3>
-        <form>
+        <form >
             <div class="form-group">
-                <input class="form-control" type="email"  placeholder="Email">
+                <input class="form-control" type="email"  placeholder="Email" ng-model="email">
             </div>
             <div class="form-group">
-                <button class="btn btn-default login-button" href="/api/auth/forgot">Submit</button>
+                <button class="btn btn-default login-button" type="submit" ng-click="forgot()">Submit</button>
+                <!-- <button class="btn btn-default login-button" ><a href="/api/auth/forgot">Submit</a></button> -->
             </div>
         </form>
     </div>
