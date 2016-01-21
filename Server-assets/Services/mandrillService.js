@@ -32,8 +32,8 @@ emailVerify : function(user) {
     "async" : false,
     "send_at": user.createdAt
     };
-
-  this.sendEmail(message);
+  var flag = true;
+  this.sendEmail(message, flag);
 },
 
 forgotPass : function(req, token, user) {
@@ -61,6 +61,7 @@ forgotPass : function(req, token, user) {
           }],
           "send_at": user.createdAt
     };
+    var flag = false;
     this.sendEmail(message);
 },
 
@@ -87,44 +88,140 @@ passChangeConfirm : function(user) {
         }],
 
   };
+  var flag = false;
   this.sendEmail(message);
 },
 
-// apptConfirm : function(user) {
-//   console.log("Mandrill", user, appt);
-//   var message = {
-//     "html": "",
-//     "text": "Your meeting has been booked for ",
-//     "subject": "Sked Meeting Booked",
-//     "from_email": "info@sked.us",
-//     "from_name": "Sked Reminders",
-//     "to": [{
-//             "email": user.email,
-//             "name": user.name,
-//             "type": "to"
-//         }],
-//     "important": true,
-//     "auto_text": true,
-//     "auto_html": true,
-//     "recipient_metadata": [{
-//             "rcpt": user.email,
-//             "values": {
-//                 "user_id": user._id
-//             }
-//         }],
-//     "async" : false,
-//     "send_at": user.createdAt
-//     };
-//
-//   this.sendEmail(message);
-// },
+apptConfirmMentee : function(appt, user, mentor) {
+  var message = {
+    "html": "",
+    "text": "Hello " + user.firstName + ", your meeting with " + mentor.firstName + " " + mentor.lastName + " has been booked for " + appt.startsAt + " please arrive at " + appt.loc + " at least 10 minutes before the scheduled time.",
+    "subject": "Sked Meeting Booked",
+    "from_email": "info@sked.us",
+    "from_name": "Sked Meetings",
+    "to": [{
+            "email": user.email,
+            "name": user.firstName,
+            "type": "to"
+        }],
+    "important": true,
+    "auto_text": true,
+    "auto_html": true,
+    "recipient_metadata": [{
+            "rcpt": user.email,
+            "values": {
+                "user_id": user._id
+            }
+        }],
+    "async" : false,
+    "send_at": user.createdAt
+    };
+    var flag = false;
+  this.sendEmail(message);
+},
 
-sendEmail : function(message) {
+apptConfirmMentor : function(appt, user, mentor) {
+  var message = {
+    "html": "",
+    "text": "Hello " + mentor.firstName + ", your meeting with " + user.firstName + " " + user.lastName + " has been booked for " + appt.startsAt + " please arrive at " + appt.loc + " at least 10 minutes before the scheduled time.",
+    "subject": "Sked Meeting Booked",
+    "from_email": "info@sked.us",
+    "from_name": "Sked Meetings",
+    "to": [{
+            "email": mentor.email,
+            "name": mentor.firstName,
+            "type": "to"
+        }],
+    "important": true,
+    "auto_text": true,
+    "auto_html": true,
+    "recipient_metadata": [{
+            "rcpt": mentor.email,
+            "values": {
+                "user_id": mentor._id
+            }
+        }],
+    "async" : false,
+    "send_at": user.createdAt
+    };
+    var flag = false;
+  this.sendEmail(message);
+},
+
+apptCancelMentee : function(appt, mentee, mentor) {
+  console.log("No not there, it's here");
+  var message = {
+    "html": "",
+    "text": "Hello " + mentee.firstName + ", your meeting with " + mentor.firstName + " " + mentor.lastName + " has been booked for " + appt.startsAt + " has been cancelled.",
+    "subject": "Sked Meeting Booked",
+    "from_email": "info@sked.us",
+    "from_name": "Sked Meetings",
+    "to": [{
+            "email": mentee.email,
+            "name": mentee.firstName,
+            "type": "to"
+        }],
+    "important": true,
+    "auto_text": true,
+    "auto_html": true,
+    "recipient_metadata": [{
+            "rcpt": mentee.email,
+            "values": {
+                "user_id": mentee._id
+            }
+        }],
+    "async" : false,
+    "send_at": null
+    };
+    var flag = false;
+  this.sendEmail(message);
+},
+
+apptCancelMentor : function(appt, mentee, mentor) {
+  console.log("here Man");
+  var message = {
+    "html": "",
+    "text": "Hello " + mentor.firstName + ", your meeting with " + mentee.firstName + " " + mentee.lastName + " scheduled for " + appt.startsAt + " has been cancelled. ",
+    "subject": "Sked Meeting Cancelled",
+    "from_email": "info@sked.us",
+    "from_name": "Sked Meetings ",
+    "to": [{
+            "email": mentor.email,
+            "name": mentor.firstName,
+            "type": "to"
+        }],
+    "important": true,
+    "auto_text": true,
+    "auto_html": true,
+    "recipient_metadata": [{
+            "rcpt": mentor.email,
+            "values": {
+                "user_id": mentor._id
+            }
+        }],
+    "async" : false,
+    "send_at": null
+    };
+    var flag = false;
+  this.sendEmail(message);
+},
+
+
+sendEmail : function(message, flag) {
     mandrill_client.messages.send({"message": message, "async": async}, function(result) {
       console.log(result);
+      // if(flag === true) {
+      //   this.emailStatus(result);
+      // }
     }, function(e) {
       console.log('A mandrill error occurred' + e.name + ' - ' + e.message);
     });
   },
+
+// emailStatus : function(result) {
+//   if (result.status === 'sent' && result.reject_reason === null) {
+//     this.welcomeEmail()
+//   }
+// });
 
 };

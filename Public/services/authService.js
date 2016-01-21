@@ -75,18 +75,19 @@ angular.module("skedApp").service("authService", function($http, $q, $state, $ro
     }
     return dfd.promise;
   };
-
-	this.getRandomUser = function() {
-		var dfd = $q.defer();
-		$http({
-			method: 'GET',
-			url: '/api/users/rando'
-		}).then(function(res) {
-			user = res.data;
-			console.log('Random User', user);
-			dfd.resolve(user);
-		});
-		return dfd.promise;
-	};
+	// 
+	// this.getRandomUser = function() {
+	// 	console.log('Yo Mama!');
+	// 	var dfd = $q.defer();
+	// 	$http({
+	// 		method: 'GET',
+	// 		url: '/api/users/rando'
+	// 	}).then(function(res) {
+	// 		user = res.data;
+	// 		console.log('Random User', user);
+	// 		dfd.resolve(user);
+	// 	});
+	// 	return dfd.promise;
+	// };
 
 });

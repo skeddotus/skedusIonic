@@ -1,5 +1,6 @@
 var userServCtrl = require('../Controllers/userServCtrl.js');
 var User = require('../Models/userSchema.js');
+var mandrillService = require('../Services/mandrillService');
 var crypto = require('crypto');
 
 module.exports = function(app, passport) {
