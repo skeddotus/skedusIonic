@@ -1,4 +1,7 @@
-angular.module("skedApp").controller("orgManagementCtrl", function($scope, $state, $timeout, orgService){
+angular.module("skedApp").controller("orgManagementCtrl", function($scope, $state, orgService){
+
+	$scope.stuffLoaded = false;
+	$scope.notLoaded = true;
 
 	$scope.getOrgUsers = function(orgID){
 		orgService.getOrgUsers(orgID).then(function(results){
@@ -8,6 +11,8 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 			    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
 			});
 			$scope.orgUsers = sorted;
+			$scope.stuffLoaded = true;
+			$scope.notLoaded = false;
 		})
 	};
 	$scope.getOrgUsers($state.params.id);
@@ -109,7 +114,7 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 				confirmButtonColor: "#DD6B55",
 				confirmButtonText: "Confirm",
 				cancelButtonText: "Cancel",
-				}, 
+				},
 				function(isConfirm){
 					if(isConfirm){
 						orgService.makeAdmin(userID, $state.params.id).then(function(){
@@ -118,7 +123,7 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 						});
 					};
 				}
-			);	
+			);
 		} else if(userRole === "User"){
 			swal({
 				title: "Are you sure you want to make this user an admin?",
@@ -128,7 +133,7 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 				confirmButtonColor: "#DD6B55",
 				confirmButtonText: "Confirm",
 				cancelButtonText: "Cancel",
-				}, 
+				},
 				function(isConfirm){
 					if(isConfirm){
 						orgService.makeAdmin(userID, $state.params.id).then(function(){
@@ -137,7 +142,7 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 						});
 					};
 				}
-			);	
+			);
 		}
 	};
 
@@ -151,7 +156,7 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 			confirmButtonColor: "#DD6B55",
 			confirmButtonText: "Confirm",
 			cancelButtonText: "Cancel",
-			}, 
+			},
 			function(isConfirm){
 				if(isConfirm){
 					orgService.makeMentor(userID, $state.params.id).then(function(){
@@ -169,7 +174,7 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 			confirmButtonColor: "#DD6B55",
 			confirmButtonText: "Confirm",
 			cancelButtonText: "Cancel",
-			}, 
+			},
 			function(isConfirm){
 				if(isConfirm){
 					orgService.makeMentor(userID, $state.params.id).then(function(){
@@ -191,7 +196,7 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 			confirmButtonColor: "#DD6B55",
 			confirmButtonText: "Confirm",
 			cancelButtonText: "Cancel",
-			}, 
+			},
 			function(isConfirm){
 				if(isConfirm){
 					orgService.makeUser(userID, $state.params.id).then(function(){
@@ -209,7 +214,7 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 			confirmButtonColor: "#DD6B55",
 			confirmButtonText: "Confirm",
 			cancelButtonText: "Cancel",
-			}, 
+			},
 			function(isConfirm){
 				if(isConfirm){
 					orgService.makeUser(userID, $state.params.id).then(function(){
@@ -219,7 +224,7 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 				};
 			});
 		}
-		
+
 	};
 
 	$scope.removeUser = function(userID){
