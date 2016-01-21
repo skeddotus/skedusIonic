@@ -33,14 +33,14 @@ module.exports = {
   },
 
   addUser: function(req, res) {
-    console.log("rando", rando);
-    console.log("addadd", req.body);
+    // console.log("rando", rando);
+    // console.log("addadd", req.body);
     User.findOne({ email: req.body.email || rando.email }).exec().then(function(user) {
       if (user) {
         return res.status(409).end();
       }
       user = new User(req.body);
-      console.log("addUser Before Save ", req.body);
+      // console.log("addUser Before Save ", req.body);
       user.save().then(function() {
         mandrillService.emailVerify(user);
         console.log("addUser After Save", req.body);

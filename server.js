@@ -12,7 +12,7 @@ var express = require('express'),
     async = require('async'),
     crypto = require('crypto'),
     mongoUri = require('./Server-assets/Config/database.js'),
-    Secret = require('./Server-assets/Secrets/secrets.js');
+    Secret = require('./Server-assets/Secrets/secrets.js'); 
 
     app.use(cors(), bodyParser.json(), express.static(__dirname + '/Public'));
 
