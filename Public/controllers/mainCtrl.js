@@ -22,17 +22,6 @@ $(document).ready(function(){
 
 	$scope.getMyOrgs = function(userID){
 		mainService.getMyOrgs(userID).then(function(res){
-			for (var prop in res) {
-				if (prop.role === "Admin") {
-					prop.type = "important";
-				}
-				else if (prop.role === "mentor") {
-					prop.type = "warning";
-				}
-				else {
-					prop.type = "success";
-				}
-			};
 			$scope.myOrgs = res;
 		});
 	};

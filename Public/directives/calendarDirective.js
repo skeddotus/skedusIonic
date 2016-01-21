@@ -12,6 +12,9 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
 
       $scope.getMyMenteeBookedApts = function(userID){
     		mainService.getMyMenteeBookedApts(userID).then(function(results){
+          for (var i = 0; i < results.length; i++) {
+  					results[i].type = "info";
+    			};
     			$scope.events = results;
     		});
     	};
@@ -19,6 +22,9 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
 
       $scope.calendarView = 'month';
       $scope.viewDate = new Date();
+
+      // $scope.enableEdit = '<i class=\'glyphicon glyphicon-pencil\'></i>';
+      // $scope.enableDel = '<i class=\'glyphicon glyphicon-remove\'></i>';
 
       // $scope.events = [
       // {
