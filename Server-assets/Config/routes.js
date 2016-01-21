@@ -38,6 +38,7 @@ module.exports = function(app, passport) {
 
 	//login
 	app.post('/api/auth/local', passport.authenticate('local'), requireAuth, function(req, res) {
+		res.status(200).end();
 	});
 
 	//logout
