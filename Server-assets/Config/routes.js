@@ -36,7 +36,7 @@ module.exports = function(app, passport) {
 
 	//login
 	app.post('/api/auth/local', passport.authenticate('local'), requireAuth, function(req, res) {
-		req.flash('error', 'flash message');
+		// req.flash('error', 'flash message');
 		res.status(200).end();
 	});
 
