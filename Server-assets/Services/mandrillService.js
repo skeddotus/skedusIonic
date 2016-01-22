@@ -11,7 +11,7 @@ emailVerify : function(user) {
   console.log("Mandrill", user);
   var message = {
     "html": "",
-    "text": "Please verify your email address by clicking the following link http://localhost:9001/api/user/email/validation/"+ user._id,
+    "text": "Please verify your email address by clicking the following link http://localhost:9001/api/user/email/validation/" + user._id,
     "subject": "Sked Email Verification",
     "from_email": "info@sked.us",
     "from_name": "no_reply@sked",
