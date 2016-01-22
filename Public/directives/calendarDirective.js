@@ -1,24 +1,30 @@
 angular.module('skedApp').directive('calendarDirective', function($timeout) {
   return {
     restrict: 'E',
+    // scope: {
+    //   'eventsData': "="
+    // },
     templateUrl: '/templates/calendarDirective.html',
     link: function(scope, elem, attrs) {
+      // scope.events = scope.myMenteeBookedApts;
       $timeout(function() {
         scope.notLoaded = false;
         scope.calendarLoaded = true;
       });
     },
-    controller: function($scope, mainService) {
+    controller: function($scope) {
 
-     //  $scope.getMyMenteeBookedApts = function(userID){
+      // $scope.getMyMenteeBookedApts = function(userID){
     	// 	mainService.getMyMenteeBookedApts(userID).then(function(results){
-     //      for (var i = 0; i < results.length; i++) {
-  			// 		results[i].type = "info";
+      //     for (var i = 0; i < results.length; i++) {
+  		// 			results[i].type = "info";
     	// 		};
     	// 		$scope.events = results;
     	// 	});
     	// };
     	// $scope.getMyMenteeBookedApts($scope.user._id);
+
+      $scope.eventsData = $scope.myMenteeBookedApts;
 
       $scope.calendarView = 'month';
       $scope.viewDate = new Date();
@@ -74,7 +80,7 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
       $scope.eventClicked = function(event) {
         swal({
           title: event.title,
-          text: "the meeting is at "+event.loc+".",
+          text: "The meeting is located at "+event.loc+".",
         });
       };
 
