@@ -69,7 +69,7 @@ module.exports = {
 
   updateUser: function(req, res) {
     User.update({_id: req.params.id}, req.body). exec().then(function(result) {
-      return res.send('User Updated');
+      return res.status(201);
     }).then(null, function(err) {
       return res.status(500).json(err);
     });

@@ -14,7 +14,7 @@
 		                    <th>  </th>
 		                    <th>Remove</th>
 		                </tr>
-		                <tr ng-repeat="user in orgUsers">
+		                <tr ng-repeat="user in orgUsers | filter: user.userid.lastName">
 		                    <td data-toggle="modal" data-target="#myModal{{user.userid._id}}"><h5>{{user.userid.lastName}}, {{user.userid.firstName}}</h5></td>
 		                    <td><h5>{{user.userid.email}}</h5></td>
 		                    <td><h5>{{user.userid.status}}</h5></td>

@@ -5,12 +5,8 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 
 	$scope.getOrgUsers = function(orgID){
 		orgService.getOrgUsers(orgID).then(function(results){
-			var sorted = results.sort(function(a, b) {
-			    var textA = a.userid.lastName.toUpperCase();
-			    var textB = b.userid.lastName.toUpperCase();
-			    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-			});
-			$scope.orgUsers = sorted;
+			console.log("results:", results)
+			$scope.orgUsers = results;
 			$scope.stuffLoaded = true;
 			$scope.notLoaded = false;
 		})

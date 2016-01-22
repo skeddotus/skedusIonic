@@ -90,18 +90,18 @@ module.exports = {
     console.log("aptID: ", req.params.aptID);
     Appt.findById({_id: req.params.aptID}).then(function(appt){
       appt.status = req.body.status;
-      appt.save().then(function(appt) {
         User.findById({_id: appt.mentor}).exec().then(function(mentor) {
           User.findById({_id: appt.mentee}).exec().then(function(mentee) {
             mandrillService.apptCancelMentee(appt, mentee, mentor);
             mandrillService.apptCancelMentor(appt, mentee, mentor);
-            appt.mentee = "";
+            appt.mentee = " ";
           });
         });
+        console.log("appt:", appt)
+      appt.save(function(){
+        res.status(201).end();
+        
       });
-
-      appt.save();
-      res.status(201).end();
     });
   },
 

@@ -1,17 +1,18 @@
 angular.module("skedApp").controller("profileCtrl", function($scope, $state, userService){
 
 
-	var getUser = function(userID){
+	$scope.getUser = function(userID){
 		userService.getUser(userID).then(function(res){
+			console.log("user", user)
 			$scope.user = res;
 		})
 	};
-	getUser($scope.user._id)
+	$scope.getUser($scope.user._id)
 
 	$scope.updateUser = function(userID){
 		userService.updateUser($scope.user._id, $scope.userUpdates).then(function(){
 			$scope.userUpdates = "";
-			return getUser($scope.user._id);
+			$scope.getUser($scope.user._id);
 			console.log("user profile updated");
 		});
 	};

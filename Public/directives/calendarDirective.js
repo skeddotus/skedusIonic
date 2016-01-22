@@ -10,15 +10,15 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
     },
     controller: function($scope, mainService) {
 
-      $scope.getMyMenteeBookedApts = function(userID){
-    		mainService.getMyMenteeBookedApts(userID).then(function(results){
-          for (var i = 0; i < results.length; i++) {
-  					results[i].type = "info";
-    			};
-    			$scope.events = results;
-    		});
-    	};
-    	$scope.getMyMenteeBookedApts($scope.user._id);
+     //  $scope.getMyMenteeBookedApts = function(userID){
+    	// 	mainService.getMyMenteeBookedApts(userID).then(function(results){
+     //      for (var i = 0; i < results.length; i++) {
+  			// 		results[i].type = "info";
+    	// 		};
+    	// 		$scope.events = results;
+    	// 	});
+    	// };
+    	// $scope.getMyMenteeBookedApts($scope.user._id);
 
       $scope.calendarView = 'month';
       $scope.viewDate = new Date();

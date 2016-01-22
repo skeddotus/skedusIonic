@@ -7,6 +7,7 @@ angular.module("skedApp").service("userService", function($http, $q) {
       url: 'api/user/' + userID,
     }).then(function(res) {
       user = res.data;
+      console.log("user", user)
       dfd.resolve(user);
     });
     return dfd.promise;

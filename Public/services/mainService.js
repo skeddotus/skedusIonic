@@ -108,7 +108,8 @@ angular.module("skedApp").service("mainService", function($http, $q){
 				mentee: "",
 				status: "open",
 			},
-		}).then(function(){
+		}).then(function(res){
+			console.log("res", res)
 			dfd.resolve();
 		});
 		return dfd.promise;
