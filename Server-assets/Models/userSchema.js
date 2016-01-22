@@ -39,18 +39,18 @@ userSchema.methods.validPassword = function(givenPassword) {
 	// console.log("this.password", this.password);
 
 	//method 2 (localstrategy)
-    var dfd = q.defer();
-    bcrypt.compare(givenPassword, this.password, function(err, result) {
-        if(result) {
-        	console.log("true");
-            dfd.resolve(true);
-        }
-        else {
-        	console.log("false");
-            dfd.reject(false);
-        }
-    });
-    return dfd.promise;
+    // var dfd = q.defer();
+    // bcrypt.compare(givenPassword, this.password, function(err, result) {
+    //     if(result) {
+    //     	console.log("true");
+    //         dfd.resolve(true);
+    //     }
+    //     else {
+    //     	console.log("false");
+    //         dfd.reject(false);
+    //     }
+    // });
+    // return dfd.promise;
 
     //method 1 (localstrategy)
      var validPass = bcrypt.compareSync(givenPassword, this.password);

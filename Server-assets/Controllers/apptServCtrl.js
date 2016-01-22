@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Appt = require('../Models/apptSchema');
 var User = require('../Models/userSchema');
 var Org = require('../Models/orgSchema');
+var mandrillService = require('../Services/mandrillService');
 
 
 module.exports = {
@@ -9,10 +10,25 @@ module.exports = {
 
   //  api/apt/:orgID/:userID // POST
   createAppt: function(req, res) {
-    var apt = new Appt(req.body);
-    apt.save().then(function(err, results){
-      return res.status(201).end();
-    });
+    Org.findById(req.params.orgID).then(function(org){
+      var apt = new Appt(req.body);
+        apt.save();
+        console.log("newAptID:", apt._id)
+        org.apts.push(apt._id);
+        org.save(function(){
+          res.status(200).end();
+        })
+    })
+
+
+
+
+
+    // var apt = new Appt(req.body);
+    // apt.save().then(function(err, results){
+    //   console.log("results: ", results)
+    //   return res.status(201).end();
+    // });
   },
 
   //  api/apt/:orgID/:userID // PUT
@@ -50,24 +66,66 @@ module.exports = {
   getOrgAppts: function(req, res){
     Appt.find({org: req.params.orgID}).sort({startTime: 1}).populate("mentor").exec().then(function(results){
       res.json(results);
-    })
+    });
   },
 
 // api/apt/:aptID // PUT
   skedApt: function(req, res){
-    Appt.update({_id: req.params.aptID}, req.body).then(function(){
-      res.status(200).end();
+    Appt.findById({_id: req.params.aptID}).exec().then(function(appt){
+      appt.mentee = req.body.mentee;
+      appt.status = req.body.status;
+      appt.save().then(function() {
+        User.findById({_id: appt.mentor}).exec().then(function(mentor) {
+          mandrillService.apptConfirmMentee(appt, req.user, mentor);
+          mandrillService.apptConfirmMentor(appt, req.user, mentor);
+          res.status(200).end();
+        });
+      });
     });
   },
 
-// api/apt/cancel/:aptID // PUT
+// api/apt/cancel/:aptID // PATCH
   aptCancel: function(req, res){
     console.log("got to server");
     console.log("aptID: ", req.params.aptID);
-    Appt.update({_id: req.params.aptID}, req.body).then(function(){
+    Appt.findById({_id: req.params.aptID}).then(function(appt){
+      appt.status = req.body.status;
+      appt.save().then(function(appt) {
+        User.findById({_id: appt.mentor}).exec().then(function(mentor) {
+          User.findById({_id: appt.mentee}).exec().then(function(mentee) {
+            mandrillService.apptCancelMentee(appt, mentee, mentor);
+            mandrillService.apptCancelMentor(appt, mentee, mentor);
+            appt.mentee = "";
+          });
+        });
+      });
+
+      appt.save();
       res.status(201).end();
     });
   },
+
+  // api/apt/delete/:aptID/:orgID // PUT
+  aptDelete: function(req, res){
+    Org.findById({_id: req.params.orgID}).exec().then(function(org){
+        var apts = org.apts;
+        for(var i = 0; i < apts.length; i++){
+          if(apts[i] === req.params.aptID){
+            apts.splice(i, 1);
+            break;
+          }
+        }
+        org.save();
+        Appt.remove({ _id : req.params.aptID }).exec();
+          return res.status(204).end();
+    })
+  },
+
+
+
+
+
+
 
 
 

@@ -22,7 +22,7 @@ angular.module("skedApp", ["ui.router", 'mwl.calendar', 'ui.bootstrap', 'ngAnima
 			controller: 'authCtrl'
 		})
 		.state('reset', {
-			url: '/reset',
+			url: '/reset/:token',
 			templateUrl: 'templates/reset.html',
 			controller: 'authCtrl'
 		})

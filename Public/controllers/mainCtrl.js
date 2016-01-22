@@ -52,10 +52,23 @@ $(document).ready(function(){
 	};
 
 	$scope.leaveOrg = function(orgID){
-		mainService.leaveOrg($scope.user._id, orgID).then(function(){
-			$scope.getMyOrgs($scope.user._id);
-			console.log("no longer member or org :(");
-		})
+		swal({
+			title: "Are you sure you want to leave organization?",
+			text: "You will lose any appointment(s) you currently have scheduled.",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes",
+			cancelButtonText: "No",
+		}, function(isConfirm){
+			if(isConfirm){
+				mainService.leaveOrg($scope.user._id, orgID).then(function(){
+					$scope.getMyOrgs($scope.user._id);
+					$scope.getMyMenteeBookedApts($scope.user._id);
+					console.log("no longer member or org :(");
+				});
+			};
+		});
 	};
 
 	$scope.createOrg = function(newOrg){
@@ -82,6 +95,8 @@ $(document).ready(function(){
 			confirmButtonColor: "#DD6B55",
 			confirmButtonText: "Yes",
 			cancelButtonText: "No, I want to keep it!",
+			allowEscapeKey: true,
+			allowOutsideClick: true,
 		}, function(isConfirm){
 			if(isConfirm){
 				mainService.cancelApt(aptID).then(function(){
