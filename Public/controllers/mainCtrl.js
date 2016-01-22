@@ -11,7 +11,8 @@ $(document).ready(function(){
 
 });
 // ------------------------------------------
-
+	$scope.listMode = true;
+	$scope.calendarMode = false;
 	$scope.calendarLoaded = false;
 	$scope.notLoaded = true;
 

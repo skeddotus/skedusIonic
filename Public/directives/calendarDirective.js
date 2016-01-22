@@ -1,9 +1,9 @@
 angular.module('skedApp').directive('calendarDirective', function($timeout) {
   return {
     restrict: 'E',
-    scope: {
-      'calendarDirective': "="
-    },
+    // scope: {
+    //   'eventsData': "="
+    // },
     templateUrl: '/templates/calendarDirective.html',
     link: function(scope, elem, attrs) {
       // scope.events = scope.myMenteeBookedApts;
@@ -23,7 +23,8 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
     	// 	});
     	// };
     	// $scope.getMyMenteeBookedApts($scope.user._id);
-      $scope.events = $scope.myMenteeBookedApts;
+
+      $scope.eventsData = $scope.myMenteeBookedApts;
 
       $scope.calendarView = 'month';
       $scope.viewDate = new Date();
