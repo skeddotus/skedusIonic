@@ -15,7 +15,7 @@
                 <select ng-model="newApt.endsAt" ng-init="newApt.endsAt = aptDurations[0]" ng-options="duration for duration in aptDurations" class="form-control" placeholder="Appointment Duration"></select>
             </div>
 			<div class="form-group">
-	            <button class=" btn btn-default login-button" type="submit" ng-click="createApt(newApt, $state.params.id, user._id)">Create Apt</button>
+	            <button class=" btn btn-primary login-button" type="submit" ng-click="createApt(newApt, $state.params.id, user._id)">Create Apt</button>
 	        </div>
     	</form>
     </div>

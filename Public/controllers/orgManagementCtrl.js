@@ -5,6 +5,7 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 
 	$scope.getOrgUsers = function(orgID){
 		orgService.getOrgUsers(orgID).then(function(results){
+			console.log('results', results);
 			var sorted = results.sort(function(a, b) {
 			    var textA = a.userid.lastName.toUpperCase();
 			    var textB = b.userid.lastName.toUpperCase();
