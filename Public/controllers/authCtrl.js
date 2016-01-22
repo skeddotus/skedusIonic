@@ -34,15 +34,25 @@ angular.module("skedApp").controller("authCtrl", function($scope, authService, $
     });
   }
 
-  $scope.randomUser = function() {
-    authService.getRandomUser().then(function(results) {
-      $scope.newUser.firstName = results.firstName;
-      $scope.newUser.lastName = results.lastName;
-      $scope.newUser.email = results.email;
-      $scope.newUser.password = results.password;
-      $scope.password2 = results.password;
-      console.log('RandomUser', $scope.newUser);
-    });
+  // $scope.randomUser = function() {
+  //   console.log('got here');
+  //   authService.getRandomUser().then(function(results) {
+  //     console.log('resutls', results);
+  //     $scope.newUser.firstName = results.firstName;
+  //     $scope.newUser.lastName = results.lastName;
+  //     $scope.newUser.email = results.email;
+  //     $scope.newUser.password = results.password;
+  //     $scope.password2 = results.password;
+  //     console.log('RandomUser', $scope.newUser);
+  //   });
+  // };
+
+  $scope.forgot = function() {
+    authService.forgotPassword($scope.email);
+  };
+
+  $scope.reset = function() {
+    authService.resetPassword($scope.newPassword);
   };
 
 });

@@ -12,7 +12,7 @@ var express = require('express'),
     async = require('async'),
     crypto = require('crypto'),
     mongoUri = require('./Server-assets/Config/database.js'),
-    Secret = require('./Server-assets/Secrets/secrets.js');
+    Secret = require('./Server-assets/Secrets/secrets.js'); 
 
     app.use(cors(), bodyParser.json(), express.static(__dirname + '/Public'));
 
@@ -46,7 +46,7 @@ var requireAuth = function(req, res, next) {
 };
 
     //User Requests
-    app.get('/api/users/rando', userServCtrl.randomUser);
+    // app.get('/api/users/rando', userServCtrl.randomUser);
     app.post('/api/users', userServCtrl.addUser);
     app.get('/api/users', userServCtrl.getUsers);
     app.get('/api/user/:id', userServCtrl.getUser);

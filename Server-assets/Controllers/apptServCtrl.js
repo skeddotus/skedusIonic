@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Appt = require('../Models/apptSchema');
 var User = require('../Models/userSchema');
 var Org = require('../Models/orgSchema');
+var mandrillService = require('../Services/mandrillService');
 
 
 module.exports = {
@@ -65,13 +66,21 @@ module.exports = {
   getOrgAppts: function(req, res){
     Appt.find({org: req.params.orgID}).sort({startTime: 1}).populate("mentor").exec().then(function(results){
       res.json(results);
-    })
+    });
   },
 
 // api/apt/:aptID // PUT
   skedApt: function(req, res){
-    Appt.update({_id: req.params.aptID}, req.body).then(function(){
-      res.status(200).end();
+    Appt.findById({_id: req.params.aptID}).exec().then(function(appt){
+      appt.mentee = req.body.mentee;
+      appt.status = req.body.status;
+      appt.save().then(function() {
+        User.findById({_id: appt.mentor}).exec().then(function(mentor) {
+          mandrillService.apptConfirmMentee(appt, req.user, mentor);
+          mandrillService.apptConfirmMentor(appt, req.user, mentor);
+          res.status(200).end();
+        });
+      });
     });
   },
 
@@ -79,7 +88,19 @@ module.exports = {
   aptCancel: function(req, res){
     console.log("got to server");
     console.log("aptID: ", req.params.aptID);
-    Appt.update({_id: req.params.aptID}, req.body).then(function(){
+    Appt.findById({_id: req.params.aptID}).then(function(appt){
+      appt.status = req.body.status;
+      appt.save().then(function(appt) {
+        User.findById({_id: appt.mentor}).exec().then(function(mentor) {
+          User.findById({_id: appt.mentee}).exec().then(function(mentee) {
+            mandrillService.apptCancelMentee(appt, mentee, mentor);
+            mandrillService.apptCancelMentor(appt, mentee, mentor);
+            appt.mentee = "";
+          });
+        });
+      });
+
+      appt.save();
       res.status(201).end();
     });
   },
