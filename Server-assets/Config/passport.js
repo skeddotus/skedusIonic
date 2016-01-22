@@ -26,11 +26,11 @@ module.exports = function(passport, app) {
 	    	console.log("local strategy", password);
 	      User.findOne({ email: email }, function (err, user) {
 	        if (err) { 
-	        	req.flash('error', 'something went wrong');
+	        	// req.flash('error', 'something went wrong');
 	        	return done(err); 
 	        }
 	        if (!user) { 
-	        	req.flash('error', 'email does not exist, please register email')
+	        	// req.flash('error', 'email does not exist, please register email')
 	        	return done(null, false); 
 	        }
 	        // user.validPassword(password).then(function(result){

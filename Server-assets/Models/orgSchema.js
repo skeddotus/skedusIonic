@@ -10,9 +10,7 @@ var orgSchema = new Schema({
     userid: {type: String, ref: "User"},
     role: {type: String, enum: ['Admin', 'Mentor', 'User']},
   }],
-  apts: [{
-    apt: {type: String, ref: "Appt"}
-  }],
+  apts: [{type: String, ref: "Appt"}],
   desc: {type: String},
   add1: {type: String},
   add2: {type: String},
