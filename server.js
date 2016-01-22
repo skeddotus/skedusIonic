@@ -80,6 +80,8 @@ var requireAuth = function(req, res, next) {
     app.get('/api/apt/:orgID', apptServCtrl.getOrgAppts);
     app.put('/api/apt/:aptID', apptServCtrl.skedApt);
     app.patch('/api/apt/cancel/:aptID', apptServCtrl.aptCancel);
+    app.put('/api/apt/delete/:aptID/:orgID', apptServCtrl.aptDelete);
+
 
 
 

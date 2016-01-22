@@ -9,10 +9,25 @@ module.exports = {
 
   //  api/apt/:orgID/:userID // POST
   createAppt: function(req, res) {
-    var apt = new Appt(req.body);
-    apt.save().then(function(err, results){
-      return res.status(201).end();
-    });
+    Org.findById(req.params.orgID).then(function(org){
+      var apt = new Appt(req.body);
+        apt.save();
+        console.log("newAptID:", apt._id)
+        org.apts.push(apt._id);
+        org.save(function(){
+          res.status(200).end();
+        })
+    })
+
+
+
+
+
+    // var apt = new Appt(req.body);
+    // apt.save().then(function(err, results){
+    //   console.log("results: ", results)
+    //   return res.status(201).end();
+    // });
   },
 
   //  api/apt/:orgID/:userID // PUT
@@ -60,7 +75,7 @@ module.exports = {
     });
   },
 
-// api/apt/cancel/:aptID // PUT
+// api/apt/cancel/:aptID // PATCH
   aptCancel: function(req, res){
     console.log("got to server");
     console.log("aptID: ", req.params.aptID);
@@ -68,6 +83,28 @@ module.exports = {
       res.status(201).end();
     });
   },
+
+  // api/apt/delete/:aptID/:orgID // PUT
+  aptDelete: function(req, res){
+    Org.findById({_id: req.params.orgID}).exec().then(function(org){
+        var apts = org.apts;
+        for(var i = 0; i < apts.length; i++){
+          if(apts[i] === req.params.aptID){
+            apts.splice(i, 1);
+            break;
+          }
+        }
+        org.save();
+        Appt.remove({ _id : req.params.aptID }).exec();
+          return res.status(204).end();
+    })
+  },
+
+
+
+
+
+
 
 
 

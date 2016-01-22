@@ -95,6 +95,8 @@ $(document).ready(function(){
 			confirmButtonColor: "#DD6B55",
 			confirmButtonText: "Yes",
 			cancelButtonText: "No, I want to keep it!",
+			allowEscapeKey: true,
+			allowOutsideClick: true,
 		}, function(isConfirm){
 			if(isConfirm){
 				mainService.cancelApt(aptID).then(function(){
