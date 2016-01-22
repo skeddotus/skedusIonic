@@ -1,19 +1,20 @@
 angular.module("skedApp").controller("aptAvailabilityCtrl", function($scope, $state, aptService, mainService){
 
 	$scope.createApt = function(newApt, orgID, userID){
-		$scope.newApt.startsAt = (moment($('#datetimepicker6').data("DateTimePicker").date())._d).getTime();
+		// console.log(new Date(moment($('#datetimepicker6').data("DateTimePicker").date()).toDate()));
+		$scope.newApt.startsAt = new Date(moment($('#datetimepicker6').data("DateTimePicker").date()).toDate());
 		switch($scope.newApt.endsAt){
 			case "15 Minutes":
-				$scope.newApt.endsAt = moment($('#datetimepicker6').data("DateTimePicker").date()).add(15, "minutes")._d.getTime();
+				$scope.newApt.endsAt = new Date( moment($('#datetimepicker6').data("DateTimePicker").date()).add(15, "minutes").toDate());
 				break;
 			case "30 Minutes":
-				$scope.newApt.endsAt = moment($('#datetimepicker6').data("DateTimePicker").date()).add(30, "minutes")._d.getTime();
+				$scope.newApt.endsAt = new Date(moment($('#datetimepicker6').data("DateTimePicker").date()).add(30, "minutes").toDate());
 				break;
 			case "45 Minutes":
-				$scope.newApt.endsAt = moment($('#datetimepicker6').data("DateTimePicker").date()).add(45, "minutes")._d.getTime();
+				$scope.newApt.endsAt = new Date(moment($('#datetimepicker6').data("DateTimePicker").date()).add(45, "minutes").toDate());
 				break;
 			case "1 Hour":
-				$scope.newApt.endsAt = moment($('#datetimepicker6').data("DateTimePicker").date()).add(1, "hour")._d.getTime();
+				$scope.newApt.endsAt = new Date(moment($('#datetimepicker6').data("DateTimePicker").date()).add(1, "hour").toDate());
 				break;
 		}
 		aptService.createApt($scope.newApt, $state.params.id, userID).then(function(){
