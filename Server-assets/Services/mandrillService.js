@@ -11,7 +11,7 @@ emailVerify : function(user) {
   console.log("Mandrill", user);
   var message = {
     "html": "",
-    "text": "Please verify your email address by clicking the following link localhost:9001/api/user/email/validation/"+ user._id,
+    "text": "Please verify your email address by clicking the following link http://localhost:9001/api/user/email/validation/" + user._id,
     "subject": "Sked Email Verification",
     "from_email": "info@sked.us",
     "from_name": "no_reply@sked",
@@ -29,39 +29,73 @@ emailVerify : function(user) {
                 "user_id": user._id
             }
         }],
-    "async" : false,
     "send_at": user.createdAt
     };
-  var flag = true;
-  this.sendEmail(message, flag);
+  this.sendEmail(message);
+},
+
+welcomeEmail : function(user) {
+  console.log("Mandrill Welcome", user);
+  var message = {
+    "html": "",
+    "text": 'Welcome to the Sked family, you are now a part of a very special group of unicorns'+
+     'or in our terms, "Skedicorns". We believe mentorship is one of the best ways for an'+
+     'organization to reach out to and engage with their members, but as we have often seen,'+
+      'many mentor programs suffer due to the stress of scheduling and managing everyone'+
+       'involved. To shine a rainbow on that bureaucratic nightmare, Sked was created in the'+
+      ' glittery depths of Mount Uni from the kernels of a corn, so if you were thinking about'+
+       'some horse like creature earlier on then you were wrong and everything you stand for is'+
+        'wrong. (Pay no attention to our logo, that\'s\ just one guy with another guy on his back'+
+         'holding a large corn kernel up into the air). But I digress, welcome to Sked you '+
+         'filthy stinking animal!   ',
+    "subject": "Welcome to Sked!",
+    "from_email": "info@sked.us",
+    "from_name": "The Skedicorns",
+    "to": [{
+            "email": user.email,
+            "name": user.name,
+            "type": "to"
+        }],
+    "important": true,
+    "auto_text": true,
+    "auto_html": true,
+    "recipient_metadata": [{
+            "rcpt": user.email,
+            "values": {
+                "user_id": user._id
+            }
+        }],
+    "send_at": user.createdAt
+    };
+  this.sendEmail(message);
 },
 
 forgotPass : function(req, token, user) {
   console.log("Sending forgot Password email", req.headers, token, user);
   var message = { "html": "",
-      "text": 'You are receiving this because you (or someone else) has requested the reset of the password for your account.\n\n' +
-      'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-      'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-      'If you did not request this, please ignore this email and your password will remain unchanged.\n',
-      "subject": "Sked Email Verification",
-      "from_email": "info@sked.us",
-      "from_name": "no_reply@sked",
-      "to": [{
-              "email": user.email,
-              "name": user.name,
-              "type": "to"
-          }],
-      "important": true,
-      "auto_html": true,
-      "recipient_metadata": [{
-              "rcpt": user.email,
-              "values": {
-                  "user_id": user._id
-              }
-          }],
-          "send_at": user.createdAt
+    "text": 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+    'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+    'http://' + req.headers.host + '/#/reset/' + token + '\n\n' +
+    'If you did not request this, please ignore this email and your password will remain unchanged.\n',
+    "subject": "Sked Email Verification",
+    "from_email": "info@sked.us",
+    "from_name": "no_reply@sked",
+    "to": [{
+            "email": user.email,
+            "name": user.firstName,
+            "type": "to"
+        }],
+    "important": true,
+    "auto_html": true,
+    "recipient_metadata": [{
+            "rcpt": user.email,
+            "values": {
+                "user_id": user._id
+            }
+        }],
+    "send_at" : user.updatedAt,
+
     };
-    var flag = false;
     this.sendEmail(message);
 },
 
@@ -75,7 +109,7 @@ passChangeConfirm : function(user) {
     "from_name": "no_reply@sked",
     "to": [{
             "email": user.email,
-            "name": user.name,
+            "name": user.firstName,
             "type": "to"
         }],
     "important": true,
@@ -86,9 +120,8 @@ passChangeConfirm : function(user) {
                 "user_id": user._id
             }
         }],
-
+    "send_at": user.updatedAt,
   };
-  var flag = false;
   this.sendEmail(message);
 },
 
@@ -113,10 +146,8 @@ apptConfirmMentee : function(appt, user, mentor) {
                 "user_id": user._id
             }
         }],
-    "async" : false,
     "send_at": user.createdAt
     };
-    var flag = false;
   this.sendEmail(message);
 },
 
@@ -141,10 +172,9 @@ apptConfirmMentor : function(appt, user, mentor) {
                 "user_id": mentor._id
             }
         }],
-    "async" : false,
     "send_at": user.createdAt
     };
-    var flag = false;
+
   this.sendEmail(message);
 },
 
@@ -170,10 +200,9 @@ apptCancelMentee : function(appt, mentee, mentor) {
                 "user_id": mentee._id
             }
         }],
-    "async" : false,
+
     "send_at": null
     };
-    var flag = false;
   this.sendEmail(message);
 },
 
@@ -199,29 +228,18 @@ apptCancelMentor : function(appt, mentee, mentor) {
                 "user_id": mentor._id
             }
         }],
-    "async" : false,
     "send_at": null
     };
-    var flag = false;
   this.sendEmail(message);
 },
 
 
-sendEmail : function(message, flag) {
+sendEmail : function(message) {
     mandrill_client.messages.send({"message": message, "async": async}, function(result) {
       console.log(result);
-      // if(flag === true) {
-      //   this.emailStatus(result);
-      // }
     }, function(e) {
       console.log('A mandrill error occurred' + e.name + ' - ' + e.message);
     });
   },
-
-// emailStatus : function(result) {
-//   if (result.status === 'sent' && result.reject_reason === null) {
-//     this.welcomeEmail()
-//   }
-// });
 
 };

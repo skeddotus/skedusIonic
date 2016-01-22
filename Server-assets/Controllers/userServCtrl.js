@@ -146,9 +146,11 @@ module.exports = {
       }
       else {
         user.validatedEmail = true;
-        user.save();
-        res.send(user.firstName + "'s email has been validated!");
-        return res.status(200).end();
+        user.save().then(function() {
+          mandrillService.welcomeEmail(user);
+          res.send(user.firstName + "'s email has been validated!");
+          return res.status(200).end();
+        });
       }
     });
 }
