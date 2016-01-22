@@ -66,6 +66,7 @@ module.exports = function(passport, app) {
 			consumerSecret: Secret.LINKED_IN_API_SECRET,
 			callbackURL: "http://127.0.0.1:9001/api/auth/linkedin/callback",
 			scope: ['r_basicprofile', 'r_emailaddress'],
+			profileFields: ['id', 'first-name', 'last-name', 'email-address'],
 			passReqToCallback: true,
 		},
 		function(req, token, tokenSecret, profile, done) {
@@ -94,6 +95,9 @@ module.exports = function(passport, app) {
 									linkedinToken : token,
 									linkedinEmail : profile._json.emailAddress,
 									linkedinName: profile.displayName,
+									firstName : profile.name.givenName,
+									lastName : profile.name.familyName,
+									email : profile._json.emailAddress,
 
 								})
 
