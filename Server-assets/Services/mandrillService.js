@@ -39,27 +39,28 @@ emailVerify : function(user) {
 forgotPass : function(req, token, user) {
   console.log("Sending forgot Password email", req.headers, token, user);
   var message = { "html": "",
-      "text": 'You are receiving this because you (or someone else) has requested the reset of the password for your account.\n\n' +
-      'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-      'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-      'If you did not request this, please ignore this email and your password will remain unchanged.\n',
-      "subject": "Sked Email Verification",
-      "from_email": "info@sked.us",
-      "from_name": "no_reply@sked",
-      "to": [{
-              "email": user.email,
-              "name": user.name,
-              "type": "to"
-          }],
-      "important": true,
-      "auto_html": true,
-      "recipient_metadata": [{
-              "rcpt": user.email,
-              "values": {
-                  "user_id": user._id
-              }
-          }],
-          "send_at": user.createdAt
+    "text": 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+    'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+    'http://' + req.headers.host + '/#/reset/' + token + '\n\n' +
+    'If you did not request this, please ignore this email and your password will remain unchanged.\n',
+    "subject": "Sked Email Verification",
+    "from_email": "info@sked.us",
+    "from_name": "no_reply@sked",
+    "to": [{
+            "email": user.email,
+            "name": user.firstName,
+            "type": "to"
+        }],
+    "important": true,
+    "auto_html": true,
+    "recipient_metadata": [{
+            "rcpt": user.email,
+            "values": {
+                "user_id": user._id
+            }
+        }],
+    "send_at" : user.updatedAt,
+
     };
     var flag = false;
     this.sendEmail(message);
@@ -75,7 +76,7 @@ passChangeConfirm : function(user) {
     "from_name": "no_reply@sked",
     "to": [{
             "email": user.email,
-            "name": user.name,
+            "name": user.firstName,
             "type": "to"
         }],
     "important": true,
@@ -86,7 +87,7 @@ passChangeConfirm : function(user) {
                 "user_id": user._id
             }
         }],
-
+    "send_at": user.updatedAt,
   };
   var flag = false;
   this.sendEmail(message);
@@ -202,7 +203,7 @@ apptCancelMentor : function(appt, mentee, mentor) {
     "async" : false,
     "send_at": null
     };
-    var flag = false;
+  var flag = false;
   this.sendEmail(message);
 },
 
