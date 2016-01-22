@@ -11,7 +11,7 @@
 		<h4>Job Title: {{user.title}}</h4>
 		<h4>Specialities: {{user.specialities}}</h4>
 		<h4>Email: {{user.email}}</h4>
-		<button ng-click="deactivateUser(user._id)">Deactivate Account</button>
+		<button class="btn btn-danger" ng-click="deactivateUser(user._id)">Deactivate Account</button>
 	</div>
 	<div class="col-md-5">
 		<h2>Update Profile Here</h2>
@@ -36,7 +36,7 @@
 				<input ng-model="userUpdates.specialities" class="form-control" placeholder="Specialties">
 			</div>
 			<div class="form-group">
-	            <button class=" btn btn-default login-button" type="submit" ng-click="updateUser(userUpdates)">Save Changes</button>
+	            <button class=" btn btn-primary login-button" type="submit" ng-click="updateUser(userUpdates)">Save Changes</button>
 	        </div>
 		</form>
 	</div>

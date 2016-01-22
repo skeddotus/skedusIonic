@@ -139,6 +139,13 @@ table {
 	width: 100vw;
 }*/
 
+/*background image*/
+
+body {
+	background-image: url(../images/swr_bg.jpg);
+}
+
+/*Navigation sidebar*/
 #navSidebar {
 	width: 250px;
 	box-shadow: 1px 0px 10px #888888;
