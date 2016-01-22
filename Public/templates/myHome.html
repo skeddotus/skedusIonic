@@ -1,19 +1,19 @@
 <div class="container-fluid">
 	<div class="my-orgs-contain">
 	<br>
-	<div class="btn-group" role="group" aria-label="...">
-	  <button type="button" class="btn btn-primary" ng-click="listMode = true; calendarMode = false">List</button>
-	  <button type="button" class="btn btn-primary" ng-click="listMode = false; calendarMode = true">Calendar</button>
+	<div class="btn-group">
+	  <button class="btn btn-primary" ng-model="aptRadio" uib-btn-radio="'Left'" ng-click="aptView('listMode')">List</button>
+	  <button class="btn btn-primary" ng-model="aptRadio" uib-btn-radio="'Right'" ng-click="aptView('calendarMode')">Calendar</button>
 	</div>
 
 	<div ng-show="calendarMode" class="">
-		<circle-spinner ng-show="notLoaded"></circle-spinner>
 		<calendar-directive ng-show="calendarLoaded"></calendar-directive>
+		<circle-spinner ng-show="notLoaded"></circle-spinner>
 	</div>
 
 	<div ng-show="listMode" class="">
 		<br>
-		<div class="panel panel-info">
+		<div class="panel panel-warning">
 			<div class="panel-heading"><h1>My Appointments</h1></div>
 			<div class="panel-body">
 				<div class="table-responsive">
@@ -27,7 +27,7 @@
 							<th>Location</th>
 							<th>Cancel</th>
 						</tr>
-						<tr ng-model="eventsData" ng-repeat="apt in myMenteeBookedApts">
+						<tr eventsData="eventsData" ng-repeat="apt in myMenteeBookedApts">
 							<td><h5>{{apt.startsAt | date: "EEEE - M/d/yy"}}</h5></td>
 							<td><h5>{{apt.startsAt | date: "shortTime"}}</h5></td>
 							<td><h5>{{apt.endsAt | date: "shortTime"}}</h5></td>

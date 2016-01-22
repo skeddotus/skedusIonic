@@ -6,25 +6,30 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
     // },
     templateUrl: '/templates/calendarDirective.html',
     link: function(scope, elem, attrs) {
-      // scope.events = scope.myMenteeBookedApts;
+      // scope.eventsData = scope.eventsData;
       $timeout(function() {
         scope.notLoaded = false;
         scope.calendarLoaded = true;
       });
     },
-    controller: function($scope) {
+    controller: function($scope, mainService) {
 
       // $scope.getMyMenteeBookedApts = function(userID){
     	// 	mainService.getMyMenteeBookedApts(userID).then(function(results){
       //     for (var i = 0; i < results.length; i++) {
   		// 			results[i].type = "info";
     	// 		};
-    	// 		$scope.events = results;
+    	// 		$scope.eventsData = results;
+      //     console.log('passing eventsdata');
     	// 	});
     	// };
-    	// $scope.getMyMenteeBookedApts($scope.user._id);
+      //
+      // $scope.getCalendarData = function() {
+      //   $scope.getMyMenteeBookedApts($scope.user._id);
+      //   console.log("I ran");
+      // };
 
-      $scope.eventsData = $scope.myMenteeBookedApts;
+      $scope.eventsData = $scope.eventsData;
 
       $scope.calendarView = 'month';
       $scope.viewDate = new Date();

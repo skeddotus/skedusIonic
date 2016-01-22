@@ -1,7 +1,7 @@
 {
-  "name": "skedus",
+  "name": "sked",
   "version": "1.0.0",
-  "description": "",
+  "description": "sked: An Ionic project",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -35,5 +35,15 @@
     "passport-linkedin": "^1.0.0",
     "passport-local": "^1.0.0",
     "q": "^1.4.1"
-  }
+  },
+  "cordovaPlugins": [
+    "cordova-plugin-console",
+    "cordova-plugin-whitelist",
+    "cordova-plugin-device",
+    "cordova-plugin-splashscreen",
+    "ionic-plugin-keyboard"
+  ],
+  "cordovaPlatforms": [
+    "ios"
+  ]
 }

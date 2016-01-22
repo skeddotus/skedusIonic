@@ -11,8 +11,27 @@ $(document).ready(function(){
 
 });
 // ------------------------------------------
-	$scope.listMode = true;
-	$scope.calendarMode = false;
+
+	$scope.aptView = function(view) {
+		switch (view) {
+			case "listMode":
+				$scope.listMode = true;
+				$scope.calendarMode = false;
+				$scope.aptRadio = 'Left';
+				break;
+			case "calendarMode":
+				$scope.listMode = false;
+				$scope.calendarMode = true;
+				$scope.aptRadio = 'Right';
+				break;
+			default:
+				$scope.listMode = true;
+				$scope.calendarMode = false;
+				$scope.aptRadio = 'Left';
+		}
+	};
+	$scope.aptView('');
+
 	$scope.calendarLoaded = false;
 	$scope.notLoaded = true;
 
@@ -82,7 +101,7 @@ $(document).ready(function(){
 	$scope.getMyMenteeBookedApts = function(userID){
 		mainService.getMyMenteeBookedApts(userID).then(function(results){
 			$scope.myMenteeBookedApts = results;
-			// $scope.events = results;
+			$scope.events = results;
 		});
 	};
 	$scope.getMyMenteeBookedApts($scope.user._id);
