@@ -2,6 +2,7 @@ var userServCtrl = require('../Controllers/userServCtrl.js');
 var User = require('../Models/userSchema.js');
 var mandrillService = require('../Services/mandrillService');
 var crypto = require('crypto');
+var async = require('async');
 
 
 module.exports = function(app, passport) {
@@ -11,7 +12,7 @@ module.exports = function(app, passport) {
 		if (!req.isAuthenticated()) {
 			return res.status(401).end();
 		}
-		console.log("requireAuth done")
+		console.log("requireAuth done");
 
 		next();
 	};
@@ -23,7 +24,7 @@ module.exports = function(app, passport) {
 		function(req, res) {
 			app.post('/api/users', req.user);
 			console.log("posted new linkedin user : ", req.user);
-	})
+	});
 
 	app.get('/api/auth/linkedin/callback',
 		passport.authenticate('linkedin', {failureRedirect: '/#/login' }),
@@ -62,23 +63,23 @@ module.exports = function(app, passport) {
 				return res.json(res);
 			}
 			// return res.status(200).end();
-		})
-	})
+		});
+	});
 
 	app.get('/api/user/:id', function(req, res) {
 		User.findOne({ _id : req.params.id }).exec().then(function(res) {
 			console.log(res);
 			return res.json(res).end();
-		})
-	})
+		});
+	});
 
 	//update user
 	app.put('/api/users/:id', function(req, res) {
 		User.update({ _id: req.params.id}, req.body).exec().then(function(res) {
 			console.log(res);
 			return res.status(200).end();
-		})
-	})
+		});
+	});
 
 
 	//CHECK LOGGED IN USER //////////////////////////////////
@@ -120,36 +121,8 @@ module.exports = function(app, passport) {
 	        }
 	        user.resetPasswordToken = token;
 	        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
-			//mandrillService.forgotPass(req, token, user);
 	        user.save().then(function() {
-		          var message = { "html": "",
-		            "text": 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-			          'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
-			          'http://' + req.headers.host + '/#/reset/' + token + '\n\n' +
-			          'If you did not request this, please ignore this email and your password will remain unchanged.\n',
-		            "subject": "Sked Email Verification",
-		            "from_email": "info@sked.us",
-		            "from_name": "no_reply@sked",
-		            "to": [{
-		                    "email": user.email,
-		                    "name": user.firstName,
-		                    "type": "to"
-		                }],
-		            "important": true,
-		            "auto_html": true,
-		            "recipient_metadata": [{
-		                    "rcpt": user.email,
-		                    "values": {
-		                        "user_id": user._id
-		                    }
-		                }],
-		            "send_at" : user.updatedAt,
-
-		        };
-		        mandrill_client.messages.send({"message": message, "async": async}, function(result) {
-		        }, function(e) {
-		          console.log('A mandrill error occurred' + e.name + ' - ' + e.message);
-		        });
+						mandrillService.forgotPass(req, token, user);
 		        return res.status(201).end();
 		      });
 	      });
@@ -185,35 +158,8 @@ module.exports = function(app, passport) {
 	        user.password = req.params.password;
 	        user.resetPasswordToken = undefined;
 	        user.resetPasswordExpires = undefined;
-			//mandrillService.PassChangeConfirm(user);
 	        user.save().then(function() {
-		          var message = { "html": "",
-		            "text": 'Hello,\n\n' +
-          				'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n',
-		            "subject": "Sked Email Verification",
-		            "from_email": "info@sked.us",
-		            "from_name": "no_reply@sked",
-		            "to": [{
-		                    "email": user.email,
-		                    "name": user.firstName,
-		                    "type": "to"
-		                }],
-		            "important": true,
-		            "auto_html": true,
-		            "recipient_metadata": [{
-		                    "rcpt": user.email,
-		                    "values": {
-		                        "user_id": user._id
-		                    }
-		                }],
-		            "send_at": user.updatedAt,
-
-		        };
-		        mandrill_client.messages.send({"message": message, "async": async}, function(result) {
-		          console.log(result);
-		        }, function(e) {
-		          console.log('A mandrill error occurred' + e.name + ' - ' + e.message);
-		        });
+						mandrillService.PassChangeConfirm(user);
 		        return res.status(201).end();
 		      });
 	      });
@@ -224,4 +170,4 @@ module.exports = function(app, passport) {
 	});
 
 
-}
+};

@@ -25,13 +25,13 @@ module.exports = function(passport, app) {
 	    function(req, email, password, done) {
 	    	console.log("local strategy", password);
 	      User.findOne({ email: email }, function (err, user) {
-	        if (err) { 
+	        if (err) {
 	        	// req.flash('error', 'something went wrong');
-	        	return done(err); 
+	        	return done(err);
 	        }
-	        if (!user) { 
+	        if (!user) {
 	        	// req.flash('error', 'email does not exist, please register email')
-	        	return done(null, false); 
+	        	return done(null, false);
 	        }
 	        // user.validPassword(password).then(function(result){
 	        // 	console.log("paoidjf");
@@ -60,7 +60,7 @@ module.exports = function(passport, app) {
 
 
 
-	//LINKEDIN 
+	//LINKEDIN
 	passport.use(new LinkedinStrategy({
 			consumerKey: Secret.LINKED_IN_API_KEY,
 			consumerSecret: Secret.LINKED_IN_API_SECRET,
@@ -73,7 +73,7 @@ module.exports = function(passport, app) {
 			process.nextTick(function () {
 
 				if(!req.user) { //if not logged in, authenticate with linkedin or create a new user with linkedin information
-				
+
 					User.findOne({ linkedinId : profile.id }, function(err, user) {
 
 						if (err) {
@@ -102,7 +102,7 @@ module.exports = function(passport, app) {
 								})
 
 								user.save();
-								
+
 								console.log("user created with linkedin : ",  user);
 
 								return done(null, user);
@@ -111,7 +111,7 @@ module.exports = function(passport, app) {
 
 					})
 
-				} 
+				}
 				else { //if logged in, link accounts
 
 					user = req.user;
@@ -132,4 +132,3 @@ module.exports = function(passport, app) {
 	));
 
 } //closing module.exports
-

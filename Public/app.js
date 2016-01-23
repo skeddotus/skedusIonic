@@ -1,4 +1,4 @@
-angular.module("skedApp", ["ui.router", 'mwl.calendar', 'ui.bootstrap', 'ngAnimate', 'angular-spinkit']).config(function($stateProvider, $urlRouterProvider, $httpProvider){
+angular.module("skedApp", ["ui.router", 'mwl.calendar', 'ui.bootstrap', 'ngAnimate', 'angular-spinkit']).config(function($stateProvider, $urlRouterProvider, $httpProvider, $locationProvider){
 
 	$urlRouterProvider.otherwise("/login");
 
@@ -83,8 +83,9 @@ angular.module("skedApp", ["ui.router", 'mwl.calendar', 'ui.bootstrap', 'ngAnima
 			url: "/manage",
 			controller: "manageCtrl",
 			templateUrl: "templates/manage.html",
-		})
+		});
 
+	$locationProvider.html5Mode(true);
 
 	$httpProvider.interceptors.push(function($q, $injector, $location) {
     return {
