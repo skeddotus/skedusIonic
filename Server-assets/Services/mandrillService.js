@@ -206,6 +206,34 @@ apptCancelMentor : function(appt, mentee, mentor) {
   this.sendEmail(message);
 },
 
+apptRemindMentee : function(appt, user, mentee) {
+  var message = {
+    "html": "",
+    "text": "Hello " + mentee.firstName + ", your meeting with " + user.firstName + " " + user.lastName + " has been booked for " + appt.startsAt + " please arrive at " + appt.loc + " at least 10 minutes before the scheduled time.",
+    "subject": "Sked Meeting Booked",
+    "from_email": "info@sked.us",
+    "from_name": "Sked Meetings",
+    "to": [{
+            "email": mentee.email,
+            "name": mentee.firstName,
+            "type": "to"
+        }],
+    "important": true,
+    "auto_text": true,
+    "auto_html": true,
+    "recipient_metadata": [{
+            "rcpt": mentee.email,
+            "values": {
+                "user_id": mentee._id
+            }
+        }],
+    "async" : false,
+    "send_at": user.createdAt
+    };
+    var flag = false;
+  this.sendEmail(message);
+},
+
 
 sendEmail : function(message, flag) {
     mandrill_client.messages.send({"message": message, "async": async}, function(result) {
@@ -217,6 +245,8 @@ sendEmail : function(message, flag) {
       console.log('A mandrill error occurred' + e.name + ' - ' + e.message);
     });
   },
+
+
 
 // emailStatus : function(result) {
 //   if (result.status === 'sent' && result.reject_reason === null) {
