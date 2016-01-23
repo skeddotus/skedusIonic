@@ -4,11 +4,11 @@ angular.module("skedApp").service("userService", function($http, $q) {
     var dfd = $q.defer();
     $http({
       method: 'GET',
-      url: 'api/user/' + userID,
+      url: '/api/user/' + userID,
     }).then(function(res) {
-      user = res.data;
-      console.log("user", user)
-      dfd.resolve(user);
+      var thisUser = res.data;
+      console.log("thisUSer", thisUser)
+      dfd.resolve(thisUser);
     });
     return dfd.promise;
   };

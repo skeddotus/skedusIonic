@@ -11,8 +11,7 @@ $(document).ready(function(){
 
 });
 // ------------------------------------------
-	$scope.listMode = true;
-	$scope.calendarMode = false;
+
 	$scope.calendarLoaded = false;
 	$scope.notLoaded = true;
 
@@ -52,9 +51,9 @@ $(document).ready(function(){
 		})
 	};
 
-	$scope.leaveOrg = function(orgID){
+	$scope.leaveOrg = function(org){
 		swal({
-			title: "Are you sure you want to leave organization?",
+			title: "Are you sure you want to leave " + org.name + "?",
 			text: "You will lose any appointment(s) you currently have scheduled.",
 			type: "warning",
 			showCancelButton: true,
@@ -63,7 +62,7 @@ $(document).ready(function(){
 			cancelButtonText: "No",
 		}, function(isConfirm){
 			if(isConfirm){
-				mainService.leaveOrg($scope.user._id, orgID).then(function(){
+				mainService.leaveOrg($scope.user._id, org._id).then(function(){
 					$scope.getMyOrgs($scope.user._id);
 					$scope.getMyMenteeBookedApts($scope.user._id);
 					console.log("no longer member or org :(");
@@ -82,7 +81,7 @@ $(document).ready(function(){
 	$scope.getMyMenteeBookedApts = function(userID){
 		mainService.getMyMenteeBookedApts(userID).then(function(results){
 			$scope.myMenteeBookedApts = results;
-			// $scope.events = results;
+			$scope.events = results;
 		});
 	};
 	$scope.getMyMenteeBookedApts($scope.user._id);
