@@ -51,6 +51,11 @@ table {
 /*----------------------------------------------------*/
 
 /*landing page*/
+.titleTxt {
+	font-family: monospace;
+	font-size: 6em;
+}
+
 #below-navbar {
 	padding-top: 70px;
 }
