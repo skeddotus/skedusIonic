@@ -1,4 +1,4 @@
-angular.module("skedApp").controller("profileCtrl", function($scope, $state, userService, authService){
+angular.module("skedApp").controller("profileCtrl", function($scope, $state, userService){
 
 
 	var getUser = function(userID){
