@@ -4,3 +4,4 @@ bower_components
 secrets.js
 *.orig
 testing.js
+npm-debug.log
