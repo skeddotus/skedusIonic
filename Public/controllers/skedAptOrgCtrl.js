@@ -17,8 +17,6 @@ angular.module("skedApp").controller("skedAptOrgCtrl", function($scope, $state, 
 	};
 	$scope.getOrgOpenApts($state.params.id);
 
-
-
 	$scope.getOrg = function(orgID){
 		skedAptService.getOrg(orgID).then(function(result){
 			$scope.thisOrg = result;
@@ -26,8 +24,14 @@ angular.module("skedApp").controller("skedAptOrgCtrl", function($scope, $state, 
 	};
 	$scope.getOrg($state.params.id);
 
-	$scope.skedApt = function(aptID){
-		skedAptService.skedApt(aptID, $scope.user._id).then(function(){
+	$scope.skedApt = function(apt){
+		skedAptService.skedApt(apt._id, $scope.user._id).then(function(){
+			swal({
+				title: "You've successfully scheduled your appointment with " + apt.mentor.name + "!",
+				allowEscapeKey: true,
+				allowOutsideClick: true,
+				timer: 3000,
+			})
 			$scope.getOrgOpenApts($state.params.id);
 			$scope.getMyMenteeBookedApts($scope.user._id);
 		});

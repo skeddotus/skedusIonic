@@ -1,4 +1,4 @@
-angular.module("skedApp").controller("mainCtrl", function($scope, authService, mainService, user, apptRef, $state){
+angular.module("skedApp").controller("mainCtrl", function($scope, $location, authService, mainService, user){
 
   //------------jQuery Stuff-------------------
 $(document).ready(function(){
@@ -70,32 +70,47 @@ $(document).ready(function(){
 	}
 	$scope.getOrgs();
 
-	$scope.joinOrg = function(orgID){
-		mainService.joinOrg($scope.user._id, orgID).then(function(){
+	$scope.joinOrg = function(org){
+		mainService.joinOrg($scope.user._id, org._id).then(function(){
+			swal({
+				title: "You've successfully joined " + org.name + "!",
+				allowEscapeKey: true,
+				allowOutsideClick: true,
+				timer: 2000,
+			})
 			$scope.getMyOrgs($scope.user._id);
 			$scope.getOrgs();
-			console.log("organization joined");
 		})
 	};
 
 	$scope.leaveOrg = function(org){
-		swal({
-			title: "Are you sure you want to leave " + org.name + "?",
-			text: "You will lose any appointment(s) you currently have scheduled.",
-			type: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#DD6B55",
-			confirmButtonText: "Yes",
-			cancelButtonText: "No",
-		}, function(isConfirm){
-			if(isConfirm){
-				mainService.leaveOrg($scope.user._id, org._id).then(function(){
-					$scope.getMyOrgs($scope.user._id);
-					$scope.getMyMenteeBookedApts($scope.user._id);
-					console.log("no longer member or org :(");
-				});
-			};
-		});
+		if(org.role === 'Admin'){
+			swal({
+				title: "You are an Admin for " + org.org.name + "!",
+				text: "We can't have a ship without a captain!",
+				type: "error",
+				allowEscapeKey: true,
+				allowOutsideClick: true,
+			})
+		} else {
+			swal({
+				title: "Are you sure you want to leave " + org.org.name + "?",
+				text: "You will lose any appointment(s) you currently have scheduled.",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "Yes",
+				cancelButtonText: "No",
+			}, function(isConfirm){
+				if(isConfirm){
+					mainService.leaveOrg($scope.user._id, org.org._id).then(function(){
+						$scope.getMyOrgs($scope.user._id);
+						$scope.getMyMenteeBookedApts($scope.user._id);
+						console.log("no longer member or org :(");
+					});
+				};
+			});
+		}
 	};
 
 	$scope.createOrg = function(newOrg){
@@ -127,7 +142,6 @@ $(document).ready(function(){
 	};
 	// $scope.getMyMenteeBookedApts($scope.user._id);
 
-
 	$scope.cancelApt = function(aptID){
 		swal({
 			title: "Are you sure you want to Cancel Appointment?",
@@ -148,6 +162,42 @@ $(document).ready(function(){
 			};
 		});
 	};
+
+	$scope.rescheduleApt = function(aptID, orgID){
+		console.log("orgID", orgID)
+		swal({
+			title: "Are you sure you want to Reschedule Appointment?",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes",
+			cancelButtonText: "No, I want to keep it!",
+			allowEscapeKey: true,
+			allowOutsideClick: true,
+		}, function(isConfirm){
+			if(isConfirm){
+				mainService.cancelApt(aptID).then(function($location){
+					$scope.getMyMenteeBookedApts($scope.user._id);
+					document.location = "/#/skedApt/" + orgID;
+				});
+			};
+		});
+	};
+
+	$scope.showOrgInfo = function(org){
+		swal({
+			title: org.name,
+			text: "<h4>About: </h4>" + org.desc +
+				"<br>" + 
+				" <h4>Location: </h4>" + org.add1 + " " + org.add2 + " " + org.city + " " + org.st +  " " + org.zip + 
+				"<br> <h4>LinkedIn Link: </h4>" + org.linkedin +
+				"<br> <h4>Facebook Link: </h4>" + org.facebook +
+				"<br> <h4>Twitter Link: </h4>" + org.twitter,
+			html: true,
+			allowEscapeKey: true,
+			allowOutsideClick: true,
+		})
+	}
 
 
 	$scope.logout = function() {

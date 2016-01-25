@@ -17,10 +17,10 @@
 					<tr ng-model="orgApts" ng-repeat="apt in orgApts">
 						<td><h5>{{apt.title}}</h5></td>
 						<td><h5>{{apt.startsAt | date: "fullDate"}}</h5></td>
-            <td><h5>{{apt.startsAt | date: "shortTime"}}</h5></td>
-            <td><h5>{{apt.endsAt | date: "shortTime"}}</h5></td>
-            <td><h5>{{apt.mentor.firstName}} {{apt.mentor.lastName}}</h5></td>
-            <td><h5>{{apt.loc}}</h5></td>
+          			    <td><h5>{{apt.startsAt | date: "shortTime"}}</h5></td>
+            			<td><h5>{{apt.endsAt | date: "shortTime"}}</h5></td>
+            			<td><h5>{{apt.mentor.firstName}} {{apt.mentor.lastName}}</h5></td>
+            			<td><h5>{{apt.loc}}</h5></td>
 						<td><button class="btn btn-success" ng-click="skedApt(apt._id)">Schedule</button></td>
 					</tr>
 				</table>
