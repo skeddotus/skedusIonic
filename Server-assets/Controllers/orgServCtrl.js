@@ -19,7 +19,7 @@ module.exports = {
       else {
         Org.findOne({name: req.body.name}).exec().then(function(org) {
           if(org) {
-            return res.status(500).end();
+            return res.send("exists");
           }
           else {
           org = new Org(req.body);

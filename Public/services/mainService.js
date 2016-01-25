@@ -65,7 +65,7 @@ angular.module("skedApp").service("mainService", function($http, $q){
 			url: "/api/orgs/" + userID,
 			data: newOrg
 		}).then(function(res){
-			dfd.resolve();
+			dfd.resolve(res.data);
 		})
 		return dfd.promise;
 	};
@@ -108,8 +108,7 @@ angular.module("skedApp").service("mainService", function($http, $q){
 				mentee: "",
 				status: "open",
 			},
-		}).then(function(res){
-			console.log("res", res)
+		}).then(function(){
 			dfd.resolve();
 		});
 		return dfd.promise;
