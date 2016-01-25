@@ -71,9 +71,9 @@ $(document).ready(function(){
 		})
 	};
 
-	$scope.leaveOrg = function(orgID){
+	$scope.leaveOrg = function(org){
 		swal({
-			title: "Are you sure you want to leave organization?",
+			title: "Are you sure you want to leave " + org.name + "?",
 			text: "You will lose any appointment(s) you currently have scheduled.",
 			type: "warning",
 			showCancelButton: true,
@@ -82,7 +82,7 @@ $(document).ready(function(){
 			cancelButtonText: "No",
 		}, function(isConfirm){
 			if(isConfirm){
-				mainService.leaveOrg($scope.user._id, orgID).then(function(){
+				mainService.leaveOrg($scope.user._id, org._id).then(function(){
 					$scope.getMyOrgs($scope.user._id);
 					$scope.getMyMenteeBookedApts($scope.user._id);
 					console.log("no longer member or org :(");
@@ -92,10 +92,22 @@ $(document).ready(function(){
 	};
 
 	$scope.createOrg = function(newOrg){
-		mainService.createOrg(newOrg, $scope.user._id).then(function(){
+		mainService.createOrg(newOrg, $scope.user._id).then(function(res){
+			if(res === "exists"){
+				swal({
+					title: "Organization with name " + newOrg.name + " already exists.",
+					text: "Please try again with another name.",
+					type: "error",
+					showCancelButton: true,
+					confirmButtonColor: "#DD6B55",
+					confirmButtonText: "OK",
+					allowEscapeKey: true,
+					allowOutsideClick: true,
+				})
+			}
 			$scope.getMyOrgs($scope.user._id);
-			$scope.newOrg = "";
 		});
+			$scope.newOrg = {};
 	};
 
 	$scope.getMyMenteeBookedApts = function(userID){
@@ -106,7 +118,6 @@ $(document).ready(function(){
 	};
 	$scope.getMyMenteeBookedApts($scope.user._id);
 
-	//not working yet
 	$scope.cancelApt = function(aptID){
 		swal({
 			title: "Are you sure you want to Cancel Appointment?",

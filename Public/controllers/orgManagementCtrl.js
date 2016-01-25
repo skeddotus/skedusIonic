@@ -5,13 +5,8 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 
 	$scope.getOrgUsers = function(orgID){
 		orgService.getOrgUsers(orgID).then(function(results){
-			console.log('results', results);
-			var sorted = results.sort(function(a, b) {
-			    var textA = a.userid.lastName.toUpperCase();
-			    var textB = b.userid.lastName.toUpperCase();
-			    return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
-			});
-			$scope.orgUsers = sorted;
+			console.log("results:", results)
+			$scope.orgUsers = results;
 			$scope.stuffLoaded = true;
 			$scope.notLoaded = false;
 		})
@@ -244,5 +239,21 @@ angular.module("skedApp").controller("orgManagementCtrl", function($scope, $stat
 			};
 		});
 	};
+
+	$scope.showInfo = function(user){
+		swal({
+			title: user.firstName + " " + user.lastName,
+			text: "<h4>About: </h4>" + user.desc +
+				"<br>" + 
+				" <h4>Company: </h4>" + user.company + 
+				"<br> <h4>Job Title: </h4>" + user.title +
+				"<br> <h4>Specialities: </h4>" + user.specialities +
+				"<br> <h4>Social Media: </h4>" + user.socialMedia,
+
+			html: true,
+			allowEscapeKey: true,
+			allowOutsideClick: true,
+		})
+	}
 
 });

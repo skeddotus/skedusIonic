@@ -85,7 +85,7 @@ angular.module("skedApp", ["ui.router", 'mwl.calendar', 'ui.bootstrap', 'ngAnima
 			templateUrl: "templates/manage.html",
 		});
 
-	$locationProvider.html5Mode(true);
+	// $locationProvider.html5Mode(true);
 
 	$httpProvider.interceptors.push(function($q, $injector, $location) {
     return {
