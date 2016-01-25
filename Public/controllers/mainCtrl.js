@@ -1,4 +1,4 @@
-angular.module("skedApp").controller("mainCtrl", function($scope, $location, authService, mainService, user){
+angular.module("skedApp").controller("mainCtrl", function($scope, $location, authService, mainService, user, apptRef, $state){
 
   //------------jQuery Stuff-------------------
 $(document).ready(function(){
@@ -185,11 +185,25 @@ $(document).ready(function(){
 	};
 
 	$scope.showOrgInfo = function(org){
+		if (!org.linkedin) {
+			org.linkedin = "None";
+		};
+		if (!org.facebook) {
+			org.facebook = "None";
+		};
+		if (!org.twitter) {
+			org.twitter = "None";
+		};
+		// for (var prop in org) {
+		// 	if (!org[prop]) {
+		// 		org[prop] = "None";
+		// 	}
+		// }
 		swal({
 			title: org.name,
 			text: "<h4>About: </h4>" + org.desc +
-				"<br>" + 
-				" <h4>Location: </h4>" + org.add1 + " " + org.add2 + " " + org.city + " " + org.st +  " " + org.zip + 
+				"<br>" +
+				" <h4>Location: </h4>" + org.add1 + " " + org.add2 + " " + org.city + " " + org.st +  " " + org.zip +
 				"<br> <h4>LinkedIn Link: </h4>" + org.linkedin +
 				"<br> <h4>Facebook Link: </h4>" + org.facebook +
 				"<br> <h4>Twitter Link: </h4>" + org.twitter,

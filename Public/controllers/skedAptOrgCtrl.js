@@ -27,11 +27,12 @@ angular.module("skedApp").controller("skedAptOrgCtrl", function($scope, $state, 
 	$scope.skedApt = function(apt){
 		skedAptService.skedApt(apt._id, $scope.user._id).then(function(){
 			swal({
-				title: "You've successfully scheduled your appointment with " + apt.mentor.name + "!",
+				title: "You've successfully scheduled your appointment with " + apt.mentor.firstName + " " + apt.mentor.lastName + "!",
 				allowEscapeKey: true,
 				allowOutsideClick: true,
 				timer: 3000,
-			})
+			});
+			console.log("here");
 			$scope.getOrgOpenApts($state.params.id);
 			$scope.getMyMenteeBookedApts($scope.user._id);
 		});
