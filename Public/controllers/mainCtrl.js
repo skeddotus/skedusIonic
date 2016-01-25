@@ -100,8 +100,8 @@ $(document).ready(function(){
 
 	$scope.getMyMenteeBookedApts = function(userID){
 		mainService.getMyMenteeBookedApts(userID).then(function(results){
+			console.log("res:", results);
 			$scope.myMenteeBookedApts = results;
-			$scope.events = results;
 		});
 	};
 	$scope.getMyMenteeBookedApts($scope.user._id);

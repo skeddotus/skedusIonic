@@ -2,11 +2,12 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
   return {
     restrict: 'E',
     // scope: {
-    //   'eventsData': "="
+    //   apt: "="
     // },
     templateUrl: '/templates/calendarDirective.html',
     link: function(scope, elem, attrs) {
-      // scope.eventsData = scope.eventsData;
+      console.log("link apt:", scope.apt);
+
       $timeout(function() {
         scope.notLoaded = false;
         scope.calendarLoaded = true;
@@ -29,10 +30,12 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
       //   console.log("I ran");
       // };
 
-      $scope.eventsData = $scope.eventsData;
+      console.log("apt:", $scope.apt);
 
       $scope.calendarView = 'month';
       $scope.viewDate = new Date();
+
+      // $scope.getEvents = mainService.getMyMenteeBookedApts();
 
       // $scope.enableEdit = '<i class=\'glyphicon glyphicon-pencil\'></i>';
       // $scope.enableDel = '<i class=\'glyphicon glyphicon-remove\'></i>';
