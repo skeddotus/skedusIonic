@@ -1,4 +1,4 @@
-angular.module("skedApp").controller("mainCtrl", function($scope, authService, mainService, user){
+angular.module("skedApp").controller("mainCtrl", function($scope, authService, mainService, user, apptRef, $state){
 
   //------------jQuery Stuff-------------------
 $(document).ready(function(){
@@ -32,8 +32,15 @@ $(document).ready(function(){
 	};
 	$scope.aptView('');
 
-	$scope.calendarLoaded = false;
-	$scope.notLoaded = true;
+	// $scope.calendarLoaded = true;
+	// $scope.notLoaded = false;
+
+	// $scope.$on('toggleCalendarLoaded', function(event, toggle) {
+	// 	if (toggle === 1) {
+	// 		$scope.notLoaded = false;
+	// 		$scope.calendarLoaded = true;
+	// 	};
+	// });
 
 	//Page title
 	$scope.pageTitle = "Schedule";
@@ -110,13 +117,16 @@ $(document).ready(function(){
 			$scope.newOrg = {};
 	};
 
+	$scope.myMenteeBookedApts = apptRef;
+
 	$scope.getMyMenteeBookedApts = function(userID){
 		mainService.getMyMenteeBookedApts(userID).then(function(results){
-			console.log("res:", results);
 			$scope.myMenteeBookedApts = results;
+			// $scope.$apply();
 		});
 	};
-	$scope.getMyMenteeBookedApts($scope.user._id);
+	// $scope.getMyMenteeBookedApts($scope.user._id);
+
 
 	$scope.cancelApt = function(aptID){
 		swal({
@@ -132,6 +142,8 @@ $(document).ready(function(){
 			if(isConfirm){
 				mainService.cancelApt(aptID).then(function(){
 					$scope.getMyMenteeBookedApts($scope.user._id);
+					console.log("i ran");
+					$state.reload(true);
 				});
 			};
 		});
@@ -143,7 +155,6 @@ $(document).ready(function(){
 			location.reload();
 		})
 	};
-
 
 
 });

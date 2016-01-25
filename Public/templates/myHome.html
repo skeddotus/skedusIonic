@@ -7,8 +7,8 @@
 	</div>
 
 	<div ng-show="calendarMode" class="">
-		<calendar-directive ng-show="calendarLoaded"></calendar-directive>
-		<circle-spinner ng-show="notLoaded"></circle-spinner>
+		<calendar-directive apt="myMenteeBookedApts"></calendar-directive>
+		<!-- <circle-spinner></circle-spinner> -->
 	</div>
 
 	<div ng-show="listMode" class="">
@@ -19,6 +19,7 @@
 				<div class="table-responsive">
 					<table class="table">
 						<tr>
+							<th>Title</th>
 							<th>Day</th>
 							<th>Start Time</th>
 							<th>End Time</th>
@@ -27,7 +28,8 @@
 							<th>Location</th>
 							<th>Cancel</th>
 						</tr>
-						<tr ng-model="apt" ng-repeat="apt in myMenteeBookedApts">
+						<tr ng-repeat="apt in myMenteeBookedApts">
+							<td><h5>{{apt.title}}</h5></td>
 							<td><h5>{{apt.startsAt | date: "EEEE - M/d/yy"}}</h5></td>
 							<td><h5>{{apt.startsAt | date: "shortTime"}}</h5></td>
 							<td><h5>{{apt.endsAt | date: "shortTime"}}</h5></td>

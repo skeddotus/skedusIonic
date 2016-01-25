@@ -1,18 +1,15 @@
 angular.module('skedApp').directive('calendarDirective', function($timeout) {
   return {
     restrict: 'E',
-    // scope: {
-    //   apt: "="
-    // },
-    templateUrl: '/templates/calendarDirective.html',
-    link: function(scope, elem, attrs) {
-      console.log("link apt:", scope.apt);
-
-      $timeout(function() {
-        scope.notLoaded = false;
-        scope.calendarLoaded = true;
-      });
+    scope: {
+      apt: "="
     },
+    templateUrl: '/templates/calendarDirective.html',
+    // link: function(scope, elem, attrs) {
+      // $timeout(function() {
+      //   scope.$emit('toggleCalendarLoaded', 1);
+      // });
+    // },
     controller: function($scope, mainService) {
 
       // $scope.getMyMenteeBookedApts = function(userID){
@@ -30,7 +27,8 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
       //   console.log("I ran");
       // };
 
-      console.log("apt:", $scope.apt);
+      // $scope.notLoaded = false;
+      // $scope.calendarLoaded = true;
 
       $scope.calendarView = 'month';
       $scope.viewDate = new Date();

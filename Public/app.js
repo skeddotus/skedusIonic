@@ -35,6 +35,9 @@ angular.module("skedApp", ["ui.router", 'mwl.calendar', 'ui.bootstrap', 'ngAnima
 			resolve: {
 				user: function(authService) {
 					return authService.getAuthedUser();
+				},
+				apptRef: function(mainService, user) {
+					return mainService.getMyMenteeBookedApts(user._id);
 				}
 			}
 		})
@@ -62,6 +65,11 @@ angular.module("skedApp", ["ui.router", 'mwl.calendar', 'ui.bootstrap', 'ngAnima
 			url: "/skedApt/:id",
 			controller: "skedAptOrgCtrl",
 			templateUrl: "templates/skedAptOrg.html",
+			resolve: {
+				orgApptRef: function(skedAptService, $stateParams) {
+					return skedAptService.getOrgOpenApts($stateParams.id);
+				}
+			}
 		})
 		.state("auth.org", {
 			url: "/org/:id",
