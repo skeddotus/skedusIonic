@@ -66,12 +66,12 @@ module.exports = function(app, passport) {
 		});
 	});
 
-	app.get('/api/user/:id', function(req, res) {
-		User.findOne({ _id : req.params.id }).exec().then(function(res) {
-			console.log(res);
-			return res.json(res).end();
-		});
-	});
+	// app.get('/api/user/:id', function(req, res) {
+	// 	User.findOne({ _id : req.params.id }).exec().then(function(res) {
+	// 		console.log(res);
+	// 		return res.json(res).end();
+	// 	})
+	// })
 
 	//update user
 	app.put('/api/users/:id', function(req, res) {

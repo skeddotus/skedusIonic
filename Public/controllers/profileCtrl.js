@@ -2,19 +2,19 @@ angular.module("skedApp").controller("profileCtrl", function($scope, $state, use
 
 
 	var getUser = function(userID){
-		userService.getUser(userID).then(function(res){
-			$scope.user = res;
-		})
-	};
-	getUser($scope.user._id)
+ 		userService.getUser(userID).then(function(res){
+  			$scope.user = res;
+  		})
+  	};
+  	getUser($scope.user._id);
 
 	$scope.updateUser = function(userID){
-		userService.updateUser($scope.user._id, $scope.userUpdates).then(function(){
-			$scope.userUpdates = "";
-			return getUser($scope.user._id);
-			console.log("user profile updated");
-		});
-	};
+  		userService.updateUser($scope.user._id, $scope.userUpdates).then(function(){
+  			$scope.userUpdates = "";
+  			return getUser($scope.user._id);
+ 			console.log("user profile updated");
+  		});
+  	};
 
 	$scope.deactivateUser = function(userID){
 		swal({
@@ -29,8 +29,8 @@ angular.module("skedApp").controller("profileCtrl", function($scope, $state, use
 				userService.deactivateUser(userID).then(function(){
 					getUser($scope.user._id);
 				});
+				$state.go("login");
 			};
-		$state.go("login");
 		});
 	};
 
