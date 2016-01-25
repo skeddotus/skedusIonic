@@ -16,14 +16,13 @@ angular.module("skedApp").controller("orgCtrl", function($scope, orgService, use
 
 	$scope.showUserInfo = function(user){
 		swal({
-			title: user.firstName + user.lastName,
+			title: user.firstName + " " + user.lastName,
 			text: "<h4>About: </h4>" + user.desc +
 				"<br>" + 
 				" <h4>Company: </h4>" + user.company + 
 				"<br> <h4>Job Title: </h4>" + user.title +
 				"<br> <h4>Specialities: </h4>" + user.specialities +
 				"<br> <h4>Social Media: </h4>" + user.socialMedia,
-
 			html: true,
 			allowEscapeKey: true,
 			allowOutsideClick: true,

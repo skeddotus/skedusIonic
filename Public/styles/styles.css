@@ -133,6 +133,9 @@ table {
 .org-role:hover {
 	cursor: default;
 }
+.org-name {
+	word-wrap: break-word;
+}
 
 /*.body {
 	height: 100vh;
