@@ -35,7 +35,7 @@
 							<td><h5>{{apt.org.name}}</h5></td>
 							<td><h5>{{apt.mentor.firstName}} {{apt.mentor.lastName}}</h5></td>
 							<td><h5>{{apt.loc}}</h5></td>
-							<td><button class="btn btn-info">Reschedule</button></td>
+							<td><button ng-click="rescheduleApt(apt._id, apt.org._id)" class="btn btn-info">Reschedule</button></td>
 							<td><button class="btn btn-danger" ng-click="cancelApt(apt._id)">Cancel</button></td>
 						</tr>
 					</table>

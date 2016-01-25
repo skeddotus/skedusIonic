@@ -1,4 +1,4 @@
-angular.module("skedApp").controller("mainCtrl", function($scope, authService, mainService, user){
+angular.module("skedApp").controller("mainCtrl", function($scope, $location, authService, mainService, user){
 
   //------------jQuery Stuff-------------------
 $(document).ready(function(){
@@ -148,6 +148,27 @@ $(document).ready(function(){
 			if(isConfirm){
 				mainService.cancelApt(aptID).then(function(){
 					$scope.getMyMenteeBookedApts($scope.user._id);
+				});
+			};
+		});
+	};
+
+	$scope.rescheduleApt = function(aptID, orgID){
+		console.log("orgID", orgID)
+		swal({
+			title: "Are you sure you want to Reschedule Appointment?",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes",
+			cancelButtonText: "No, I want to keep it!",
+			allowEscapeKey: true,
+			allowOutsideClick: true,
+		}, function(isConfirm){
+			if(isConfirm){
+				mainService.cancelApt(aptID).then(function($location){
+					$scope.getMyMenteeBookedApts($scope.user._id);
+					document.location = "/#/skedApt/" + orgID;
 				});
 			};
 		});
