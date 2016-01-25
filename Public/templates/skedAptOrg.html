@@ -1,12 +1,12 @@
 <div class="container-fluid">
 	<div class="my-orgs-contain">
-		<circle-spinner ng-show="notLoaded"></circle-spinner>
-		<calendar-directive ng-show="calendarLoaded"></calendar-directive>
-		<div class="panel panel-default">
-			<div class="panel-heading"><h1>{{thisOrg.name}}</h1></div>
+		<calendar-directive apt="orgApts"></calendar-directive>
+		<div class="panel panel-info">
+			<div class="panel-heading"><h1>{{thisOrg.name}} available apopintments</h1></div>
 			<div class="panel-body">
 				<table class="table">
 					<tr>
+						<th>Title</th>
 						<th>Day</th>
 						<th>Start Time</th>
 						<th>End Time</th>
@@ -14,12 +14,13 @@
 						<th>Location</th>
 						<th></th>
 					</tr>
-					<tr ng-repeat="apt in orgApts" ng-if="apt.status === 'open'">
+					<tr ng-model="orgApts" ng-repeat="apt in orgApts">
+						<td><h5>{{apt.title}}</h5></td>
 						<td><h5>{{apt.startsAt | date: "fullDate"}}</h5></td>
-	                    <td><h5>{{apt.startsAt | date: "shortTime"}}</h5></td>
-	                    <td><h5>{{apt.endsAt | date: "shortTime"}}</h5></td>
-	                    <td><h5>{{apt.mentor.name}}</h5></td>
-	                    <td><h5>{{apt.loc}}</h5></td>
+          			    <td><h5>{{apt.startsAt | date: "shortTime"}}</h5></td>
+            			<td><h5>{{apt.endsAt | date: "shortTime"}}</h5></td>
+            			<td><h5>{{apt.mentor.firstName}} {{apt.mentor.lastName}}</h5></td>
+            			<td><h5>{{apt.loc}}</h5></td>
 						<td><button class="btn btn-success" ng-click="skedApt(apt)">Schedule</button></td>
 					</tr>
 				</table>

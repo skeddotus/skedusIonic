@@ -6,7 +6,26 @@ angular.module("skedApp").service("skedAptService", function($http, $q){
 			method: "GET",
 			url: "/api/apt/" + orgID,
 		}).then(function(results){
+			console.log("skedAptService:", results.data);
 			dfd.resolve(results.data);
+		});
+		return dfd.promise;
+	};
+
+	this.getOrgOpenApts = function(orgID){
+		var dfd = $q.defer();
+		$http({
+			method: "GET",
+			url: "/api/apt/" + orgID,
+		}).then(function(results){
+			var aptResults = results.data
+			for (var i = aptResults.length - 1; i >= 0; i--) {
+				if (aptResults[i].status === "booked") {
+					aptResults.splice(i, 1);
+				}
+			}
+			console.log("aptResults:", aptResults);
+			dfd.resolve(aptResults);
 		});
 		return dfd.promise;
 	};
@@ -17,7 +36,7 @@ angular.module("skedApp").service("skedAptService", function($http, $q){
 			method: "GET",
 			url: "/api/org/" + orgID,
 		}).then(function(result){
-			dfd.resolve(result.data);	
+			dfd.resolve(result.data);
 		});
 		return dfd.promise;
 	};

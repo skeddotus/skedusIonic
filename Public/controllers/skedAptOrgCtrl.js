@@ -1,12 +1,21 @@
-angular.module("skedApp").controller("skedAptOrgCtrl", function($scope, $state, skedAptService){
+angular.module("skedApp").controller("skedAptOrgCtrl", function($scope, $state, skedAptService, orgApptRef){
 
-	$scope.getOrgApts = function(orgID){
-		skedAptService.getOrgApts(orgID).then(function(results){
+	// $scope.orgApts = orgApptRef;
+
+	// $scope.getOrgApts = function(orgID){
+	// 	skedAptService.getOrgApts(orgID).then(function(results){
+	// 		$scope.orgApts = results;
+	// 	});
+	// };
+	// $scope.getOrgApts($state.params.id);
+
+
+	$scope.getOrgOpenApts = function(orgID){
+		skedAptService.getOrgOpenApts(orgID).then(function(results){
 			$scope.orgApts = results;
-			$scope.events = results;
 		});
 	};
-	$scope.getOrgApts($state.params.id);
+	$scope.getOrgOpenApts($state.params.id);
 
 	$scope.getOrg = function(orgID){
 		skedAptService.getOrg(orgID).then(function(result){
@@ -16,15 +25,15 @@ angular.module("skedApp").controller("skedAptOrgCtrl", function($scope, $state, 
 	$scope.getOrg($state.params.id);
 
 	$scope.skedApt = function(apt){
-		console.log("apt", apt)
 		skedAptService.skedApt(apt._id, $scope.user._id).then(function(){
 			swal({
-				title: "You've successfully scheduled your appointment with " + apt.mentor.name + "!",
+				title: "You've successfully scheduled your appointment with " + apt.mentor.firstName + " " + apt.mentor.lastName + "!",
 				allowEscapeKey: true,
 				allowOutsideClick: true,
 				timer: 3000,
-			})
-			$scope.getOrgApts($state.params.id);
+			});
+			console.log("here");
+			$scope.getOrgOpenApts($state.params.id);
 			$scope.getMyMenteeBookedApts($scope.user._id);
 		});
 	};

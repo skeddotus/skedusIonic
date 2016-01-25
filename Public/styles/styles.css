@@ -51,6 +51,11 @@ table {
 /*----------------------------------------------------*/
 
 /*landing page*/
+.titleTxt {
+	font-family: monospace;
+	font-size: 6em;
+}
+
 #below-navbar {
 	padding-top: 70px;
 }
@@ -145,11 +150,11 @@ table {
 /*background image*/
 
 body {
-	background: url(../images/swr_bg.jpg) no-repeat center center fixed;
-	-webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+	background: url(../images/swr_bg.jpg) no-repeat center center fixed !important;
+	-webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  -o-background-size: cover !important;
+  background-size: cover !important;
 }
 
 /*Navigation sidebar*/

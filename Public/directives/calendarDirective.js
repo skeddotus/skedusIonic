@@ -1,17 +1,15 @@
 angular.module('skedApp').directive('calendarDirective', function($timeout) {
   return {
     restrict: 'E',
-    // scope: {
-    //   'eventsData': "="
-    // },
-    templateUrl: '/templates/calendarDirective.html',
-    link: function(scope, elem, attrs) {
-      // scope.eventsData = scope.eventsData;
-      $timeout(function() {
-        scope.notLoaded = false;
-        scope.calendarLoaded = true;
-      });
+    scope: {
+      apt: "="
     },
+    templateUrl: '/templates/calendarDirective.html',
+    // link: function(scope, elem, attrs) {
+      // $timeout(function() {
+      //   scope.$emit('toggleCalendarLoaded', 1);
+      // });
+    // },
     controller: function($scope, mainService) {
 
       // $scope.getMyMenteeBookedApts = function(userID){
@@ -29,10 +27,13 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
       //   console.log("I ran");
       // };
 
-      $scope.eventsData = $scope.eventsData;
+      // $scope.notLoaded = false;
+      // $scope.calendarLoaded = true;
 
       $scope.calendarView = 'month';
       $scope.viewDate = new Date();
+
+      // $scope.getEvents = mainService.getMyMenteeBookedApts();
 
       // $scope.enableEdit = '<i class=\'glyphicon glyphicon-pencil\'></i>';
       // $scope.enableDel = '<i class=\'glyphicon glyphicon-remove\'></i>';
