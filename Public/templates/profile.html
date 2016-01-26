@@ -1,12 +1,12 @@
 <div class="container-fluid">
+	<div class="my-orgs-contain">
 	<br>
-	<div class="col-md-offset-1 col-md-5">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<h2>My Profile</h2>
 			</div>
 			<div class="panel-body">
-				<div id="add-linkedin-contain">
+				<div ng-if="!user.linkedinToken" id="add-linkedin-contain">
 					<a href="/api/auth/linkedin"><div id="linkedin-add"></div></a>
 				</div>
 				<h4>Name: {{user.firstName}} {{user.lastName}}</h4>
@@ -15,12 +15,11 @@
 				<h4>Job Title: {{user.title}}</h4>
 				<h4>Specialities: {{user.specialities}}</h4>
 				<h4>Email: {{user.email}}</h4>
+				<button class="btn btn-primary" ng-click="showEdit = !showEdit">Edit Profile</button>
 				<button class="btn btn-danger" ng-click="deactivateUser(user._id)">Deactivate Account</button>
 			</div>
 		</div>
-	</div>
-	<div class="col-md-5">
-		<div class="panel panel-primary">
+		<div ng-show="showEdit" class="panel panel-primary">
 			<div class="panel-heading">
 				<h2>Update Profile Here</h2>
 			</div>
@@ -45,7 +44,7 @@
 						<input ng-model="userUpdates.specialities" class="form-control" placeholder="Specialties">
 					</div>
 					<div class="form-group">
-						<button class=" btn btn-primary login-button" type="submit" ng-click="updateUser(userUpdates)">Save Changes</button>
+						<button class=" btn btn-primary login-button" type="submit" ng-click="updateUser(userUpdates); showEdit = !showEdit">Save Changes</button>
 					</div>
 				</form>
 			</div>

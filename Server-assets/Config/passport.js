@@ -1,8 +1,19 @@
 var LocalStrategy = require('passport-local').Strategy,
 	LinkedinStrategy = require('passport-linkedin').Strategy,
 	User = require('../../Server-assets/Models/userSchema.js'),
-	Secret = require('../../Server-assets/Secrets/secrets.js');
-var Org = require('../Models/orgSchema');
+	Org = require('../Models/orgSchema');
+
+var LINKED_IN_API_KEY, LINKED_IN_API_SECRET;
+
+if (process.env.NODE_ENV === 'production') {
+	LINKED_IN_API_KEY = process.env.LINKED_IN_API_KEY;
+	LINKED_IN_API_SECRET = process.env.LINKED_IN_API_SECRET;
+}
+else {
+	var Secret = require('../../Server-assets/Secrets/secrets.js');
+	LINKED_IN_API_KEY = Secret.LINKED_IN_API_KEY;
+	LINKED_IN_API_SECRET = Secret.LINKED_IN_API_SECRET;
+}
 
 
 module.exports = function(passport, app) {
@@ -66,8 +77,8 @@ module.exports = function(passport, app) {
 
 	//LINKEDIN
 	passport.use(new LinkedinStrategy({
-			consumerKey: Secret.LINKED_IN_API_KEY,
-			consumerSecret: Secret.LINKED_IN_API_SECRET,
+			consumerKey: LINKED_IN_API_KEY,
+			consumerSecret: LINKED_IN_API_SECRET,
 			callbackURL: "http://127.0.0.1:9001/api/auth/linkedin/callback",
 			scope: ['r_basicprofile', 'r_emailaddress'],
 			profileFields: ['id', 'first-name', 'last-name', 'email-address'],
