@@ -1,8 +1,18 @@
-var Secret = require('../Secrets/secrets.js');
 var mandrill = require('mandrill-api/mandrill');
-var mandrill_client = new mandrill.Mandrill(Secret.MANDRILL_API_KEY);
 var moment = require('moment');
 var async = require('async');
+var MANDRILL_API_KEY;
+
+if (process.env.ENVIRONMENT === 'production') {
+	MANDRILL_API_KEY = process.env.MANDRILL_API_KEY;
+
+}
+else {
+	Secret = require('../../Server-assets/Secrets/secrets.js');
+	MANDRILL_API_KEY = Secret.MANDRILL_API_KEY;
+}
+
+var mandrill_client = new mandrill.Mandrill(MANDRILL_API_KEY);
 
 
 module.exports = {

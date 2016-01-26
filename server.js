@@ -11,8 +11,17 @@ var express = require('express'),
     session = require('express-session'),
     async = require('async'),
     crypto = require('crypto'),
-    mongoUri = require('./Server-assets/Config/database.js'),
-    Secret = require('./Server-assets/Secrets/secrets.js');
+    mongoUri = require('./Server-assets/Config/database.js');
+
+    var SESSION_SECRET;
+
+    if (process.env.ENVIRONMENT === 'production') {
+      SESSION_SECRET= process.env.SESSION_SECRET;
+    }
+    else {
+      Secret = require('../../Server-assets/Secrets/secrets.js');
+      SESSION_SECRET = Secret.SESSION_SECRET;
+    }
 
     app.use(cors(), bodyParser.json(), express.static(__dirname + '/Public'));
 
@@ -22,7 +31,7 @@ var express = require('express'),
 
 // required for passport
 app.use(session({
-    secret: process.env.SESSION_SECRET || Secret.SESSION_SECRET,
+    secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
 })); // session secret
