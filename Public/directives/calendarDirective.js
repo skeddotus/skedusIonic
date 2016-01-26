@@ -12,6 +12,8 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
     // },
     controller: function($scope, mainService) {
 
+      console.log("user", $scope.$parent.user);
+
       // $scope.getMyMenteeBookedApts = function(userID){
     	// 	mainService.getMyMenteeBookedApts(userID).then(function(results){
       //     for (var i = 0; i < results.length; i++) {
@@ -33,10 +35,9 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
       $scope.calendarView = 'month';
       $scope.viewDate = new Date();
 
-      // $scope.getEvents = mainService.getMyMenteeBookedApts();
-
+      //calendar edit and delete icons
       // $scope.enableEdit = '<i class=\'glyphicon glyphicon-pencil\'></i>';
-      // $scope.enableDel = '<i class=\'glyphicon glyphicon-remove\'></i>';
+      $scope.enableDel = '<i class=\'glyphicon glyphicon-remove\'></i>';
 
       // $scope.events = [
       // {
@@ -99,9 +100,24 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
 
       $scope.eventDeleted = function(event) {
         swal({
-          title: 'Deleted',
-          text: event
-        });
+    			title: "Are you sure you want to Cancel Appointment?",
+    			type: "warning",
+    			showCancelButton: true,
+    			confirmButtonColor: "#DD6B55",
+    			confirmButtonText: "Yes",
+    			cancelButtonText: "No, I want to keep it!",
+    			allowEscapeKey: true,
+    			allowOutsideClick: true,
+    		}, function(isConfirm){
+    			if(isConfirm){
+            console.log(event);
+    				mainService.cancelApt(event._id).then(function(){
+    					$scope.getMyMenteeBookedApts($scope.$parent.user._id);
+    					console.log("i ran");
+    					$state.reload(true);
+    				});
+    			};
+    		});
       };
 
       $scope.eventTimesChanged = function(event) {

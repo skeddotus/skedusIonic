@@ -1,4 +1,4 @@
-angular.module("skedApp").controller("mainCtrl", function($scope, $location, authService, mainService, user, apptRef, $state){
+angular.module("skedApp").controller("mainCtrl", function($scope, $location, authService, mainService, user, apptRef, allMyAptRef, $state){
 
   //------------jQuery Stuff-------------------
 $(document).ready(function(){
@@ -43,9 +43,10 @@ $(document).ready(function(){
 	// });
 
 	//Page title
-	$scope.pageTitle = "Schedule";
+	$scope.pageTitle = "sked";
 
 	$scope.user = user;
+
 
 	$scope.getMyOrgs = function(userID){
 		mainService.getMyOrgs(userID).then(function(res){
@@ -69,6 +70,8 @@ $(document).ready(function(){
 		})
 	}
 	$scope.getOrgs();
+
+	console.log($scope);
 
 	$scope.joinOrg = function(org){
 		mainService.joinOrg($scope.user._id, org._id).then(function(){
@@ -132,6 +135,16 @@ $(document).ready(function(){
 			$scope.newOrg = {};
 	};
 
+	//get all book appointments for a user
+	$scope.allMyApts = allMyAptRef;
+
+	$scope.getAllMyApts = function(userID) {
+		mainService.getMyBookedApts(userID).then(function(results) {
+			$scope.allMyApts = results;
+		});
+	};
+
+	//get all mentee booked appointments
 	$scope.myMenteeBookedApts = apptRef;
 
 	$scope.getMyMenteeBookedApts = function(userID){
@@ -185,24 +198,34 @@ $(document).ready(function(){
 	};
 
 	$scope.showOrgInfo = function(org){
+		console.log(org);
 		if (!org.desc) {
 			org.desc = "None";
 		};
-		if (!org.add1) {
+
+		if (!org.add1 && !org.add2 && !org.city && !org.st && !org.zip) {
 			org.add1 = "None";
-		};
-		if (!org.add2) {
+			org.add2 = "";
+			org.city = "";
+			org.st = "";
+			org.zip = "";
+		}
+		else if (!org.add1) {
+			org.add1 = "None";
+		}
+		else if (!org.add2) {
 			org.add2 = "None";
-		};
-		if (!org.city) {
+		}
+		else if (!org.city) {
 			org.city = "None";
-		};
-		if (!org.st) {
+		}
+		else if (!org.st) {
 			org.st = "None";
-		};
-		if (!org.zip) {
+		}
+		else if (!org.zip) {
 			org.zip = "None";
 		};
+
 		if (!org.linkedin) {
 			org.linkedin = "None";
 		};

@@ -34,7 +34,7 @@ angular.module("skedApp").controller("skedAptOrgCtrl", function($scope, $state, 
 			});
 			console.log("here");
 			$scope.getOrgOpenApts($state.params.id);
-			$scope.getMyMenteeBookedApts($scope.user._id);
+			$scope.getAllMyApts($scope.user._id);
 		});
 	};
 
