@@ -22,7 +22,7 @@ var express = require('express'),
 
 // required for passport
 app.use(session({
-    secret: Secret.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET || Secret.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
 })); // session secret
