@@ -23,8 +23,11 @@ angular.module("skedApp").service("skedAptService", function($http, $q){
 				if (aptResults[i].status === "booked") {
 					aptResults.splice(i, 1);
 				}
+				else {
+					aptResults[i].type = "success";
+				}
 			}
-			console.log("aptResults:", aptResults);
+			// console.log("aptResults:", aptResults);
 			dfd.resolve(aptResults);
 		});
 		return dfd.promise;
