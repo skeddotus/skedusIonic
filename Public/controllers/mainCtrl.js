@@ -1,4 +1,4 @@
-angular.module("skedApp").controller("mainCtrl", function($scope, $location, authService, mainService, user, apptRef, $state){
+angular.module("skedApp").controller("mainCtrl", function($scope, $location, authService, mainService, user, apptRef, allMyAptRef, $state){
 
   //------------jQuery Stuff-------------------
 $(document).ready(function(){
@@ -32,6 +32,13 @@ $(document).ready(function(){
 	};
 	$scope.aptView('');
 
+	// $scope.$on('calendarMode', function(evt, msg) {
+	// 	$scope.aptView(msg);
+	// 	console.log("msg", msg);
+	// 	console.log('emit');
+	// });
+
+
 	// $scope.calendarLoaded = true;
 	// $scope.notLoaded = false;
 
@@ -43,9 +50,11 @@ $(document).ready(function(){
 	// });
 
 	//Page title
-	$scope.pageTitle = "Schedule";
+	$scope.pageTitle = "sked";
 
 	$scope.user = user;
+	$scope.mainService = mainService;
+
 
 	$scope.getMyOrgs = function(userID){
 		mainService.getMyOrgs(userID).then(function(res){
@@ -138,6 +147,16 @@ $(document).ready(function(){
 		}
 	};
 
+	//get all book appointments for a user
+	$scope.allMyApts = allMyAptRef;
+
+	$scope.getAllMyApts = function() {
+		mainService.getMyBookedApts($scope.user._id).then(function(results) {
+			$scope.allMyApts = results;
+		});
+	};
+
+	//get all mentee booked appointments
 	$scope.myMenteeBookedApts = apptRef;
 
 	$scope.getMyMenteeBookedApts = function(userID){
@@ -161,8 +180,7 @@ $(document).ready(function(){
 		}, function(isConfirm){
 			if(isConfirm){
 				mainService.cancelApt(aptID).then(function(){
-					$scope.getMyMenteeBookedApts($scope.user._id);
-					console.log("i ran");
+					$scope.getAllMyApts($scope.user._id);
 					$state.reload(true);
 				});
 			};
@@ -183,7 +201,7 @@ $(document).ready(function(){
 		}, function(isConfirm){
 			if(isConfirm){
 				mainService.cancelApt(aptID).then(function($location){
-					$scope.getMyMenteeBookedApts($scope.user._id);
+					$scope.getAllMyApts($scope.user._id);
 					document.location = "/#/skedApt/" + orgID;
 				});
 			};
@@ -191,24 +209,34 @@ $(document).ready(function(){
 	};
 
 	$scope.showOrgInfo = function(org){
+		console.log(org);
 		if (!org.desc) {
 			org.desc = "None";
 		};
-		if (!org.add1) {
+
+		if (!org.add1 && !org.add2 && !org.city && !org.st && !org.zip) {
 			org.add1 = "None";
-		};
-		if (!org.add2) {
+			org.add2 = "";
+			org.city = "";
+			org.st = "";
+			org.zip = "";
+		}
+		else if (!org.add1) {
+			org.add1 = "None";
+		}
+		else if (!org.add2) {
 			org.add2 = "None";
-		};
-		if (!org.city) {
+		}
+		else if (!org.city) {
 			org.city = "None";
-		};
-		if (!org.st) {
+		}
+		else if (!org.st) {
 			org.st = "None";
-		};
-		if (!org.zip) {
+		}
+		else if (!org.zip) {
 			org.zip = "None";
 		};
+
 		if (!org.linkedin) {
 			org.linkedin = "None";
 		};

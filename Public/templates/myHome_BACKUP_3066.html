@@ -45,5 +45,31 @@
 			</div>
 		</div>
 	</div>
+<<<<<<< HEAD
+=======
+<a href=""></a>
+		<br>
+		<div class="panel panel-info">
+			<div class="panel-heading"><h1>My Organizations</h1></div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-hover">
+						<tr>
+							<th>Org</th>
+							<th>Location</th>
+							<th> </th>
+						</tr>
+						<tr ng-repeat="org in myOrgs" ng-if="org.org.status === 'Active'">
+							<td>{{org.org.name}}</td>
+							<td>{{org.org.add1}} {{org.org.add2}} {{org.org.city}} {{org.org.st}} {{org.org.zip}}</td>
+							<td><button class="btn btn-info" ng-click="showOrgInfo(org.org)">Info</button></td>
+							<td><button class="btn btn-danger" ng-click="leaveOrg(org)">Leave</button></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+
+>>>>>>> 5d00c99c9b117e19b4a8e5bdad018535513d06bf
 	</div>
 </div>
