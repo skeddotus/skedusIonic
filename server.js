@@ -17,10 +17,8 @@ var express = require('express'),
 
     if (process.env.NODE_ENV === 'production') {
       SESSION_SECRET= process.env.SESSION_SECRET;
-    }
-    else {
-      var Secret = require('../../Server-assets/Secrets/secrets.js');
-      SESSION_SECRET = Secret.SESSION_SECRET;
+    } else {
+      SESSION_SECRET = require('../../Server-assets/Secrets/secrets.js').SESSION_SECRET;
     }
 
     app.use(cors(), bodyParser.json(), express.static(__dirname + '/Public'));
