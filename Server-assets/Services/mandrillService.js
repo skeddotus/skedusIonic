@@ -2,14 +2,15 @@ var mandrill = require('mandrill-api/mandrill');
 var moment = require('moment');
 var async = require('async');
 var MANDRILL_API_KEY;
-console.log(process.env.ENVIRONMENT)
+console.log('ENV:',process.env.ENVIRONMENT)
 if (process.env.ENVIRONMENT === 'production') {
 	console.log('inside if');
 	MANDRILL_API_KEY = process.env.MANDRILL_API_KEY;
 }
 else {
-	var Secret = require('../../Server-assets/Secrets/secrets.js');
-	MANDRILL_API_KEY = Secret.MANDRILL_API_KEY;
+	console.log("don't go here");
+	// var Secret = require('../../Server-assets/Secrets/secrets.js');
+	// MANDRILL_API_KEY = Secret.MANDRILL_API_KEY;
 }
 
 var mandrill_client = new mandrill.Mandrill(MANDRILL_API_KEY);
