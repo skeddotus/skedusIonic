@@ -3,7 +3,7 @@ var moment = require('moment');
 var async = require('async');
 var MANDRILL_API_KEY;
 console.log('ENV:',process.env.ENVIRONMENT)
-if (process.env.ENVIRONMENT === 'production') {
+if (process.env.NODE_ENV === 'production') {
 	console.log('inside if');
 	MANDRILL_API_KEY = process.env.MANDRILL_API_KEY;
 }
