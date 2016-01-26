@@ -19,7 +19,7 @@ var express = require('express'),
       SESSION_SECRET= process.env.SESSION_SECRET;
     }
     else {
-      Secret = require('../../Server-assets/Secrets/secrets.js');
+      var Secret = require('../../Server-assets/Secrets/secrets.js');
       SESSION_SECRET = Secret.SESSION_SECRET;
     }
 

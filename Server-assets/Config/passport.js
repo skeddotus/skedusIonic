@@ -10,7 +10,7 @@ if (process.env.ENVIRONMENT === 'production') {
 	LINKED_IN_API_SECRET = process.env.LINKED_IN_API_SECRET;
 }
 else {
-	Secret = require('../../Server-assets/Secrets/secrets.js');
+	var Secret = require('../../Server-assets/Secrets/secrets.js');
 	LINKED_IN_API_KEY = Secret.LINKED_IN_API_KEY;
 	LINKED_IN_API_SECRET = Secret.LINKED_IN_API_SECRET;
 }

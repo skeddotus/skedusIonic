@@ -8,7 +8,7 @@ if (process.env.ENVIRONMENT === 'production') {
 
 }
 else {
-	Secret = require('../../Server-assets/Secrets/secrets.js');
+	var Secret = require('../../Server-assets/Secrets/secrets.js');
 	MANDRILL_API_KEY = Secret.MANDRILL_API_KEY;
 }
 
