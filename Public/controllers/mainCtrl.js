@@ -86,16 +86,14 @@ $(document).ready(function(){
 	$scope.leaveOrg = function(org){
 		if(org.role === 'Admin'){
 			swal({
-				title: "You are an Admin for " + org.org.name + "!",
-				text: "We can't have a ship without a captain!",
+				title: "You are an Admin for " + org.org.name + "! We can't have a ship without a captain!",
 				type: "error",
 				allowEscapeKey: true,
 				allowOutsideClick: true,
 			})
 		} else {
 			swal({
-				title: "Are you sure you want to leave " + org.org.name + "?",
-				text: "You will lose any appointment(s) you currently have scheduled.",
+				title: "Are you sure you want to leave " + org.org.name + "? You will lose any appointment(s) you currently have scheduled.",
 				type: "warning",
 				showCancelButton: true,
 				confirmButtonColor: "#DD6B55",
@@ -114,22 +112,30 @@ $(document).ready(function(){
 	};
 
 	$scope.createOrg = function(newOrg){
-		mainService.createOrg(newOrg, $scope.user._id).then(function(res){
-			if(res === "exists"){
-				swal({
-					title: "Organization with name " + newOrg.name + " already exists.",
-					text: "Please try again with another name.",
-					type: "error",
-					showCancelButton: true,
-					confirmButtonColor: "#DD6B55",
-					confirmButtonText: "OK",
-					allowEscapeKey: true,
-					allowOutsideClick: true,
-				})
-			}
-			$scope.getMyOrgs($scope.user._id);
-		});
-			$scope.newOrg = {};
+		if(!newOrg.add1 || !newOrg.city || ! newOrg.st || !newOrg.zip){
+			return
+		} else {
+			mainService.createOrg(newOrg, $scope.user._id).then(function(res){
+				if(res === "exists"){
+					swal({
+						title: "Organization with name " + newOrg.name + " already exists.",
+						type: "error",
+						allowEscapeKey: true,
+						allowOutsideClick: true,
+						timer: 4000,
+					})
+				} else {
+					swal({
+						title: "You've created " + newOrg.name + "!",
+						allowEscapeKey: true,
+						allowOutsideClick: true,
+						timer: 2000
+					})
+				$scope.getMyOrgs($scope.user._id);
+				$scope.newOrg = {};
+				}
+			});
+		}
 	};
 
 	$scope.myMenteeBookedApts = apptRef;
@@ -215,8 +221,7 @@ $(document).ready(function(){
 		swal({
 			title: org.name,
 			text: "<h4>About: </h4>" + org.desc +
-				"<br>" +
-				" <h4>Location: </h4>" + org.add1 + " " + org.add2 + " " + org.city + " " + org.st +  " " + org.zip +
+				"<br><h4>Location: </h4>" + org.add1 + " " + org.add2 + " " + org.city + " " + org.st +  " " + org.zip +
 				"<br> <h4>LinkedIn Link: </h4>" + org.linkedin +
 				"<br> <h4>Facebook Link: </h4>" + org.facebook +
 				"<br> <h4>Twitter Link: </h4>" + org.twitter,
