@@ -38,7 +38,7 @@ module.exports = {
     })
   },
 
-// api/apt/all/:userID/booked // GET  //for all Mentor booked appointments per user
+// api/apt/all/:userID/booked // GET  //for all booked appointments per user
   getMyMentorBookedAppts: function(req, res){
     Appt.find( {$or: [{mentor: req.params.userID}, {mentee: req.params.userID}]})
     .find({status: "booked"})
