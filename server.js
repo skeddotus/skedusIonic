@@ -18,7 +18,7 @@ var express = require('express'),
     if (process.env.NODE_ENV === 'production') {
       SESSION_SECRET= process.env.SESSION_SECRET;
     } else {
-      SESSION_SECRET = require('../../Server-assets/Secrets/secrets.js').SESSION_SECRET;
+      SESSION_SECRET = require('./Server-assets/Secrets/secrets.js').SESSION_SECRET;
     }
 
     app.use(cors(), bodyParser.json(), express.static(__dirname + '/Public'));
@@ -82,7 +82,7 @@ var requireAuth = function(req, res, next) {
     app.post('/api/apt/:orgID/:userID', apptServCtrl.createAppt);
     app.put('/api/apt/:orgID/:userID', apptServCtrl.addApptToOrg);
     app.get('/api/apt/:orgID/:userID/open', apptServCtrl.getMyOpenAppts);
-    app.get('/api/apt/:orgID/mentor/:userID/booked', apptServCtrl.getMyMentorBookedAppts);
+    app.get('/api/apt/all/:userID/booked', apptServCtrl.getMyMentorBookedAppts);
     app.get('/api/apt/:userID/booked', apptServCtrl.getMyMenteeBookedAppts);
     app.get('/api/apt/:orgID', apptServCtrl.getOrgAppts);
     app.put('/api/apt/:aptID', apptServCtrl.skedApt);
