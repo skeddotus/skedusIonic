@@ -32,6 +32,13 @@ $(document).ready(function(){
 	};
 	$scope.aptView('');
 
+	// $scope.$on('calendarMode', function(evt, msg) {
+	// 	$scope.aptView(msg);
+	// 	console.log("msg", msg);
+	// 	console.log('emit');
+	// });
+
+
 	// $scope.calendarLoaded = true;
 	// $scope.notLoaded = false;
 
@@ -46,6 +53,7 @@ $(document).ready(function(){
 	$scope.pageTitle = "sked";
 
 	$scope.user = user;
+	$scope.mainService = mainService;
 
 
 	$scope.getMyOrgs = function(userID){
@@ -70,8 +78,6 @@ $(document).ready(function(){
 		})
 	}
 	$scope.getOrgs();
-
-	console.log($scope);
 
 	$scope.joinOrg = function(org){
 		mainService.joinOrg($scope.user._id, org._id).then(function(){
@@ -138,8 +144,8 @@ $(document).ready(function(){
 	//get all book appointments for a user
 	$scope.allMyApts = allMyAptRef;
 
-	$scope.getAllMyApts = function(userID) {
-		mainService.getMyBookedApts(userID).then(function(results) {
+	$scope.getAllMyApts = function() {
+		mainService.getMyBookedApts($scope.user._id).then(function(results) {
 			$scope.allMyApts = results;
 		});
 	};

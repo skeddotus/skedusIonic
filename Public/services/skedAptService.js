@@ -6,7 +6,7 @@ angular.module("skedApp").service("skedAptService", function($http, $q){
 			method: "GET",
 			url: "/api/apt/" + orgID,
 		}).then(function(results){
-			console.log("skedAptService:", results.data);
+			// console.log("skedAptService:", results.data);
 			dfd.resolve(results.data);
 		});
 		return dfd.promise;

@@ -78,18 +78,18 @@ angular.module("skedApp").service("mainService", function($http, $q){
 			url: "/api/apt/all/" + userID + "/booked",
 		}).then(function(results){
 			console.log("service results:", results.data);
-			// console.log("user:", userID);
+			console.log("user:", userID);
 			for (var i = 0; i < results.data.length; i++) {
 				if (results.data[i].mentor._id === userID) {
 					results.data[i].type = "important";
-					// results.data[i].deletable = true;
+					results.data[i].deletable = true;
 				}
 				else {
 					results.data[i].type = "info";
-					// results.data[i].deletable = true;
+					results.data[i].deletable = true;
 				}
 			}
-			console.log("mentorbookApt",results);
+			// console.log("mentorbookApt",results);
 			dfd.resolve(results.data);
 		});
 		return dfd.promise;

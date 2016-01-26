@@ -2,7 +2,8 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
   return {
     restrict: 'E',
     scope: {
-      apt: "="
+      apt: "=",
+      updated: "&"
     },
     templateUrl: '/templates/calendarDirective.html',
     // link: function(scope, elem, attrs) {
@@ -10,10 +11,11 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
       //   scope.$emit('toggleCalendarLoaded', 1);
       // });
     // },
-    controller: function($scope, mainService) {
+    controller: function($scope, mainService, $state) {
 
-      console.log("user", $scope.$parent.user);
-
+      // console.log("user", $scope.$parent.$parent.user);
+      // console.log("scope", $scope);
+      
       // $scope.getMyMenteeBookedApts = function(userID){
     	// 	mainService.getMyMenteeBookedApts(userID).then(function(results){
       //     for (var i = 0; i < results.length; i++) {
@@ -110,11 +112,12 @@ angular.module('skedApp').directive('calendarDirective', function($timeout) {
     			allowOutsideClick: true,
     		}, function(isConfirm){
     			if(isConfirm){
-            console.log(event);
+            // console.log("event", event);
     				mainService.cancelApt(event._id).then(function(){
-    					$scope.getMyMenteeBookedApts($scope.$parent.user._id);
-    					console.log("i ran");
+              $scope.updated($scope.$parent.$parent.user);
+    					// $scope.getAllMyApts($scope.$parent.$parent.user);
     					$state.reload(true);
+              // console.log('reload');
     				});
     			};
     		});
