@@ -185,6 +185,24 @@ $(document).ready(function(){
 	};
 
 	$scope.showOrgInfo = function(org){
+		if (!org.desc) {
+			org.desc = "None";
+		};
+		if (!org.add1) {
+			org.add1 = "None";
+		};
+		if (!org.add2) {
+			org.add2 = "None";
+		};
+		if (!org.city) {
+			org.city = "None";
+		};
+		if (!org.st) {
+			org.st = "None";
+		};
+		if (!org.zip) {
+			org.zip = "None";
+		};
 		if (!org.linkedin) {
 			org.linkedin = "None";
 		};
@@ -194,11 +212,6 @@ $(document).ready(function(){
 		if (!org.twitter) {
 			org.twitter = "None";
 		};
-		// for (var prop in org) {
-		// 	if (!org[prop]) {
-		// 		org[prop] = "None";
-		// 	}
-		// }
 		swal({
 			title: org.name,
 			text: "<h4>About: </h4>" + org.desc +
