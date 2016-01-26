@@ -5,7 +5,7 @@ var LocalStrategy = require('passport-local').Strategy,
 
 var LINKED_IN_API_KEY, LINKED_IN_API_SECRET;
 
-if (process.env.ENVIRONMENT === 'production') {
+if (process.env.NODE_ENV === 'production') {
 	LINKED_IN_API_KEY = process.env.LINKED_IN_API_KEY;
 	LINKED_IN_API_SECRET = process.env.LINKED_IN_API_SECRET;
 }

@@ -15,7 +15,7 @@ var express = require('express'),
 
     var SESSION_SECRET;
 
-    if (process.env.ENVIRONMENT === 'production') {
+    if (process.env.NODE_ENV === 'production') {
       SESSION_SECRET= process.env.SESSION_SECRET;
     }
     else {
