@@ -168,8 +168,7 @@ $(document).ready(function(){
 		}, function(isConfirm){
 			if(isConfirm){
 				mainService.cancelApt(aptID).then(function(){
-					$scope.getMyMenteeBookedApts($scope.user._id);
-					console.log("i ran");
+					$scope.getAllMyApts($scope.user._id);
 					$state.reload(true);
 				});
 			};
@@ -190,7 +189,7 @@ $(document).ready(function(){
 		}, function(isConfirm){
 			if(isConfirm){
 				mainService.cancelApt(aptID).then(function($location){
-					$scope.getMyMenteeBookedApts($scope.user._id);
+					$scope.getAllMyApts($scope.user._id);
 					document.location = "/#/skedApt/" + orgID;
 				});
 			};
