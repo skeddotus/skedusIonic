@@ -3,6 +3,7 @@ var Appt = require('../Models/apptSchema');
 var User = require('../Models/userSchema');
 var Org = require('../Models/orgSchema');
 var mandrillService = require('../Services/mandrillService');
+var clearAppts = require('../Cron/clearAppts.js');
 
 
 module.exports = {
@@ -64,6 +65,9 @@ module.exports = {
 
 // api/apt/:orgID/open // GET
   getOrgAppts: function(req, res){
+
+    clearAppts.changeStatus();
+
     Appt.find({org: req.params.orgID}).sort({startTime: 1}).populate("mentor").exec().then(function(results){
       res.json(results);
     });
@@ -220,8 +224,8 @@ module.exports = {
   addAttendee : function(req, res) {
 
     var currentAppt = req.params.apptID;
-    // var currentUser = req.user._id;
-    var currentUser = "5696bfa5ac8f7eeb0aba1a10"; /////////////////////////////////////////////////////
+    var currentUser = req.user._id;
+    // var currentUser = "5696bfa5ac8f7eeb0aba1a10"; /////////////////////////////////////////////////////
 
 
     Appt.findOne({ _id : currentAppt }).exec().then(function(results) {
@@ -255,32 +259,32 @@ module.exports = {
   deleteAttendee : function(req, res) {
 
     var currentAppt = req.params.apptID;
-    // var currentUser = req.user._id;
-    var currentUser = "5696bfa5ac8f7eeb0aba1a10"; /////////////////////////////////////////////////////
+    var currentUser = req.user._id;
+    // var currentUser = "5696bfa5ac8f7eeb0aba1a10"; /////////////////////////////////////////////////////
 
     Appt.findOne({ _id : currentAppt }).exec().then(function(results) {
 
       var appt = results;
-      console.log("deleteAttendee. APPT BEFORE : ", appt);
+      // console.log("deleteAttendee. APPT BEFORE : ", appt);
 
       var index = appt.attendees.indexOf(currentUser);
       appt.attendees.splice(index, 1);
       if(appt.attendees.length === 0) {
         appt.status = 'open';
       }
-      console.log("delete Attendee. APPT AFTER : ", appt);
+      // console.log("delete Attendee. APPT AFTER : ", appt);
 
       Appt.update({ _id : currentAppt }, appt).exec();
 
       User.findOne({ _id: currentUser }).exec().then(function(results) {
 
         var user = results
-        console.log("deleteAttendee. USER BEFORE : ", user);
+        // console.log("deleteAttendee. USER BEFORE : ", user);
 
         index = user.appts.indexOf(currentAppt);
         user.appts.splice(index, 1);
 
-        console.log("delete Attendee. USER AFTER : ", user);
+        // console.log("delete Attendee. USER AFTER : ", user);
 
         User.update({ _id : currentUser }, user).exec();
 

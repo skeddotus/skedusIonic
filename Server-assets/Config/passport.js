@@ -42,6 +42,10 @@ module.exports = function(passport, app) {
 	        // 	}
 	        // 	return done(null, user);
 
+	        if (user.status === 'archived') {
+	        	user.status = 'active';
+	        }
+
 
 	        var result = user.validPassword(password);
 
@@ -82,6 +86,11 @@ module.exports = function(passport, app) {
 						}
 
 						if (user) {
+
+							if (user.status === 'archived') {
+			        	user.status = 'active';
+			        }
+							
 							console.log("authenticating with linkedin, found user : ", user)
 							return done(null, user);
 						}
