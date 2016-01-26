@@ -70,7 +70,7 @@ $(document).ready(function(){
 				title: "You've successfully joined " + org.name + "!",
 				allowEscapeKey: true,
 				allowOutsideClick: true,
-				timer: 2000,
+				timer: 3000,
 			})
 			$scope.getMyOrgs($scope.user._id);
 			$scope.getOrgs();
