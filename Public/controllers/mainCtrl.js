@@ -1,4 +1,4 @@
-angular.module("skedApp").controller("mainCtrl", function($scope, $location, authService, mainService, user){
+angular.module("skedApp").controller("mainCtrl", function($scope, $location, authService, mainService, user, apptRef, $state){
 
   //------------jQuery Stuff-------------------
 $(document).ready(function(){
@@ -32,8 +32,15 @@ $(document).ready(function(){
 	};
 	$scope.aptView('');
 
-	$scope.calendarLoaded = false;
-	$scope.notLoaded = true;
+	// $scope.calendarLoaded = true;
+	// $scope.notLoaded = false;
+
+	// $scope.$on('toggleCalendarLoaded', function(event, toggle) {
+	// 	if (toggle === 1) {
+	// 		$scope.notLoaded = false;
+	// 		$scope.calendarLoaded = true;
+	// 	};
+	// });
 
 	//Page title
 	$scope.pageTitle = "Schedule";
@@ -42,7 +49,6 @@ $(document).ready(function(){
 
 	$scope.getMyOrgs = function(userID){
 		mainService.getMyOrgs(userID).then(function(res){
-			console.log("myOrgs: ", res)
 			$scope.myOrgs = res;
 		});
 	};
@@ -126,13 +132,15 @@ $(document).ready(function(){
 			$scope.newOrg = {};
 	};
 
+	$scope.myMenteeBookedApts = apptRef;
+
 	$scope.getMyMenteeBookedApts = function(userID){
 		mainService.getMyMenteeBookedApts(userID).then(function(results){
 			$scope.myMenteeBookedApts = results;
-			$scope.events = results;
+			// $scope.$apply();
 		});
 	};
-	$scope.getMyMenteeBookedApts($scope.user._id);
+	// $scope.getMyMenteeBookedApts($scope.user._id);
 
 	$scope.cancelApt = function(aptID){
 		swal({
@@ -148,6 +156,8 @@ $(document).ready(function(){
 			if(isConfirm){
 				mainService.cancelApt(aptID).then(function(){
 					$scope.getMyMenteeBookedApts($scope.user._id);
+					console.log("i ran");
+					$state.reload(true);
 				});
 			};
 		});
@@ -175,11 +185,38 @@ $(document).ready(function(){
 	};
 
 	$scope.showOrgInfo = function(org){
+		if (!org.desc) {
+			org.desc = "None";
+		};
+		if (!org.add1) {
+			org.add1 = "None";
+		};
+		if (!org.add2) {
+			org.add2 = "None";
+		};
+		if (!org.city) {
+			org.city = "None";
+		};
+		if (!org.st) {
+			org.st = "None";
+		};
+		if (!org.zip) {
+			org.zip = "None";
+		};
+		if (!org.linkedin) {
+			org.linkedin = "None";
+		};
+		if (!org.facebook) {
+			org.facebook = "None";
+		};
+		if (!org.twitter) {
+			org.twitter = "None";
+		};
 		swal({
 			title: org.name,
 			text: "<h4>About: </h4>" + org.desc +
-				"<br>" + 
-				" <h4>Location: </h4>" + org.add1 + " " + org.add2 + " " + org.city + " " + org.st +  " " + org.zip + 
+				"<br>" +
+				" <h4>Location: </h4>" + org.add1 + " " + org.add2 + " " + org.city + " " + org.st +  " " + org.zip +
 				"<br> <h4>LinkedIn Link: </h4>" + org.linkedin +
 				"<br> <h4>Facebook Link: </h4>" + org.facebook +
 				"<br> <h4>Twitter Link: </h4>" + org.twitter,
@@ -195,7 +232,6 @@ $(document).ready(function(){
 			location.reload();
 		})
 	};
-
 
 
 });

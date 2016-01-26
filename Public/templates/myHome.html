@@ -7,18 +7,19 @@
 	</div>
 
 	<div ng-show="calendarMode" class="">
-		<calendar-directive ng-show="calendarLoaded"></calendar-directive>
-		<circle-spinner ng-show="notLoaded"></circle-spinner>
+		<calendar-directive apt="myMenteeBookedApts"></calendar-directive>
+		<!-- <circle-spinner></circle-spinner> -->
 	</div>
 
 	<div ng-show="listMode" class="">
 		<br>
-		<div class="panel panel-warning">
+		<div class="panel panel-info">
 			<div class="panel-heading"><h1>My Appointments</h1></div>
 			<div class="panel-body">
 				<div class="table-responsive">
 					<table class="table">
 						<tr>
+							<th>Title</th>
 							<th>Day</th>
 							<th>Start Time</th>
 							<th>End Time</th>
@@ -28,7 +29,8 @@
 							<th> </th>
 							<th> </th>
 						</tr>
-						<tr eventsData="eventsData" ng-repeat="apt in myMenteeBookedApts">
+						<tr ng-repeat="apt in myMenteeBookedApts">
+							<td><h5>{{apt.title}}</h5></td>
 							<td><h5>{{apt.startsAt | date: "EEEE - M/d/yy"}}</h5></td>
 							<td><h5>{{apt.startsAt | date: "shortTime"}}</h5></td>
 							<td><h5>{{apt.endsAt | date: "shortTime"}}</h5></td>
